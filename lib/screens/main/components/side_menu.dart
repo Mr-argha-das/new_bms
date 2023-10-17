@@ -1,11 +1,19 @@
+import 'package:admin/screens/Clients/views/list.main.dart';
+import 'package:admin/screens/orders/viwes/orders.list.dart';
+import 'package:admin/screens/team/views/team.list.dart';
+import 'package:admin/screens/user/views/list.user.dart';
+import 'package:admin/screens/venture/views/list.venture.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SideMenu extends StatelessWidget {
+  final context;
   final String title;
   const SideMenu({
     required this.title,
+    required this.context,
     Key? key,
   }) : super(key: key);
 
@@ -31,14 +39,18 @@ class SideMenu extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                
               ],
             ),
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () {}, 
-            items: [
-            
-            ], height: 0,
+            press: () {},
+            items: [],
+            onPageChange: (value) {
+              // if (value == 0) {
+              //   Navigator.push(context,
+              //       CupertinoPageRoute(builder: (context) => ClientsList()));
+              // }
+            },
+            height: 0,
           ),
           DrawerListTile(
             title: Row(
@@ -61,11 +73,18 @@ class SideMenu extends StatelessWidget {
               ],
             ),
             svgSrc: "assets/icons/menu_task.svg",
-            press: () {}, 
+            press: () {},
             items: [
               PagesName(id: 1, name: "Venture add"),
               PagesName(id: 1, name: "Venture list"),
-            ], height: 70,
+            ],
+            height: 70,
+            onPageChange: (value) {
+              if (value == 1) {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => VentureList()));
+              }
+            },
           ),
           DrawerListTile(
             title: Row(
@@ -93,6 +112,12 @@ class SideMenu extends StatelessWidget {
               PagesName(id: 1, name: "Team add"),
               PagesName(id: 1, name: "Team List"),
             ],
+            onPageChange: (value) {
+              if (value == 1) {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => TeamList()));
+              }
+            },
             height: 70,
           ),
           DrawerListTile(
@@ -116,10 +141,17 @@ class SideMenu extends StatelessWidget {
               ],
             ),
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {}, items: [
+            press: () {},
+            items: [
               PagesName(id: 1, name: "User add"),
               PagesName(id: 1, name: "User List"),
             ],
+            onPageChange: (value) {
+              if (value == 1) {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => UserBody()));
+              }
+            },
             height: 70,
           ),
           DrawerListTile(
@@ -144,10 +176,17 @@ class SideMenu extends StatelessWidget {
             ),
             height: 70,
             svgSrc: "assets/icons/menu_notification.svg",
-            press: () {}, items: [
+            press: () {},
+            items: [
               PagesName(id: 1, name: "Client add"),
               PagesName(id: 1, name: "Client List"),
             ],
+            onPageChange: (value) {
+              if (value == 1) {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => ClientsList()));
+              }
+            },
           ),
           DrawerListTile(
             title: Row(
@@ -171,7 +210,14 @@ class SideMenu extends StatelessWidget {
             ),
             height: 100,
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () {}, items: [
+            press: () {},
+            onPageChange: (value) {
+              if (value == 1) {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => OrdersList()));
+              }
+            },
+            items: [
               PagesName(id: 1, name: "Order add"),
               PagesName(id: 1, name: "Order List"),
               PagesName(id: 1, name: "Order chat"),
@@ -202,14 +248,15 @@ class DrawerListTile extends StatefulWidget {
     required this.press,
     required this.items,
     required this.height,
+    required this.onPageChange,
   }) : super(key: key);
 
   final String svgSrc;
   final List<PagesName> items;
   final VoidCallback press;
   final double height;
+  final Function onPageChange;
   final Widget title;
-  
 
   @override
   State<DrawerListTile> createState() => _DrawerListTileState();
@@ -226,9 +273,9 @@ class _DrawerListTileState extends State<DrawerListTile> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ListTile(
-              onTap: (){ 
+              onTap: () {
                 setState(() {
-                   height = !height;
+                  height = !height;
                 });
               },
               horizontalTitleGap: 0.0,
@@ -239,29 +286,33 @@ class _DrawerListTileState extends State<DrawerListTile> {
               ),
               title: widget.title),
           AnimatedContainer(
-
-            height: height? widget.height : 0,
+            height: height ? widget.height : 0,
             duration: Duration(milliseconds: 100),
             child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: widget.items.length,
-              itemBuilder: (context, index){
-              return Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(widget.items[index].name, style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 13
-              
-                    ),)
-                  ],
-                ),
-              );
-            }),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: widget.items.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      widget.onPageChange(index);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.items[index].name,
+                            style:
+                                TextStyle(color: Colors.white54, fontSize: 13),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }),
           )
         ],
       ),
@@ -269,9 +320,9 @@ class _DrawerListTileState extends State<DrawerListTile> {
   }
 }
 
-class PagesName{
-   final int id;
-   final String name;
+class PagesName {
+  final int id;
+  final String name;
 
   PagesName({required this.id, required this.name});
 }

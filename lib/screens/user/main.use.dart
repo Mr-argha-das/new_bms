@@ -18,7 +18,7 @@ class _UsrMainState extends State<UsrMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,
-      drawer: SideMenu(title: 'Team',),
+      drawer: SideMenu(title: 'Team', context: context,),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +28,7 @@ class _UsrMainState extends State<UsrMain> {
               Expanded(
                 // default flex = 1
                 // and it takes 1/6 part of the screen
-                child: SideMenu(title: 'Team',),
+                child: SideMenu(title: 'Team', context: context,),
               ),
             Expanded(
               // It takes 5/6 part of the screen

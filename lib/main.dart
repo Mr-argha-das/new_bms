@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             create: (context) => MenuAppController(),
           ),
         ],
-        child: MainOrder(),
+        child: MainScreen(),
       ),
     );
   }

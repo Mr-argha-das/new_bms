@@ -72,7 +72,9 @@ DataRow recentFileDataRow(RecentFile fileInfo, int index) {
         ),
       ),
       DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
+      DataCell(Text(fileInfo.date!)),
+      DataCell(Text(fileInfo.date!)),
+      
       
     ],
   );
