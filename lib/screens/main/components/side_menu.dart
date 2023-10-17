@@ -101,7 +101,7 @@ class SideMenu extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "User",
+                  "Client",
                   style: GoogleFonts.montserrat(
                     color: Colors.white,
                   ),
@@ -117,8 +117,8 @@ class SideMenu extends StatelessWidget {
             ),
             svgSrc: "assets/icons/menu_store.svg",
             press: () {}, items: [
-              PagesName(id: 1, name: "User add"),
-              PagesName(id: 1, name: "User List"),
+              PagesName(id: 1, name: "Client add"),
+              PagesName(id: 1, name: "Client List"),
             ],
             height: 70,
           ),
