@@ -1,5 +1,6 @@
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
+import 'package:admin/screens/dashboard/Profile_pages/profile.page.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/screens/venture/main.venture.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             create: (context) => MenuAppController(),
           ),
         ],
-        child: MainVenture(),
+        child: ProfilePage(),
       ),
     );
   }
