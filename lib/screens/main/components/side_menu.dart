@@ -3,7 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SideMenu extends StatelessWidget {
+  final String title;
   const SideMenu({
+    required this.title,
     Key? key,
   }) : super(key: key);
 
@@ -15,20 +17,6 @@ class SideMenu extends StatelessWidget {
           DrawerHeader(
             child: Image.asset("assets/icons/A2G.png"),
           ),
-          //
-          // Center(
-          //   child: AnimatedContainer(
-          //     height: 180,
-          //     width: 400,
-          //     duration: Duration(milliseconds: 200),
-          //     child: ListView(
-          //       scrollDirection: Axis.vertical,
-          //       children: [
-
-          //       ],
-          //     ),
-          //   ),
-          // ),
           DrawerListTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -221,6 +209,7 @@ class DrawerListTile extends StatefulWidget {
   final VoidCallback press;
   final double height;
   final Widget title;
+  
 
   @override
   State<DrawerListTile> createState() => _DrawerListTileState();

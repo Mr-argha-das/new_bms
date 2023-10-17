@@ -66,6 +66,14 @@ http_parser
 2.12
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
+intl
+2.12
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/intl-0.18.1/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/intl-0.18.1/lib/
+lite_rolling_switch
+2.15
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/lite_rolling_switch-1.0.1/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/lite_rolling_switch-1.0.1/lib/
 matcher
 2.18
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/matcher-0.12.16/
