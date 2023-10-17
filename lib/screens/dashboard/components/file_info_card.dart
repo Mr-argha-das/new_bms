@@ -41,7 +41,6 @@ class FileInfoCard extends StatelessWidget {
                       info.color ?? Colors.black, BlendMode.srcIn),
                 ),
               ),
-              Icon(Icons.more_vert, color: Colors.white54)
             ],
           ),
           Text(
@@ -49,29 +48,29 @@ class FileInfoCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          ProgressLine(
-            color: info.color,
-            percentage: info.percentage,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "${info.numOfFiles} Files",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: Colors.white70),
-              ),
-              Text(
-                info.totalStorage!,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: Colors.white),
-              ),
-            ],
-          )
+          // ProgressLine(
+          //   color: info.color,
+          //   percentage: info.percentage,
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       "${info.numOfFiles} Files",
+          //       style: Theme.of(context)
+          //           .textTheme
+          //           .bodySmall!
+          //           .copyWith(color: Colors.white70),
+          //     ),
+          //     Text(
+          //       info.totalStorage!,
+          //       style: Theme.of(context)
+          //           .textTheme
+          //           .bodySmall!
+          //           .copyWith(color: Colors.white),
+          //     ),
+          //   ],
+          // )
         ],
       ),
     );
