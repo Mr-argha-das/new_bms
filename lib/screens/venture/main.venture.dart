@@ -10,7 +10,7 @@ class MainVenture extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,
-      drawer: SideMenu(),
+      drawer: SideMenu(title: 'Venture', context: context,),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +20,7 @@ class MainVenture extends StatelessWidget {
               Expanded(
                 // default flex = 1
                 // and it takes 1/6 part of the screen
-                child: SideMenu(),
+                child: SideMenu(title: 'Venture', context: context,),
               ),
             Expanded(
               // It takes 5/6 part of the screen

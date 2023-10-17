@@ -140,6 +140,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "lite_rolling_switch",
+      "rootUri": "file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/lite_rolling_switch-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16",
       "packageUri": "lib/",
@@ -356,7 +368,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2023-10-17T12:38:29.586541Z",
+  "generated": "2023-10-17T13:09:39.046056Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }

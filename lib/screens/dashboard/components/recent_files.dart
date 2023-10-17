@@ -32,18 +32,22 @@ class RecentFiles extends StatelessWidget {
               // minWidth: 600,
               columns: [
                 DataColumn(
-                  label: Text("File Name"),
+                  label: Text("#"),
                 ),
                 DataColumn(
-                  label: Text("Date"),
+                  label: Text("Venture Name"),
                 ),
                 DataColumn(
-                  label: Text("Size"),
+                  label: Text("Venture Type"),
                 ),
+                DataColumn(
+                  label: Text("Action"),
+                ),
+
               ],
               rows: List.generate(
                 demoRecentFiles.length,
-                (index) => recentFileDataRow(demoRecentFiles[index]),
+                (index) => recentFileDataRow(demoRecentFiles[index], index+1),
               ),
             ),
           ),
@@ -53,17 +57,13 @@ class RecentFiles extends StatelessWidget {
   }
 }
 
-DataRow recentFileDataRow(RecentFile fileInfo) {
+DataRow recentFileDataRow(RecentFile fileInfo, int index) {
   return DataRow(
     cells: [
       DataCell(
         Row(
           children: [
-            SvgPicture.asset(
-              fileInfo.icon!,
-              height: 30,
-              width: 30,
-            ),
+            Text(index.toString()),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: Text(fileInfo.title!),
@@ -72,7 +72,10 @@ DataRow recentFileDataRow(RecentFile fileInfo) {
         ),
       ),
       DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
+      DataCell(Text(fileInfo.date!)),
+      DataCell(Text(fileInfo.date!)),
+      
+      
     ],
   );
 }
