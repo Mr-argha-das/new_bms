@@ -36,11 +36,20 @@ dependencies:
   cell_calendar: ^0.8.0
 
   lite_rolling_switch: ^1.0.1
+  retrofit: '>=4.0.0 <5.0.0'
+  logger: any  #for logging purpose
+  json_annotation: ^4.8.1
+  dio: ^5.3.3
+  beamer: ^1.5.6
 
 
 dev_dependencies:
+  retrofit_generator: '>=7.0.0 <8.0.0'   
+  build_runner: '>=2.3.0 <4.0.0'
+  json_serializable: ^6.6.2
   flutter_test:
     sdk: flutter
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

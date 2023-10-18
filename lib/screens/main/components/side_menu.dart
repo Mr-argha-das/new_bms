@@ -3,6 +3,7 @@ import 'package:admin/screens/orders/viwes/orders.list.dart';
 import 'package:admin/screens/team/views/team.list.dart';
 import 'package:admin/screens/user/views/list.user.dart';
 import 'package:admin/screens/venture/views/list.venture.dart';
+import 'package:beamer/beamer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,7 +43,9 @@ class SideMenu extends StatelessWidget {
               ],
             ),
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () {},
+            press: () {
+              Beamer.of(context).beamToNamed('/');
+            },
             items: [],
             onPageChange: (value) {
               // if (value == 0) {
@@ -81,8 +84,7 @@ class SideMenu extends StatelessWidget {
             height: 70,
             onPageChange: (value) {
               if (value == 1) {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => VentureList()));
+                Beamer.of(context).beamToNamed('/venture-list');
               }
             },
           ),
@@ -114,8 +116,7 @@ class SideMenu extends StatelessWidget {
             ],
             onPageChange: (value) {
               if (value == 1) {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => TeamList()));
+                Beamer.of(context).beamToNamed('/team-list');
               }
             },
             height: 70,
@@ -148,8 +149,7 @@ class SideMenu extends StatelessWidget {
             ],
             onPageChange: (value) {
               if (value == 1) {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => UserBody()));
+                 Beamer.of(context).beamToNamed('/user-list');
               }
             },
             height: 70,
@@ -183,8 +183,7 @@ class SideMenu extends StatelessWidget {
             ],
             onPageChange: (value) {
               if (value == 1) {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => ClientsList()));
+                  Beamer.of(context).beamToNamed('/client-list');
               }
             },
           ),
@@ -213,8 +212,7 @@ class SideMenu extends StatelessWidget {
             press: () {},
             onPageChange: (value) {
               if (value == 1) {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => OrdersList()));
+                Beamer.of(context).beamToNamed('/orders-list');
               }
             },
             items: [

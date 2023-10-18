@@ -15,9 +15,7 @@ class MainOrder extends StatefulWidget {
 class _MainOrderState extends State<MainOrder> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Material(
-        child: Scaffold(
+    return Scaffold(
           key: context.read<MenuAppController>().scaffoldKey,
           drawer: SideMenu(title: 'Team', context: context,),
           body: SafeArea(
@@ -39,8 +37,6 @@ class _MainOrderState extends State<MainOrder> {
               ],
             ),
           ),
-        ),
-      ),
-    );
+        );
   }
 }

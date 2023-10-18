@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 2023/10/18-10:58:53.365 1860 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.276727be\flutter_tools_chrome_device.93b6a703\Default\Local Storage\leveldb/MANIFEST-000001
 2023/10/18-10:58:53.373 1860 Recovering log #19
 2023/10/18-10:58:53.376 1860 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.276727be\flutter_tools_chrome_device.93b6a703\Default\Local Storage\leveldb/000019.log 
 2023/10/18-10:58:53.377 1860 Delete type=0 #3
+=======
+2023/10/18-14:33:50.254 3d03 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.SBmVdy/flutter_tools_chrome_device.Rz6XU0/Default/Local Storage/leveldb/MANIFEST-000001
+2023/10/18-14:33:50.255 3d03 Recovering log #3
+2023/10/18-14:33:50.255 3d03 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.SBmVdy/flutter_tools_chrome_device.Rz6XU0/Default/Local Storage/leveldb/000003.log 
+>>>>>>> d89a003d7804ac797c332772f0973a3915180099
