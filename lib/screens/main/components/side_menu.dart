@@ -26,35 +26,53 @@ class SideMenu extends StatelessWidget {
           DrawerHeader(
             child: Image.asset("assets/icons/A2G.png"),
           ),
-          DrawerListTile(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Dashboard",
-                  style: GoogleFonts.montserrat(
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-              ],
-            ),
-            svgSrc: "assets/icons/menu_profile.svg",
-            press: () {
-              Beamer.of(context).beamToNamed('/');
-            },
-            items: [],
-            onPageChange: (value) {
-              // if (value == 0) {
-              //   Navigator.push(context,
-              //       CupertinoPageRoute(builder: (context) => ClientsList()));
-              // }
-            },
-            height: 0,
-          ),
+          // GestureDetector(
+          //   onTap: () => Beamer.of(context).beamToNamed('/dashboard'),
+          //   child: SizedBox(
+          //     child: DrawerListTile(
+          //         title: Row(
+          //           mainAxisAlignment: MainAxisAlignment.start,
+          //           crossAxisAlignment: CrossAxisAlignment.center,
+          //           children: [
+          //             Text(
+          //               "Dashboard",
+          //               style: GoogleFonts.montserrat(
+          //                 color: Colors.white,
+          //               ),
+          //             ),
+          //             SizedBox(
+          //               width: 10,
+          //             ),
+          //           ],
+          //         ),
+          //         svgSrc: "assets/icons/menu_profile.svg",
+          //         press: () {
+                    
+          //         },
+          //         items: [],
+          //         onPageChange: (value) {
+          //           // if (value == 0) {
+          //           //   Navigator.push(context,
+          //           //       CupertinoPageRoute(builder: (context) => ClientsList()));
+          //           // }
+          //         },
+          //         height: 0,
+          //       ),
+          //   ),
+          // ),
+          ListTile(
+              onTap: () {
+                
+                Beamer.of(context).beamToNamed('/dashboard');
+                
+              },
+              horizontalTitleGap: 0.0,
+              leading: SvgPicture.asset(
+                "assets/icons/menu_profile.svg",
+                colorFilter: ColorFilter.mode(Colors.white54, BlendMode.srcIn),
+                height: 16,
+              ),
+              title: Text("Dashboard")),
           DrawerListTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
