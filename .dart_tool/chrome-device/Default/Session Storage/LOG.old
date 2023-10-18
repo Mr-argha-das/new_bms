@@ -1,3 +1,14 @@
-2023/10/17-15:49:56.404 2c03 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.C2kOn1/flutter_tools_chrome_device.yiStoO/Default/Session Storage/MANIFEST-000001
-2023/10/17-15:49:56.405 2c03 Recovering log #3
-2023/10/17-15:49:56.405 2c03 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.C2kOn1/flutter_tools_chrome_device.yiStoO/Default/Session Storage/000003.log 
+2023/10/17-11:33:45.727 3464 Creating DB C:\Users\visha\AppData\Local\Temp\flutter_tools.f4ce6a4\flutter_tools_chrome_device.ff0c86fe\Default\Session Storage since it was missing.
+2023/10/17-11:33:45.744 3464 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.f4ce6a4\flutter_tools_chrome_device.ff0c86fe\Default\Session Storage/MANIFEST-000001
+2023/10/17-16:02:18.863 3464 Level-0 table #5: started
+2023/10/17-16:02:18.868 3464 Level-0 table #5: 56822 bytes OK
+2023/10/17-16:02:18.873 3464 Delete type=0 #3
+2023/10/17-16:22:31.712 3330 Level-0 table #7: started
+2023/10/17-16:22:31.727 3330 Level-0 table #7: 92965 bytes OK
+2023/10/17-16:22:31.730 3330 Delete type=0 #4
+2023/10/17-18:20:33.339 3330 Level-0 table #9: started
+2023/10/17-18:20:33.344 3330 Level-0 table #9: 77431 bytes OK
+2023/10/17-18:20:33.346 3330 Delete type=0 #6
+2023/10/17-18:20:39.913 3330 Level-0 table #11: started
+2023/10/17-18:20:39.917 3330 Level-0 table #11: 41672 bytes OK
+2023/10/17-18:20:39.918 3330 Delete type=0 #8

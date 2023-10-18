@@ -34,11 +34,7 @@ class MyApp extends StatelessWidget {
             create: (context) => MenuAppController(),
           ),
         ],
-<<<<<<< HEAD
         child: ProfilePage(),
-=======
-        child: MainScreen(),
->>>>>>> 20fe2e206c679b3eafc0d510537e1e82904df853
       ),
     );
   }
