@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:admin/screens/loginpage/model/login_model.dart';
+import 'package:admin/screens/loginpage/service/api_service.dart';
 import 'package:beamer/beamer.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -29,6 +35,20 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if(nextpage == false)
+            Container(
+             height: 150,
+             width: 150,
+             decoration: BoxDecoration(
+              color: Colors.transparent,
+              
+             ),
+             child: Center(child: Image.asset('assets/icons/A2G.png'),),
+            ),
+            if(nextpage == false)
+            SizedBox(
+              height: 50,
+            ),
+            if(nextpage == false)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 400,
                   child: TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       label: Text(
                         "Email",
@@ -44,6 +65,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
+                    validator: (value){
+                      if(value!.isEmpty || value ==null){
+                       return "Email Is required";
+                      }
+                    },
                   ),
                 )
               ],
@@ -61,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 400,
                   child: TextFormField(
+                    controller: _passwordController,
                     obscureText: obsecure,
                     decoration: InputDecoration(
                         label: Text(
@@ -78,6 +105,11 @@ class _LoginPageState extends State<LoginPage> {
                             child: Icon(obsecure
                                 ? Icons.visibility_off
                                 : Icons.visibility))),
+                                validator: (value){
+                      if(value!.isEmpty || value ==null){
+                       return "Password Is required";
+                      }
+                    },
                   ),
                 )
               ],
@@ -89,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: nextpageAnimation? MediaQuery.of(context).size.width:0,
                 decoration: BoxDecoration(
                   color:  Color.fromARGB(255, 255, 0, 81),
-                  // borderRadius: BorderRadius.circular(500)
+                  borderRadius: BorderRadius.circular(nextpageAnimation? 0: 500)
                 ),
                 ),
             ),
@@ -99,8 +131,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
             if(nextpage == false)
             GestureDetector(
-              onTap: (){
-                setState(() {
+              onTap: () async {
+                if(_formKey.currentState!.validate()) {
+                  setState(() {
                   
                   loding = !loding;
                 });
@@ -117,6 +150,10 @@ class _LoginPageState extends State<LoginPage> {
                 Future.delayed(Duration(seconds: 4),(){
                   Beamer.of(context).beamToNamed('/dashboard');
                 });
+                // final data = LoginService(Dio(BaseOptions(contentType: "application/json")));
+                // LoginResponse response = await data.login(LoginModel(email: _emailController.text, password: _passwordController.text));
+                // print(response.message);
+                }
               },
               child: AnimatedContainer(
                 duration: Duration(seconds: 1),
