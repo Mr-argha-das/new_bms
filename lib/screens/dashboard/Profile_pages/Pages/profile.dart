@@ -21,7 +21,9 @@ class _ProfiletabpageState extends State<Profiletabpage> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(border: Border.all(width: 1)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadiusDirectional.circular(15),
+                border: Border.all(width: 1, color: Colors.grey.shade400)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +42,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -49,7 +51,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -78,7 +80,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -87,7 +89,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -102,7 +104,9 @@ class _ProfiletabpageState extends State<Profiletabpage> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(border: Border.all(width: 1)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(width: 1, color: Colors.white),),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +114,10 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                   Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width,
-                    color: Color.fromARGB(255, 237, 237, 237),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 237, 237, 237),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
@@ -136,7 +143,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -145,7 +152,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -174,7 +181,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -183,7 +190,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -198,7 +205,9 @@ class _ProfiletabpageState extends State<Profiletabpage> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(border: Border.all(width: 1)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(width: 1, color: Colors.white),),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,11 +215,14 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                   Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width,
-                    color: Color.fromARGB(255, 237, 237, 237),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 237, 237, 237),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
-                        "Payroll Detail",
+                        "Payroll Details",
                         style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -232,7 +244,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -241,7 +253,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -270,7 +282,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -279,7 +291,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -294,7 +306,9 @@ class _ProfiletabpageState extends State<Profiletabpage> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(border: Border.all(width: 1)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(width: 1, color: Colors.white),),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,7 +316,10 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                   Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width,
-                    color: Color.fromARGB(255, 237, 237, 237),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 237, 237, 237),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
@@ -328,7 +345,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -337,7 +354,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -366,7 +383,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -375,7 +392,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -390,7 +407,9 @@ class _ProfiletabpageState extends State<Profiletabpage> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(border: Border.all(width: 1)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(width: 1, color: Colors.white),),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -398,7 +417,10 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                   Container(
                     height: 30,
                     width: MediaQuery.of(context).size.width,
-                    color: Color.fromARGB(255, 237, 237, 237),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 237, 237, 237),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(
@@ -424,7 +446,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -433,7 +455,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -462,7 +484,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -471,7 +493,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                             "Staff ID",
                             style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -481,7 +503,7 @@ class _ProfiletabpageState extends State<Profiletabpage> {
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );
