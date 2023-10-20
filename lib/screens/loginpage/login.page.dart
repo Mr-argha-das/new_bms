@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:admin/constants.dart';
 import 'package:connectivity/connectivity.dart';
 
 import 'package:admin/screens/loginpage/model/login_model.dart';
@@ -118,20 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     )
                 ],
               ),
-            Center(
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                height: nextpageAnimation
-                    ? (MediaQuery.of(context).size.height)
-                    : 0,
-                width:
-                    nextpageAnimation ? MediaQuery.of(context).size.width : 0,
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 0, 81),
-                    borderRadius:
-                        BorderRadius.circular(nextpageAnimation ? 0 : 500)),
-              ),
-            ),
+            
             if (nextpage == false)
               SizedBox(
                 height: 50,
@@ -143,35 +131,46 @@ class _LoginPageState extends State<LoginPage> {
                     setState(() {
                       loding = !loding;
                     });
-                    Future.delayed(Duration(seconds: 2), () {
-                      setState(() {
-                        nextpage = true;
-                      });
-                    });
-                    Future.delayed(Duration(seconds: 3), () {
-                      setState(() {
-                        nextpageAnimation = true;
-                      });
-                    });
-                    // Future.delayed(Duration(seconds: 4), () {
-                    //   Beamer.of(context).beamToNamed('/dashboard');
-                    // });
-                    var connectivityResult =
-                        await Connectivity().checkConnectivity();
 
-                    if (connectivityResult == ConnectivityResult.none) {
-                      // No internet connection
-                      // Handle the situation accordingly
-                      log("Check Internet connection");
-                    } else {
-                      // Make the API request
-                      log(" Internet connection");
-                      final LoginResponse data = await loginService.login(
-                          LoginModel(
-                              email: _emailController.text,
-                              password: _passwordController.text));
-                      log(data.message.toLowerCase());
-                    }
+                    Future.delayed(Duration(seconds: 1), () async {
+                      var connectivityResult =
+                          await Connectivity().checkConnectivity();
+
+                      if (connectivityResult == ConnectivityResult.none) {
+                        log("Check Internet connection");
+                      } else {
+                        try {
+                          log(" Internet connection");
+                          final LoginResponse data = await loginService.login(
+                              LoginModel(
+                                  email: _emailController.text,
+                                  password: _passwordController.text));
+                          log(data.message.toLowerCase());
+                          if (data.status == true) {
+                            Future.delayed(Duration(seconds: 3), () {
+                              setState(() {
+                                nextpageAnimation = true;
+                              });
+                            });
+                            Beamer.of(context)
+                                .beamToReplacementNamed('/dashboard');
+                          } else {
+                            setState(() {
+                              loding = false;
+                              nextpage = false;
+                            });
+                            _showMyDialog(data.message);
+                          }
+                        } catch (e) {
+                          setState(() {
+                            loding = false;
+                            nextpage = false;
+                          });
+                          _showMyDialog(
+                              "User not found. Please check your credentials.");
+                        }
+                      }
+                    });
                   }
                 },
                 child: AnimatedContainer(
@@ -206,6 +205,45 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog(String message) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: bgColor,
+          title: const Text(''),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      image: DecorationImage(
+                          image: AssetImage('assets/icons/ithink.png'))),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Text('${message}'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
