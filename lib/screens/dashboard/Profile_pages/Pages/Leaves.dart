@@ -1,3 +1,4 @@
+import 'package:admin/constants.dart';
 import 'package:flutter/material.dart';
 
 class LeavesPage extends StatefulWidget {
@@ -27,7 +28,16 @@ class _LeavesPageState extends State<LeavesPage> {
                 height: 90,
                 width: 220,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 235, 235, 235),
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      spreadRadius: 1,
+                      blurRadius: 12,
+                      offset: Offset(4,  4)
+                    )
+                  ]
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -90,7 +100,7 @@ class _LeavesPageState extends State<LeavesPage> {
                               ),
                               Icon(
                                 Icons.leave_bags_at_home_outlined,
-                                color: const Color.fromARGB(115, 124, 124, 124),
+                                color: secondaryColor,
                                 size: 50,
                               )
                             ],
@@ -108,7 +118,16 @@ class _LeavesPageState extends State<LeavesPage> {
                 height: 90,
                 width: 220,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 235, 235, 235),
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      spreadRadius: 1,
+                      blurRadius: 12,
+                      offset: Offset(4,  4)
+                    )
+                  ]
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -171,7 +190,7 @@ class _LeavesPageState extends State<LeavesPage> {
                               ),
                               Icon(
                                 Icons.leave_bags_at_home_outlined,
-                                color: const Color.fromARGB(115, 124, 124, 124),
+                                color: secondaryColor,
                                 size: 50,
                               )
                             ],
@@ -189,7 +208,16 @@ class _LeavesPageState extends State<LeavesPage> {
                 height: 90,
                 width: 220,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 235, 235, 235),
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      spreadRadius: 1,
+                      blurRadius: 12,
+                      offset: Offset(4,  4)
+                    )
+                  ]
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -252,7 +280,7 @@ class _LeavesPageState extends State<LeavesPage> {
                               ),
                               Icon(
                                 Icons.leave_bags_at_home_outlined,
-                                color: const Color.fromARGB(115, 124, 124, 124),
+                                color: secondaryColor,
                                 size: 50,
                               )
                             ],
@@ -264,12 +292,19 @@ class _LeavesPageState extends State<LeavesPage> {
                 ),
               ),
             ),
+            
           ],
         ),
-        Container(
-          // height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(border: Border.all(width: 2)),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            // height: MediaQuery.of(context).size.height,
+            height: 15,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: bgColor),
+          ),
         )
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,11 @@ class Header extends StatelessWidget {
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         // Expanded(child: SearchField()),
-        ProfileCard()
+        GestureDetector(
+          onTap: (){
+            Beamer.of(context).beamToNamed('/profile-user');
+          },
+          child: ProfileCard())
       ],
     );
   }
