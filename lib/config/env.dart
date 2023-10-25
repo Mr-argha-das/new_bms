@@ -1,5 +1,6 @@
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/screens/Clients/main.client.dart';
+import 'package:admin/screens/dashboard/Profile_pages/Pages/Form.dart';
 import 'package:admin/screens/dashboard/Profile_pages/profile.page.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/screens/orders/main.orders.dart';
@@ -13,7 +14,7 @@ class Env {
           providers: [
             ChangeNotifierProvider(create: (context) => MenuAppController())
           ],
-          child: ProfilePage(),
+          child: FormPage(),
         ),
     '/dashboard': (context, state, data) => MultiProvider(
           providers: [

@@ -1,4 +1,5 @@
 import 'package:admin/screens/dashboard/Profile_pages/Attendance.dart';
+import 'package:admin/screens/dashboard/Profile_pages/Documents.dart';
 import 'package:admin/screens/dashboard/Profile_pages/Pages/Leaves.dart';
 import 'package:admin/screens/dashboard/Profile_pages/Pages/payroll.dart';
 import 'package:admin/screens/dashboard/Profile_pages/Pages/profile.dart';
@@ -268,11 +269,7 @@ class _MyTabbedPageState extends State<MyTabbedPage>
               Center(child: PayrollPage()),
               Center(child: LeavesPage()),
               Center(child: AttendancePage()),
-              Center(
-                  child: Text(
-                'Tab 1 Content',
-                style: TextStyle(color: Colors.black),
-              )),
+              Center(child: DocumentsPage()),
               Center(
                   child: Text(
                 'Tab 1 Content',
