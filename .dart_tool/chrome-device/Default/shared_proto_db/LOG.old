@@ -1,4 +1,18 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+2023/10/21-15:02:08.645 2724 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.24ceb5f8\flutter_tools_chrome_device.88dab6c2\Default\shared_proto_db/MANIFEST-000001
+2023/10/21-15:02:08.645 2724 Recovering log #4
+2023/10/21-15:02:08.646 2724 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.24ceb5f8\flutter_tools_chrome_device.88dab6c2\Default\shared_proto_db/000004.log 
+2023/10/21-15:02:08.647 2724 Delete type=0 #3
+2023/10/21-15:02:08.647 2724 Delete type=2 #5
+=======
+>>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2
 2023/10/20-18:31:38.688 b703 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.htugFK/flutter_tools_chrome_device.8wB8Cb/Default/shared_proto_db/MANIFEST-000001
 2023/10/20-18:31:38.689 b703 Recovering log #10
 2023/10/20-18:31:38.689 b703 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.htugFK/flutter_tools_chrome_device.8wB8Cb/Default/shared_proto_db/000010.log 
 2023/10/20-18:31:38.689 b703 Delete type=0 #7
+<<<<<<< HEAD
+=======
+>>>>>>> 8b58200a7de45e2e4497f0dab7aeb83c30cc325e
+>>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2

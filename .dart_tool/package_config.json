@@ -176,6 +176,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "dropdown_button2",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/dropdown_button2-2.3.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "equatable",
       "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/equatable-2.0.5",
       "packageUri": "lib/",
@@ -302,6 +308,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl_phone_number_input",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/intl_phone_number_input-0.7.3+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "io",
       "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/io-1.0.4",
       "packageUri": "lib/",
@@ -322,6 +334,24 @@
     {
       "name": "json_serializable",
       "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/json_serializable-6.7.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "libphonenumber_platform_interface",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_platform_interface-0.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "libphonenumber_plugin",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_plugin-0.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "libphonenumber_web",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_web-0.3.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -674,7 +704,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2023-10-26T07:06:43.963710Z",
+  "generated": "2023-10-27T08:48:18.187346Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }
