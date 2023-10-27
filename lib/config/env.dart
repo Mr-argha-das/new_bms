@@ -9,6 +9,7 @@ import 'package:admin/screens/loginpage/service/api_service.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/screens/orders/main.orders.dart';
 import 'package:admin/screens/team/main.team.dart';
+import 'package:admin/screens/team/views/add.team.form.dart';
 import 'package:admin/screens/user/views/Add.user.form.page.dart';
 import 'package:admin/screens/venture/main.venture.dart';
 import 'package:dio/dio.dart';
@@ -28,7 +29,7 @@ class Env {
                   apiService ?? LoginService(dio),
             ),
           ],
-          child: AddClientForm(),
+          child: AddTeamForm(),
         ),
     '/dashboard': (context, state, data) => MultiProvider(
           providers: [
