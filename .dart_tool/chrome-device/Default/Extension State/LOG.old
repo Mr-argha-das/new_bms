@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 2023/10/27-11:32:28.829 3028 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.60f4c628\flutter_tools_chrome_device.54a1549b\Default\Extension State/MANIFEST-000001
 2023/10/27-11:32:28.830 3028 Recovering log #3
 2023/10/27-11:32:28.830 3028 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.60f4c628\flutter_tools_chrome_device.54a1549b\Default\Extension State/000003.log 
+=======
+<<<<<<< HEAD
+2023/10/20-18:31:38.718 a503 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.htugFK/flutter_tools_chrome_device.8wB8Cb/Default/Extension State/MANIFEST-000001
+2023/10/20-18:31:38.718 a503 Recovering log #3
+2023/10/20-18:31:38.718 a503 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.htugFK/flutter_tools_chrome_device.8wB8Cb/Default/Extension State/000003.log 
+=======
+2023/10/26-13:06:14.263 2fd4 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.15b4c685\flutter_tools_chrome_device.c725eafb\Default\Extension State/MANIFEST-000001
+2023/10/26-13:06:14.264 2fd4 Recovering log #3
+2023/10/26-13:06:14.264 2fd4 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.15b4c685\flutter_tools_chrome_device.c725eafb\Default\Extension State/000003.log 
+>>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2
+>>>>>>> c162e33efcba25e17e46558805da6d2d9fa31496
