@@ -32,23 +32,21 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Container(
                   height: 800,
                   decoration: BoxDecoration(
-                    color: secondaryColor,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black54,
-                        spreadRadius: 1,
-                        blurRadius: 12,
-                        offset: Offset(4, 4)
-                      )
-                    ]
-                  ),
+                      color: secondaryColor,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black54,
+                            spreadRadius: 1,
+                            blurRadius: 12,
+                            offset: Offset(4, 4))
+                      ]),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Beamer.of(context).beamBack();
                         },
                         child: Padding(
@@ -190,19 +188,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    
                     decoration: BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                      BoxShadow(
-                        color: Colors.black54,
-                        spreadRadius: 1,
-                        blurRadius: 12,
-                        offset: Offset(4, 4)
-                      )
-                    ]
-                    ),
+                        color: secondaryColor,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black54,
+                              spreadRadius: 1,
+                              blurRadius: 12,
+                              offset: Offset(4, 4))
+                        ]),
                     child: MyTabbedPage(),
                   ),
                 ))
@@ -303,8 +298,8 @@ class _MyTabbedPageState extends State<MyTabbedPage>
               Center(child: PayrollPage()),
               Center(child: LeavesPage()),
               Center(child: AttendancePage()),
-              Center(
-                  child: DocumentsPage()),
+              Center(child: DocumentsPage()),
+              Center(child: DocumentsPage()),
               Center(
                   child: Text(
                 'Tab 1 Content',

@@ -1,6 +1,7 @@
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/screens/Clients/main.client.dart';
+import 'package:admin/screens/dashboard/Profile_pages/Pages/Form.dart';
 import 'package:admin/screens/dashboard/Profile_pages/profile.page.dart';
 import 'package:admin/screens/loginpage/login.page.dart';
 import 'package:admin/screens/loginpage/service/api_service.dart';
@@ -25,7 +26,7 @@ class Env {
                   apiService ?? LoginService(dio),
             ),
           ],
-          child: LoginPage(),
+          child: FormPage(),
         ),
     '/dashboard': (context, state, data) => MultiProvider(
           providers: [
