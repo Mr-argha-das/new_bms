@@ -1,21 +1,9 @@
-<<<<<<< HEAD
-2023/10/27-17:34:43.348 17b8 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.25189c28\flutter_tools_chrome_device.d9af2f8e\Default\Local Storage\leveldb/MANIFEST-000001
-2023/10/27-17:34:43.351 17b8 Recovering log #33
-2023/10/27-17:34:43.353 17b8 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.25189c28\flutter_tools_chrome_device.d9af2f8e\Default\Local Storage\leveldb/000033.log 
-2023/10/27-17:34:43.356 17b8 Delete type=0 #3
-2023/10/27-17:34:43.356 17b8 Delete type=0 #19
-2023/10/27-17:34:43.356 17b8 Delete type=0 #29
-=======
-<<<<<<< HEAD
-2023/10/26-12:32:33.691 2e03 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.idgC46/flutter_tools_chrome_device.YiqSIT/Default/Local Storage/leveldb/MANIFEST-000001
-2023/10/26-12:32:33.691 2e03 Recovering log #3
-2023/10/26-12:32:33.692 2e03 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.idgC46/flutter_tools_chrome_device.YiqSIT/Default/Local Storage/leveldb/000003.log 
-=======
-2023/10/26-17:42:15.677 37b8 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.dc90f20e\flutter_tools_chrome_device.63c77c4f\Default\Local Storage\leveldb/MANIFEST-000001
-2023/10/26-17:42:15.678 37b8 Recovering log #33
-2023/10/26-17:42:15.681 37b8 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.dc90f20e\flutter_tools_chrome_device.63c77c4f\Default\Local Storage\leveldb/000033.log 
-2023/10/26-17:42:15.681 37b8 Delete type=0 #3
-2023/10/26-17:42:15.681 37b8 Delete type=0 #19
-2023/10/26-17:42:15.681 37b8 Delete type=0 #29
->>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2
->>>>>>> c162e33efcba25e17e46558805da6d2d9fa31496
+2023/10/30-14:32:33.655 190c Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.d43221e4\flutter_tools_chrome_device.5cbe5be0\Default\Local Storage\leveldb/MANIFEST-000001
+2023/10/30-14:32:33.656 190c Recovering log #3
+2023/10/30-14:32:33.656 190c Recovering log #33
+2023/10/30-14:32:33.659 190c Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.d43221e4\flutter_tools_chrome_device.5cbe5be0\Default\Local Storage\leveldb/000033.log 
+2023/10/30-14:32:33.660 190c Delete type=2 #5
+2023/10/30-14:32:33.660 190c Delete type=2 #26
+2023/10/30-14:32:33.660 190c Delete type=2 #28
+2023/10/30-14:32:33.660 190c Delete type=2 #30
+2023/10/30-14:32:33.660 190c Delete type=2 #32

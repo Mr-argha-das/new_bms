@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-2023/10/20-18:31:38.687 a503 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.htugFK/flutter_tools_chrome_device.8wB8Cb/Default/Service Worker/Database/MANIFEST-000001
-2023/10/20-18:31:38.687 a503 Recovering log #3
-2023/10/20-18:31:38.688 a503 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.htugFK/flutter_tools_chrome_device.8wB8Cb/Default/Service Worker/Database/000003.log 
-=======
-<<<<<<< HEAD
-2023/10/21-15:02:08.635 15c0 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.24ceb5f8\flutter_tools_chrome_device.88dab6c2\Default\Service Worker\Database/MANIFEST-000001
-2023/10/21-15:02:08.641 15c0 Recovering log #3
-2023/10/21-15:02:08.642 15c0 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.24ceb5f8\flutter_tools_chrome_device.88dab6c2\Default\Service Worker\Database/000003.log 
-=======
-2023/10/20-18:31:38.687 a503 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.htugFK/flutter_tools_chrome_device.8wB8Cb/Default/Service Worker/Database/MANIFEST-000001
-2023/10/20-18:31:38.687 a503 Recovering log #3
-2023/10/20-18:31:38.688 a503 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.htugFK/flutter_tools_chrome_device.8wB8Cb/Default/Service Worker/Database/000003.log 
->>>>>>> 8b58200a7de45e2e4497f0dab7aeb83c30cc325e
->>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2
+2023/10/28-13:04:35.105 31ac Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.7db6af8a\flutter_tools_chrome_device.21f0f8e1\Default\Service Worker\Database/MANIFEST-000001
+2023/10/28-13:04:35.106 31ac Recovering log #3
+2023/10/28-13:04:35.106 31ac Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.7db6af8a\flutter_tools_chrome_device.21f0f8e1\Default\Service Worker\Database/000003.log 

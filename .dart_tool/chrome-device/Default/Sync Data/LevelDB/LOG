@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-2023/10/26-12:32:33.621 b203 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.idgC46/flutter_tools_chrome_device.YiqSIT/Default/Sync Data/LevelDB/MANIFEST-000001
-2023/10/26-12:32:33.622 b203 Recovering log #3
-2023/10/26-12:32:33.623 b203 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.idgC46/flutter_tools_chrome_device.YiqSIT/Default/Sync Data/LevelDB/000003.log 
-=======
-2023/10/26-13:06:14.086 3364 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.15b4c685\flutter_tools_chrome_device.c725eafb\Default\Sync Data\LevelDB/MANIFEST-000001
-2023/10/26-13:06:14.086 3364 Recovering log #3
-2023/10/26-13:06:14.087 3364 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.15b4c685\flutter_tools_chrome_device.c725eafb\Default\Sync Data\LevelDB/000003.log 
->>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2
+2023/10/28-15:42:00.702 2594 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.d4bc25c\flutter_tools_chrome_device.466d95dd\Default\Sync Data\LevelDB/MANIFEST-000001
+2023/10/28-15:42:00.703 2594 Recovering log #3
+2023/10/28-15:42:00.704 2594 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.d4bc25c\flutter_tools_chrome_device.466d95dd\Default\Sync Data\LevelDB/000003.log 

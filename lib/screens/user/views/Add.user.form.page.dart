@@ -56,16 +56,23 @@ class _AddUserFormState extends State<AddUserForm> {
                               color: Colors.black,
                               fontSize: 20),
                         ),
-                        Container(
-                            height: 500,
-                            width: 600,
-                            decoration: BoxDecoration(
+                        Stack(
+                          children: [
+                            Container(
+                              height: 500,
+                              width: 600,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/Add User.gif"),
-                                  fit: BoxFit.cover,
-                                ))),
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: Image(
+                                image: AssetImage("assets/images/Add User.gif"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     )),
                     Expanded(
