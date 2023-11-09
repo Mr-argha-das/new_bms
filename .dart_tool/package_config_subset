@@ -112,17 +112,12 @@ file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/dart_style-2.3.3/
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/dart_style-2.3.3/lib/
 dio
 2.15
-<<<<<<< HEAD
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/dio-5.3.3/
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/dio-5.3.3/lib/
-=======
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.3.3/
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.3.3/lib/
 dropdown_button2
 2.17
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/dropdown_button2-2.3.9/
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/dropdown_button2-2.3.9/lib/
->>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/dropdown_button2-2.3.9/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/dropdown_button2-2.3.9/lib/
 equatable
 2.12
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/equatable-2.0.5/
@@ -193,17 +188,12 @@ file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
 intl
 2.12
-<<<<<<< HEAD
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/intl-0.18.1/
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/intl-0.18.1/lib/
-=======
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1/
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1/lib/
 intl_phone_number_input
 2.12
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/intl_phone_number_input-0.7.3+1/
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/intl_phone_number_input-0.7.3+1/lib/
->>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/intl_phone_number_input-0.7.3+1/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/intl_phone_number_input-0.7.3+1/lib/
 io
 2.12
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/io-1.0.4/
@@ -218,25 +208,20 @@ file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/lib/
 json_serializable
 3.0
-<<<<<<< HEAD
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/json_serializable-6.7.1/
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/json_serializable-6.7.1/lib/
-=======
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/json_serializable-6.7.1/
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/json_serializable-6.7.1/lib/
 libphonenumber_platform_interface
 3.0
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/libphonenumber_platform_interface-0.4.1/
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/libphonenumber_platform_interface-0.4.1/lib/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_platform_interface-0.4.1/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_platform_interface-0.4.1/lib/
 libphonenumber_plugin
 3.0
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/libphonenumber_plugin-0.3.2/
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/libphonenumber_plugin-0.3.2/lib/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_plugin-0.3.2/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_plugin-0.3.2/lib/
 libphonenumber_web
 3.0
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/libphonenumber_web-0.3.1/
-file:///C:/Users/visha/AppData/Local/Pub/Cache/hosted/pub.dev/libphonenumber_web-0.3.1/lib/
->>>>>>> ad6e939f1833b427a573115dad7c242d5eb887c2
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_web-0.3.1/
+file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/libphonenumber_web-0.3.1/lib/
 lite_rolling_switch
 2.15
 file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/lite_rolling_switch-1.0.1/
