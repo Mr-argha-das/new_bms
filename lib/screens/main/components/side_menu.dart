@@ -103,6 +103,8 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/venture-list');
+              }else if(value == 0){
+                Beamer.of(context).beamToNamed('/add-venture');
               }
             },
           ),

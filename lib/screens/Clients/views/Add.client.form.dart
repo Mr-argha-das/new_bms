@@ -12,6 +12,7 @@ class AddClientForm extends StatefulWidget {
 class _AddClientFormState extends State<AddClientForm> {
   final emailController = TextEditingController();
   final firstnameController = TextEditingController();
+  final mobileController = TextEditingController();
   final lastnameController = TextEditingController();
   final universityController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -27,7 +28,7 @@ class _AddClientFormState extends State<AddClientForm> {
           children: [
             Center(
               child: Container(
-                height: 600,
+                height: 550,
                 width: 1050,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -207,6 +208,33 @@ class _AddClientFormState extends State<AddClientForm> {
                               ),
                             ),
                           ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 35,
+                            width: 300,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 239, 239, 239),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    controller: mobileController,
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 13),
+                                    decoration: InputDecoration.collapsed(
+                                        border: InputBorder.none,
+                                        hintText: 'Mobile number',
+                                        hintStyle: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w300)),
+                                  ),
+                                )),
+                          ),
                         ),
                         // Padding(
                         //   padding: const EdgeInsets.all(8.0),

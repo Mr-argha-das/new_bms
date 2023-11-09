@@ -12,6 +12,7 @@ class AddUserForm extends StatefulWidget {
 
 class _AddUserFormState extends State<AddUserForm> {
   final emailController = TextEditingController();
+  final mobileController = TextEditingController();
   final nameController = TextEditingController();
   final rmidController = TextEditingController();
   final symbolController = TextEditingController();
@@ -34,7 +35,7 @@ class _AddUserFormState extends State<AddUserForm> {
           children: [
             Center(
               child: Container(
-                height: 600,
+                height: 550,
                 width: 1050,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -55,16 +56,23 @@ class _AddUserFormState extends State<AddUserForm> {
                               color: Colors.black,
                               fontSize: 20),
                         ),
-                        Container(
-                            height: 500,
-                            width: 600,
-                            decoration: BoxDecoration(
+                        Stack(
+                          children: [
+                            Container(
+                              height: 500,
+                              width: 600,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/Add User.gif"),
-                                  fit: BoxFit.cover,
-                                ))),
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: Image(
+                                image: AssetImage("assets/images/Add User.gif"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     )),
                     Expanded(
@@ -225,6 +233,34 @@ class _AddUserFormState extends State<AddUserForm> {
                                 ),
                               ),
                             ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 35,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 239, 239, 239),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      controller: mobileController,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 13),
+                                      decoration: InputDecoration.collapsed(
+                                          border: InputBorder.none,
+                                          hintText: 'Mobile number',
+                                          hintStyle: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w300)),
+                                    ),
+                                  )),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
