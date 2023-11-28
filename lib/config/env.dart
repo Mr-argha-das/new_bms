@@ -32,7 +32,7 @@ class Env {
                   apiService ?? LoginService(dio),
             ),
           ],
-          child: TaskAdd(),
+          child: MainScreen(),
         ),
     '/dashboard': (context, state, data) => MultiProvider(
           providers: [
@@ -77,7 +77,15 @@ class Env {
           child: ProfilePage(),
         ),
     '/add-venture': (context, state, data) => MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => MenuAppController())
+
+      ChangeNotifierProvider(create: (context) => MenuAppController()),
+      Provider<Dio>(
+              create: (context) => createDio(),
+            ),
+            ProxyProvider<Dio, LoginService>(
+              update: (context, dio, apiService) =>
+                  apiService ?? LoginService(dio),
+            ), 
     ],  child: MainVenture(),)    
   };
   static String baseUrl = "https://squid-app-3-s689g.ondigitalocean.app";

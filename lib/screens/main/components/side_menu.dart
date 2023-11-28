@@ -159,6 +159,7 @@ class SideMenu extends StatelessWidget {
                   Icons.arrow_drop_down_rounded,
                   color: Colors.white,
                 )
+                
               ],
             ),
             svgSrc: "assets/icons/menu_store.svg",
