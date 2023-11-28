@@ -6,7 +6,6 @@ import 'package:admin/screens/Clients/views/list.main.dart';
 import 'package:admin/screens/Task.add/AddToDotask.dart';
 import 'package:admin/screens/Task.add/ToDotask.dart';
 import 'package:admin/screens/Task.add/task.add.form.dart';
-// import 'package:admin/screens/dashboard/Profile_pages/Pages/Venture.Form.dart';
 import 'package:admin/screens/dashboard/Profile_pages/profile.page.dart';
 import 'package:admin/screens/loginpage/login.page.dart';
 import 'package:admin/screens/loginpage/service/api_service.dart';
@@ -22,8 +21,13 @@ import 'package:admin/screens/team/views/add.team.form.dart';
 import 'package:admin/screens/team/views/team.list.dart';
 import 'package:admin/screens/user/views/Add.user.form.page.dart';
 import 'package:admin/screens/venture/main.venture.dart';
+<<<<<<< HEAD
 import 'package:admin/screens/venture/views/Add.Venture.Form.dart';
 import 'package:admin/screens/venture/views/list.venture.dart';
+=======
+import 'package:admin/screens/venture/views/Venture.Form.dart';
+import 'package:admin/screens/venture/views/add.venture.dart';
+>>>>>>> 872f3fdf4dfffee733b2f1c1b6d9b2a3b27d5c0b
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +88,10 @@ class Env {
             ChangeNotifierProvider(create: (context) => MenuAppController()),
           ],
           child: ProfilePage(),
-        )
+        ),
+    '/add-venture': (context, state, data) => MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => MenuAppController())
+    ],  child: MainVenture(),)    
   };
   static String baseUrl = "https://squid-app-3-s689g.ondigitalocean.app";
 }
