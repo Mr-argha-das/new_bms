@@ -1,5 +1,5 @@
 import 'package:admin/screens/Clients/views/list.main.dart';
-import 'package:admin/screens/orders/viwes/orders.list.dart';
+import 'package:admin/screens/orders/views/orders.list.dart';
 import 'package:admin/screens/team/views/team.list.dart';
 import 'package:admin/screens/user/views/list.user.dart';
 import 'package:admin/screens/venture/views/list.venture.dart';
@@ -47,7 +47,7 @@ class SideMenu extends StatelessWidget {
           //         ),
           //         svgSrc: "assets/icons/menu_profile.svg",
           //         press: () {
-                    
+
           //         },
           //         items: [],
           //         onPageChange: (value) {
@@ -62,9 +62,7 @@ class SideMenu extends StatelessWidget {
           // ),
           ListTile(
               onTap: () {
-                
                 Beamer.of(context).beamToNamed('/dashboard');
-                
               },
               horizontalTitleGap: 0.0,
               leading: SvgPicture.asset(
@@ -167,7 +165,7 @@ class SideMenu extends StatelessWidget {
             ],
             onPageChange: (value) {
               if (value == 1) {
-                 Beamer.of(context).beamToNamed('/user-list');
+                Beamer.of(context).beamToNamed('/user-list');
               }
             },
             height: 70,
@@ -201,7 +199,7 @@ class SideMenu extends StatelessWidget {
             ],
             onPageChange: (value) {
               if (value == 1) {
-                  Beamer.of(context).beamToNamed('/client-list');
+                Beamer.of(context).beamToNamed('/client-list');
               }
             },
           ),

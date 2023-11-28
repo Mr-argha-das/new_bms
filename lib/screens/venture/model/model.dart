@@ -1,20 +1,53 @@
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'model.g.dart';
+
 @JsonSerializable()
-class Task {
-  const Task({this.id, this.name, this.avatar, this.createdAt});
+class VentureCreateResponse {
+  @JsonKey(name: 'status')
+  bool status;
+  @JsonKey(name: 'message')
+  String message;
+  @JsonKey(name: 'data')
+  Data data;
 
-  factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
-  @JsonKey(name: 'id')
-  final String? id;
+  VentureCreateResponse({
+    required this.status,
+    required this.message,
+    required this.data,
+  });
+
+  factory VentureCreateResponse.fromJson(Map<String, dynamic> json) =>
+      _$VentureCreateResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VentureCreateResponseToJson(this);
+}
+
+@JsonSerializable()
+class Data {
   @JsonKey(name: 'name')
-  final String? name;
-  @JsonKey(name: 'avatar')
-  final String? avatar;
+  String name;
+  @JsonKey(name: 'type')
+  String type;
+  @JsonKey(name: '_id')
+  String id;
   @JsonKey(name: 'createdAt')
-  final String? createdAt;
+  DateTime createdAt;
+  @JsonKey(name: 'updatedAt')
+  DateTime updatedAt;
+  @JsonKey(name: '__v')
+  int v;
 
-  Map<String, dynamic> toJson() => _$TaskToJson(this);
+  Data({
+    required this.name,
+    required this.type,
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 }

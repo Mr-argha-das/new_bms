@@ -16,8 +16,9 @@ class VentureList extends StatefulWidget {
 class _VentureListState extends State<VentureList> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
         primary: false,
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
@@ -154,15 +155,15 @@ DataRow table(RecentFile fileInfo, int index) {
           width: 80,
           child: LiteRollingSwitch(
             //initial value
-            
+
             width: 90,
             value: true,
             textOn: 'ON',
             textOff: 'OFF',
-            colorOn:  bgColor,
+            colorOn: bgColor,
             textOffColor: Colors.white,
             textOnColor: Colors.white,
-            
+
             colorOff: Colors.red,
             iconOn: Icons.done,
             iconOff: Icons.remove_circle_outline,

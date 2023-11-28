@@ -1,16 +1,33 @@
-
-
 import 'package:admin/screens/venture/model/model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'api_service.g.dart';
 
-@RestApi(baseUrl: 'https://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/')
-abstract class RestClient {
-  factory RestClient(Dio dio) = _RestClient;
+@RestApi(baseUrl: 'https://squid-app-3-s689g.ondigitalocean.app')
+abstract class VentureService {
+  factory VentureService(Dio dio) = _VentureService;
 
-  @GET('/tasks')
-  Future<List<Task>> getTasks();
+  @POST('/venture-create')
+  Future<VentureCreateResponse> ventureCreate(
+      @Body() VentureCreateField fieldData);
 }
 
+@JsonSerializable()
+class VentureCreateField {
+  @JsonKey(name: 'name')
+  String name;
+  @JsonKey(name: 'type')
+  String type;
+
+  VentureCreateField({
+    required this.name,
+    required this.type,
+  });
+
+  factory VentureCreateField.fromJson(Map<String, dynamic> json) =>
+      _$VentureCreateFieldFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VentureCreateFieldToJson(this);
+}
