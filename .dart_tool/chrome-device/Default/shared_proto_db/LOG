@@ -1,2 +1,4 @@
-2023/11/24-15:21:19.866 177c Creating DB C:\Users\visha\AppData\Local\Temp\flutter_tools.a99aaaff\flutter_tools_chrome_device.662197b4\Default\shared_proto_db since it was missing.
-2023/11/24-15:21:19.871 177c Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.a99aaaff\flutter_tools_chrome_device.662197b4\Default\shared_proto_db/MANIFEST-000001
+2023/11/30-12:44:35.401 258 Creating DB C:\Users\visha\AppData\Local\Temp\flutter_tools.d1bf9182\flutter_tools_chrome_device.ad374bef\Default\shared_proto_db since it was missing.
+2023/11/30-12:44:35.406 258 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.d1bf9182\flutter_tools_chrome_device.ad374bef\Default\shared_proto_db/MANIFEST-000001
+2023/11/30-12:44:35.406 258 Recovering log #3
+2023/11/30-12:44:35.407 258 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.d1bf9182\flutter_tools_chrome_device.ad374bef\Default\shared_proto_db/000003.log 

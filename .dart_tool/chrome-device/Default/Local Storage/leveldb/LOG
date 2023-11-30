@@ -1,5 +1,11 @@
-2023/11/27-14:28:52.576 2108 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.8e3f6c64\flutter_tools_chrome_device.92c258a2\Default\Local Storage\leveldb/MANIFEST-000001
-2023/11/27-14:28:52.577 2108 Recovering log #38
-2023/11/27-14:28:52.580 2108 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.8e3f6c64\flutter_tools_chrome_device.92c258a2\Default\Local Storage\leveldb/000038.log 
-2023/11/27-14:28:52.580 2108 Delete type=0 #3
-2023/11/27-14:28:52.580 2108 Delete type=0 #33
+2023/11/30-12:44:35.466 3634 Creating DB C:\Users\visha\AppData\Local\Temp\flutter_tools.d1bf9182\flutter_tools_chrome_device.ad374bef\Default\Local Storage\leveldb since it was missing.
+2023/11/30-12:44:35.479 3634 Reusing MANIFEST C:\Users\visha\AppData\Local\Temp\flutter_tools.d1bf9182\flutter_tools_chrome_device.ad374bef\Default\Local Storage\leveldb/MANIFEST-000001
+2023/11/30-12:44:35.480 3634 Recovering log #33
+2023/11/30-12:44:35.480 3634 Level-0 table #3: started
+2023/11/30-12:44:35.492 3634 Level-0 table #3: 46173 bytes OK
+2023/11/30-12:44:35.492 3634 Recovering log #38
+2023/11/30-12:44:35.495 3634 Reusing old log C:\Users\visha\AppData\Local\Temp\flutter_tools.d1bf9182\flutter_tools_chrome_device.ad374bef\Default\Local Storage\leveldb/000038.log 
+2023/11/30-12:44:35.497 3634 Delete type=0 #33
+2023/11/30-12:44:35.497 3634 Delete type=2 #35
+2023/11/30-12:44:35.497 3634 Delete type=2 #37
+2023/11/30-12:44:35.497 3634 Delete type=2 #39
