@@ -21,12 +21,8 @@ import 'package:admin/screens/team/views/add.team.form.dart';
 import 'package:admin/screens/team/views/team.list.dart';
 import 'package:admin/screens/venture/main.venture.dart';
 import 'package:admin/screens/venture/service/api_service.dart';
-
-
-
-
-
 import 'package:dio/dio.dart';
+
 
 import 'package:provider/provider.dart';
 
@@ -95,15 +91,7 @@ class Env {
           child: ProfilePage(),
         ),
     '/add-venture': (context, state, data) => MultiProvider(providers: [
-
-      ChangeNotifierProvider(create: (context) => MenuAppController()),
-      Provider<Dio>(
-              create: (context) => createDio(),
-            ),
-            ProxyProvider<Dio, LoginService>(
-              update: (context, dio, apiService) =>
-                  apiService ?? LoginService(dio),
-            ), 
+      ChangeNotifierProvider(create: (context) => MenuAppController())
     ],  child: MainVenture(),)    
   };
 }
