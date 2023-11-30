@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../components/team.table.dart';
 
-
 class TeamList extends StatefulWidget {
   const TeamList({Key? key}) : super(key: key);
 
@@ -17,33 +16,35 @@ class TeamList extends StatefulWidget {
 class _TeamListState extends State<TeamList> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        primary: false,
-        padding: EdgeInsets.all(defaultPadding),
-        child: Column(
-          children: [
-            TeamHeader(),
-            SizedBox(height: defaultPadding,),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    children: [
-                      SizedBox(height: defaultPadding),
-                      TeamTable(),
-                      if (Responsive.isMobile(context))
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          primary: false,
+          padding: EdgeInsets.all(defaultPadding),
+          child: Column(
+            children: [
+              TeamHeader(),
+              SizedBox(
+                height: defaultPadding,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      children: [
                         SizedBox(height: defaultPadding),
-                    ],
+                        TeamTable(),
+                        if (Responsive.isMobile(context))
+                          SizedBox(height: defaultPadding),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )
-          ],
-        ),
-      ) 
-    );
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }

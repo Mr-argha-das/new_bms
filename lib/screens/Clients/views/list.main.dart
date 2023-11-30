@@ -2,8 +2,10 @@ import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/models/RecentFile.dart';
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ClientsList extends StatefulWidget {
@@ -16,37 +18,54 @@ class ClientsList extends StatefulWidget {
 class _ClientsListState extends State<ClientsList> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: SingleChildScrollView(
-      primary: false,
-      padding: EdgeInsets.all(defaultPadding),
-      child: Column(
-        children: [
-          UserHeader(),
-          SizedBox(
-            height: defaultPadding,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          primary: false,
+          padding: EdgeInsets.all(defaultPadding),
+          child: Column(
             children: [
-              Expanded(
-                  child: Column(
+              UserHeader(),
+              SizedBox(
+                height: defaultPadding,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: defaultPadding,
-                  ),
-                  ClientTable(),
-                  if (Responsive.isMobile(context))
-                    SizedBox(
-                      height: defaultPadding,
-                    )
+                  Expanded(
+                      child: Column(
+                    children: [
+                      SizedBox(
+                        height: defaultPadding,
+                      ),
+                      ClientTable(),
+                      if (Responsive.isMobile(context))
+                        SizedBox(
+                          height: defaultPadding,
+                        )
+                    ],
+                  ))
                 ],
-              ))
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                      height: 45,
+                      width: 380,
+                      decoration: BoxDecoration(
+                          color: secondaryColor,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Pagination())
+                ],
+              )
             ],
-          )
-        ],
-      ),
-    ));
+          ),
+        ));
   }
 }
 
@@ -67,7 +86,8 @@ class UserHeader extends StatelessWidget {
         if (!Responsive.isMobile(context))
           Text(
             "Client List",
-            style: Theme.of(context).textTheme.titleLarge,
+            style: GoogleFonts.poppins(
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
@@ -111,7 +131,7 @@ class _ClientTableState extends State<ClientTable> {
                   label: Text("#"),
                 ),
                 DataColumn(
-                  label: Text("Client Name"),
+                  label: Text("Client Id"),
                 ),
                 DataColumn(
                   label: Text("Phone"),
@@ -120,10 +140,10 @@ class _ClientTableState extends State<ClientTable> {
                   label: Text("Email"),
                 ),
                 DataColumn(
-                  label: Text("Uni"),
+                  label: Text("University"),
                 ),
                 DataColumn(
-                  label: Text("Edit"),
+                  label: Text("Action"),
                 ),
               ],
               rows: List.generate(
@@ -148,10 +168,41 @@ DataRow userTable(RecentFile fileInfo, int index) {
       DataCell(Text(fileInfo.size!)),
       DataCell(Text(fileInfo.size!)),
       DataCell(Text(fileInfo.size!)),
-      DataCell(Icon(
-                  Icons.edit_outlined,
-                  color: Colors.white,
-                )),
+      DataCell(
+        PopupMenuButton<String>(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+          constraints: BoxConstraints(minHeight: 100, minWidth: 20),
+          color: const Color.fromARGB(255, 42, 46, 62),
+          icon: Container(
+            child: Icon(
+              Icons.more_vert_rounded,
+              color: Colors.white,
+            ),
+          ),
+          onSelected: (String value) {
+            // Handle menu item selection
+            // You can add your logic here based on the selected value
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              padding: EdgeInsets.all(10),
+              height: 25,
+              child: Center(child: Icon(Icons.edit_outlined)),
+            ),
+
+            PopupMenuItem<String>(
+              padding: EdgeInsets.all(10),
+              height: 25,
+              child: Center(child: Icon(Icons.shopping_cart)),
+            ),
+            // Add more menu items as needed
+          ],
+        ),
+      ),
     ],
   );
 }

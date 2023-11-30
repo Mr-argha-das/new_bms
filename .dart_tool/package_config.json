@@ -212,22 +212,28 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "fl_chart",
-      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/fl_chart-0.62.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
-    },
-    {
       "name": "flutter",
       "rootUri": "file:///Users/ankitsamant/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
+      "name": "flutter_date_range_picker",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/flutter_date_range_picker-0.0.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "flutter_hooks",
       "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/flutter_hooks-0.20.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "flutter_pagination",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/flutter_pagination-0.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "flutter_riverpod",
@@ -406,6 +412,12 @@
     {
       "name": "nested",
       "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/nested-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "number_pagination",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/number_pagination-0.0.3+2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -602,6 +614,18 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "syncfusion_flutter_charts",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/syncfusion_flutter_charts-23.2.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "syncfusion_flutter_core",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/syncfusion_flutter_core-23.2.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "term_glyph",
       "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/term_glyph-1.2.1",
       "packageUri": "lib/",
@@ -704,7 +728,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2023-11-09T05:30:47.130434Z",
+  "generated": "2023-11-30T06:10:15.708064Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }

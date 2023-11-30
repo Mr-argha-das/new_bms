@@ -30,7 +30,6 @@ dependencies:
 
   google_fonts: ^4.0.4
   flutter_svg: ^2.0.5
-  fl_chart: ^0.62.0
   provider: ^6.0.5
 
   cell_calendar: ^0.8.0
@@ -46,6 +45,10 @@ dependencies:
   connectivity: ^3.0.6
   dropdown_button2: ^2.3.9
   intl_phone_number_input: ^0.7.3+1
+  number_pagination: ^0.0.3+2
+  flutter_pagination: ^0.0.8
+  flutter_date_range_picker: ^0.0.14
+  syncfusion_flutter_charts: ^23.2.6
 
 
 dev_dependencies:

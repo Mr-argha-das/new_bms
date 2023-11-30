@@ -10,6 +10,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       key: context.read<MenuAppController>().scaffoldKey,
       drawer: SideMenu(title: 'Dashboard', context: context,),
       body: SafeArea(

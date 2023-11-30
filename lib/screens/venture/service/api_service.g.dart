@@ -3,17 +3,33 @@
 part of 'api_service.dart';
 
 // **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+VentureCreateField _$VentureCreateFieldFromJson(Map<String, dynamic> json) =>
+    VentureCreateField(
+      name: json['name'] as String,
+      type: json['type'] as String,
+    );
+
+Map<String, dynamic> _$VentureCreateFieldToJson(VentureCreateField instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.type,
+    };
+
+// **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _RestClient implements RestClient {
-  _RestClient(
+class _VentureService implements VentureService {
+  _VentureService(
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/';
+    baseUrl ??= 'https://squid-app-3-s689g.ondigitalocean.app';
   }
 
   final Dio _dio;
@@ -21,20 +37,20 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<List<Task>> getTasks() async {
+  Future<VentureListModel> getVentureList() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Task>>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<VentureListModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/tasks',
+              '/ventures',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -43,9 +59,36 @@ class _RestClient implements RestClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => Task.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = VentureListModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<VentureCreateResponse> ventureCreate(
+      VentureCreateField fieldData) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(fieldData.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<VentureCreateResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/venture-create',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = VentureCreateResponse.fromJson(_result.data!);
     return value;
   }
 
