@@ -1,4 +1,5 @@
 import 'package:admin/screens/loginpage/service/api_service.dart';
+import 'package:admin/screens/team/model/team.list.model.dart';
 import 'package:admin/screens/team/model/team_response.dart';
 import 'package:dio/dio.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -12,7 +13,8 @@ abstract class AddTeamApi{
   factory AddTeamApi(Dio dio)= _AddTeamApi;
   @POST('/team-create')
   Future<TeamResponse> login(@Body() TeamAddModel teamAddModel);
-  
+  @GET('/teams')
+  Future<TeamListModel> getTeamList(); 
 }
 
 @JsonSerializable()

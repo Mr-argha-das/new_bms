@@ -17,6 +17,7 @@ import 'package:admin/screens/orders/views/chat.section.dart';
 import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/orders/views/orders.list.dart';
 import 'package:admin/screens/team/main.team.dart';
+import 'package:admin/screens/team/service/add_team_api.dart';
 import 'package:admin/screens/team/views/add.team.form.dart';
 import 'package:admin/screens/team/views/team.list.dart';
 import 'package:admin/screens/venture/main.venture.dart';
@@ -61,7 +62,14 @@ class Env {
         ),
     '/team-list': (context, state, data) => MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (context) => MenuAppController())
+            ChangeNotifierProvider(create: (context) => MenuAppController()),
+            Provider<Dio>(
+              create: (context) => createDio(),
+            ),
+            ProxyProvider<Dio, AddTeamApi>(
+              update: (context, dio, apiService) =>
+                  apiService ?? AddTeamApi(dio),
+            ),
           ],
           child: TeamMain(),
         ),
