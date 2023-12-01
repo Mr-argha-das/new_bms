@@ -4,6 +4,8 @@ import 'package:admin/models/RecentFile.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
+import 'package:admin/screens/venture/user/model/User.list.model.dart';
+import 'package:admin/screens/venture/user/service/user.service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -106,68 +108,100 @@ class ClientTable extends StatefulWidget {
 }
 
 class _ClientTableState extends State<ClientTable> {
+  Future<UserListModel>? model;
+  Future<UserListModel> getData(data) async {
+    data = await data.getUserList();
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Client List",
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: DataTable(
-              columnSpacing: defaultPadding,
-              // minWidth: 600,
-              columns: [
-                DataColumn(
-                  label: Text("#"),
+    final userService = Provider.of<UserService>(context);
+    model = getData(userService);
+    return FutureBuilder<UserListModel>(
+      future: model,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Container(
+            padding: EdgeInsets.all(defaultPadding),
+            decoration: BoxDecoration(
+              color: secondaryColor,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Client List",
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-                DataColumn(
-                  label: Text("Client Id"),
-                ),
-                DataColumn(
-                  label: Text("Phone"),
-                ),
-                DataColumn(
-                  label: Text("Email"),
-                ),
-                DataColumn(
-                  label: Text("University"),
-                ),
-                DataColumn(
-                  label: Text("Action"),
+                SizedBox(
+                  width: double.infinity,
+                  child: DataTable(
+                    columnSpacing: defaultPadding,
+                    // minWidth: 600,
+                    columns: [
+                      DataColumn(
+                        label: Text("#"),
+                      ),
+                      DataColumn(
+                        label: Text("Username"),
+                      ),
+                      DataColumn(
+                        label: Text("Phone"),
+                      ),
+                      DataColumn(
+                        label: Text("Email"),
+                      ),
+                      DataColumn(
+                        label: Text("Role"),
+                      ),
+                      DataColumn(
+                        label: Text("Action"),
+                      ),
+                    ],
+                    rows: List.generate(
+                      snapshot.data!.data.length + 1,
+                      (index) => userTable(
+                          id: snapshot.data!.data[index].id,
+                          phone: snapshot.data!.data[index].number.toString(),
+                          name: snapshot.data!.data[index].name,
+                          email: snapshot.data!.data[index].email,
+                          uni: snapshot.data!.data[index].roles.name,
+                          index: index + 1),
+                    ),
+                  ),
                 ),
               ],
-              rows: List.generate(
-                demoRecentFiles.length,
-                (index) => userTable(demoRecentFiles[index], index + 1),
-              ),
             ),
-          ),
-        ],
-      ),
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        // By default, show a loading spinner.
+        return Center(child: const CircularProgressIndicator());
+      },
     );
   }
 }
 
-DataRow userTable(RecentFile fileInfo, int index) {
+DataRow userTable(
+    {required String id,
+    required String name,
+    required String phone,
+    required String email,
+    required String uni,
+    required int index}) {
   return DataRow(
     cells: [
       DataCell(
         Text(index.toString()),
       ),
-      DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text(fileInfo.size!)),
+      DataCell(Text(name)),
+      DataCell(Text(phone)),
+      DataCell(Text(email)),
+      DataCell(Text(uni)),
       DataCell(
         PopupMenuButton<String>(
           shape: RoundedRectangleBorder(

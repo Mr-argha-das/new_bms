@@ -1,6 +1,3 @@
-
-
-
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/main/components/side_menu.dart';
@@ -14,7 +11,10 @@ class MainUSer extends StatelessWidget {
     return Material(
       child: Scaffold(
         key: context.read<MenuAppController>().scaffoldKey,
-        drawer: SideMenu(title: 'Team', context: context,),
+        drawer: SideMenu(
+          title: 'Team',
+          context: context,
+        ),
         body: SafeArea(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,10 @@ class MainUSer extends StatelessWidget {
                 Expanded(
                   // default flex = 1
                   // and it takes 1/6 part of the screen
-                  child: SideMenu(title: 'Team', context: context,),
+                  child: SideMenu(
+                    title: 'Team',
+                    context: context,
+                  ),
                 ),
               Expanded(
                 // It takes 5/6 part of the screen
