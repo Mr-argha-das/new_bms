@@ -1,11 +1,14 @@
+import 'dart:developer';
+
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/models/RecentFile.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
+import 'package:admin/screens/venture/user/model/User.list.model.dart';
+import 'package:admin/screens/venture/user/service/user.service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class UserHeader extends StatefulWidget {
   const UserHeader({Key? key}) : super(key: key);
@@ -90,83 +93,121 @@ class UserTable extends StatefulWidget {
 }
 
 class _UserTableState extends State<UserTable> {
+  Future<UserListModel>? model;
+  Future<UserListModel> getData(data) async {
+    data = await data.getUserList();
+    log(data);
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "User List",
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: DataTable(
-              columnSpacing: defaultPadding,
-              // minWidth: 600,
-              columns: [
-                DataColumn(
-                  label: Text("#"),
+    final userService = Provider.of<UserService>(context);
+    model = getData(userService);
+    return FutureBuilder<UserListModel>(
+      future: model,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Container(
+            height: 200,
+            padding: EdgeInsets.all(defaultPadding),
+            decoration: BoxDecoration(
+              color: secondaryColor,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "User List",
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-                DataColumn(
-                  label: Text("Profile")
-                ),
-                DataColumn(
-                  label: Text("User Name"),
-                ),
-                DataColumn(
-                  label: Text("Phone"),
-                ),
-                DataColumn(
-                  label: Text("Email"),
-                ),
-                DataColumn(
-                  label: Text("Team Name"),
-                ),
-                DataColumn(
-                  label: Text("Edit"),
+                SizedBox(
+                  width: double.infinity,
+                  child: DataTable(
+                    columnSpacing: defaultPadding,
+                    // minWidth: 600,
+                    columns: [
+                      DataColumn(
+                        label: Text("#"),
+                      ),
+                      DataColumn(label: Text("Profile")),
+                      DataColumn(
+                        label: Text("User Name"),
+                      ),
+                      DataColumn(
+                        label: Text("Phone"),
+                      ),
+                      DataColumn(
+                        label: Text("Email"),
+                      ),
+                      DataColumn(
+                        label: Text("Team Name"),
+                      ),
+                      DataColumn(
+                        label: Text("Edit"),
+                      ),
+                    ],
+                    rows: List.generate(
+                      4,
+                      (index) => userTable(
+                          index: index + 1,
+                          name: 'afaf',
+                          email: 'aff',
+                          number: 'fafaf',
+                          teamName: 'afaf',
+                          image: 'fafaf'),
+                    ),
+                  ),
                 ),
               ],
-              rows: List.generate(
-                demoRecentFiles.length,
-                (index) => userTable(demoRecentFiles[index], index + 1),
-              ),
             ),
-          ),
-        ],
-      ),
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        // By default, show a loading spinner.
+        return Center(child: const CircularProgressIndicator());
+      },
     );
   }
 }
 
-DataRow userTable(RecentFile fileInfo, int index) {
+DataRow userTable({
+  required int index,
+  required String name,
+  required String email,
+  required String image,
+  required String number,
+  required String teamName,
+}) {
   return DataRow(
     cells: [
       DataCell(
         Text(index.toString()),
       ),
       DataCell(Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50)
-                    ),
-                  )),
-      DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text(fileInfo.size!)),
+        height: 40,
+        width: 40,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(50)),
+      )),
+      DataCell(Text(name)),
+      DataCell(Text(number)),
+      DataCell(Text(email)),
+      DataCell(Text(teamName)),
       DataCell(Icon(
-                  Icons.edit_outlined,
-                  color: Colors.white,
-                )),
+        Icons.edit_outlined,
+        color: Colors.white,
+      )),
     ],
   );
 }
+// userTable(
+//                           index: index + 1,
+//                           name: snapshot.data!.data[index].name,
+//                           email: snapshot.data!.data[index].email,
+//                           number: snapshot.data!.data[index].number.toString(),
+//                           teamName: snapshot.data!.data[index].roles.name,
+//                           image: snapshot.data!.data[index].image),

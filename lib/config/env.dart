@@ -22,6 +22,7 @@ import 'package:admin/screens/team/views/add.team.form.dart';
 import 'package:admin/screens/team/views/team.list.dart';
 import 'package:admin/screens/venture/main.venture.dart';
 import 'package:admin/screens/venture/service/api_service.dart';
+import 'package:admin/screens/venture/user/main.use.dart';
 import 'package:admin/screens/venture/user/service/user.service.dart';
 import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +85,7 @@ class Env {
                   apiService ?? UserService(dio),
             ),
           ],
-          child: MainUSer(),
+          child: UsrMain(),
         ),
     '/client-list': (context, state, data) => MultiProvider(
           providers: [
