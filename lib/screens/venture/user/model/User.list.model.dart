@@ -2,102 +2,124 @@
 //
 //     final userListModel = userListModelFromJson(jsonString);
 
-import 'package:json_annotation/json_annotation.dart';
-part 'User.list.model.g.dart';
+import 'dart:convert';
 
-@JsonSerializable()
+UserListModel userListModelFromJson(String str) => UserListModel.fromJson(json.decode(str));
+
+String userListModelToJson(UserListModel data) => json.encode(data.toJson());
+
 class UserListModel {
-  @JsonKey(name: 'Status')
-  bool status;
-  @JsonKey(name: 'message')
-  String message;
-  @JsonKey(name: 'data')
-  List<Datum> data;
+    bool status;
+    String message;
+    List<Datum> data;
 
-  UserListModel({
-    required this.status,
-    required this.message,
-    required this.data,
-  });
+    UserListModel({
+        required this.status,
+        required this.message,
+        required this.data,
+    });
 
-  factory UserListModel.fromJson(Map<String, dynamic> json) =>
-      _$UserListModelFromJson(json);
+    factory UserListModel.fromJson(Map<String, dynamic> json) => UserListModel(
+        status: json["status"],
+        message: json["message"],
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => _$UserListModelToJson(this);
+    Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    };
 }
 
-@JsonSerializable()
 class Datum {
-  @JsonKey(name: '_id')
-  String id;
-  @JsonKey(name: 'name')
-  String name;
-  @JsonKey(name: 'number')
-  int number;
-  @JsonKey(name: 'email')
-  String email;
-  @JsonKey(name: 'password')
-  String password;
-  @JsonKey(name: 'image')
-  String image;
-  @JsonKey(name: 'is_Delete')
-  bool isDelete;
-  @JsonKey(name: 'isVerify')
-  bool isVerify;
-  @JsonKey(name: 'status')
-  bool status;
-  @JsonKey(name: 'roles')
-  Roles roles;
-  @JsonKey(name: 'createdAt')
-  DateTime createdAt;
-  @JsonKey(name: 'updatedAt')
-  DateTime updatedAt;
-  @JsonKey(name: '__v')
-  int v;
+    String id;
+    String name;
+    int number;
+    String email;
+    String image;
+    bool isDelete;
+    bool isVerify;
+    bool status;
+    Roles roles;
+    DateTime createdAt;
+    DateTime updatedAt;
+    int v;
 
-  Datum({
-    required this.id,
-    required this.name,
-    required this.number,
-    required this.email,
-    required this.password,
-    required this.image,
-    required this.isDelete,
-    required this.isVerify,
-    required this.status,
-    required this.roles,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-  });
+    Datum({
+        required this.id,
+        required this.name,
+        required this.number,
+        required this.email,
+        required this.image,
+        required this.isDelete,
+        required this.isVerify,
+        required this.status,
+        required this.roles,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.v,
+    });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["_id"] ?? '-',
+        name: json["name"]?? '-',
+        number: json["number"]?? '-',
+        email: json["email"]?? '-',
+        image: json["image"]?? '-',
+        isDelete: json["is_delete"]?? '-',
+        isVerify: json["isVerify"]?? '-',
+        status: json["status"]?? '-',
+        roles: Roles.fromJson(json["roles"]?? '-'),
+        createdAt: DateTime.parse(json["createdAt"]?? '-'),
+        updatedAt: DateTime.parse(json["updatedAt"]?? '-'),
+        v: json["__v"]?? '-',
+    );
 
-  Map<String, dynamic> toJson() => _$DatumToJson(this);
+    Map<String, dynamic> toJson() => {
+        "_id": id?? '-',
+        "name": name?? '-',
+        "number": number?? '-',
+        "email": email?? '-',
+        "image": image?? '-',
+        "is_delete": isDelete?? '-',
+        "isVerify": isVerify?? '-',
+        "status": status?? '-',
+        "roles": roles.toJson()?? '-',
+        "createdAt": createdAt.toIso8601String()?? '-',
+        "updatedAt": updatedAt.toIso8601String()?? '-',
+        "__v": v,
+    };
 }
 
-@JsonSerializable()
 class Roles {
-  @JsonKey(name: '_id')
-  String id;
-  @JsonKey(name: 'name')
-  String name;
-  @JsonKey(name: 'createdAt')
-  DateTime createdAt;
-  @JsonKey(name: 'updatedAt')
-  DateTime updatedAt;
-  @JsonKey(name: '__v')
-  int v;
+    String id;
+    String name;
+    DateTime createdAt;
+    DateTime updatedAt;
+    int v;
 
-  Roles({
-    required this.id,
-    required this.name,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-  });
+    Roles({
+        required this.id,
+        required this.name,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.v,
+    });
 
-  factory Roles.fromJson(Map<String, dynamic> json) => _$RolesFromJson(json);
+    factory Roles.fromJson(Map<String, dynamic> json) => Roles(
+        id: json["_id"]?? '-',
+        name: json["name"]?? '-',
+        createdAt: DateTime.parse(json["createdAt"]?? '-'),
+        updatedAt: DateTime.parse(json["updatedAt"]?? '-'),
+        v: json["__v"]?? '-',
+    );
 
-  Map<String, dynamic> toJson() => _$RolesToJson(this);
+    Map<String, dynamic> toJson() => {
+        "_id": id?? '-',
+        "name": name?? '-',
+        "createdAt": createdAt.toIso8601String()?? '-',
+        "updatedAt": updatedAt.toIso8601String()?? '-',
+        "__v": v?? '-',
+    };
 }

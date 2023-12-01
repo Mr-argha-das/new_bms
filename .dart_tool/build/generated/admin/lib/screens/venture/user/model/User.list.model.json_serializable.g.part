@@ -4,7 +4,7 @@
 
 UserListModel _$UserListModelFromJson(Map<String, dynamic> json) =>
     UserListModel(
-      status: json['Status'] as bool,
+      status: json['status'] as bool,
       message: json['message'] as String,
       data: (json['data'] as List<dynamic>)
           .map((e) => Datum.fromJson(e as Map<String, dynamic>))
@@ -13,7 +13,7 @@ UserListModel _$UserListModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserListModelToJson(UserListModel instance) =>
     <String, dynamic>{
-      'Status': instance.status,
+      'status': instance.status,
       'message': instance.message,
       'data': instance.data,
     };
@@ -23,9 +23,8 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       name: json['name'] as String,
       number: json['number'] as int,
       email: json['email'] as String,
-      password: json['password'] as String,
       image: json['image'] as String,
-      isDelete: json['is_Delete'] as bool,
+      isDelete: json['is_delete'] as bool,
       isVerify: json['isVerify'] as bool,
       status: json['status'] as bool,
       roles: Roles.fromJson(json['roles'] as Map<String, dynamic>),
@@ -39,9 +38,8 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'name': instance.name,
       'number': instance.number,
       'email': instance.email,
-      'password': instance.password,
       'image': instance.image,
-      'is_Delete': instance.isDelete,
+      'is_delete': instance.isDelete,
       'isVerify': instance.isVerify,
       'status': instance.status,
       'roles': instance.roles,

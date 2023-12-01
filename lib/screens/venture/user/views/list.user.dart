@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
@@ -7,8 +9,11 @@ import 'package:admin/responsive.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
 import 'package:admin/screens/venture/user/model/User.list.model.dart';
 import 'package:admin/screens/venture/user/service/user.service.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class UserHeader extends StatefulWidget {
   const UserHeader({Key? key}) : super(key: key);
@@ -93,19 +98,17 @@ class UserTable extends StatefulWidget {
 }
 
 class _UserTableState extends State<UserTable> {
-  Future<UserListModel>? model;
-  Future<UserListModel> getData(data) async {
-    data = await data.getUserList();
-    log(data);
-    return data;
-  }
+  Future<UserListModel>? dataModel;
 
   @override
+  void initState() {
+    super.initState();
+    dataModel = UserService.getUserList();
+  }
+  @override
   Widget build(BuildContext context) {
-    final userService = Provider.of<UserService>(context);
-    model = getData(userService);
     return FutureBuilder<UserListModel>(
-      future: model,
+      future: dataModel,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
@@ -142,21 +145,21 @@ class _UserTableState extends State<UserTable> {
                         label: Text("Email"),
                       ),
                       DataColumn(
-                        label: Text("Team Name"),
+                        label: Text("Post"),
                       ),
                       DataColumn(
                         label: Text("Edit"),
                       ),
                     ],
                     rows: List.generate(
-                      4,
+                      snapshot.data!.data.length,
                       (index) => userTable(
                           index: index + 1,
-                          name: 'afaf',
-                          email: 'aff',
-                          number: 'fafaf',
-                          teamName: 'afaf',
-                          image: 'fafaf'),
+                          name: snapshot.data!.data[index].name,
+                          email: snapshot.data!.data[index].email,
+                          number: snapshot.data!.data[index].number.toString(),
+                          teamName: snapshot.data!.data[index].roles.name,
+                          image: snapshot.data!.data[index].image),
                     ),
                   ),
                 ),
@@ -191,6 +194,7 @@ DataRow userTable({
         height: 40,
         width: 40,
         decoration: BoxDecoration(
+            image: DecorationImage(image: NetworkImage('https://squid-app-3-s689g.ondigitalocean.app/${image}',), fit: BoxFit.fill),
             color: Colors.white, borderRadius: BorderRadius.circular(50)),
       )),
       DataCell(Text(name)),
@@ -204,10 +208,3 @@ DataRow userTable({
     ],
   );
 }
-// userTable(
-//                           index: index + 1,
-//                           name: snapshot.data!.data[index].name,
-//                           email: snapshot.data!.data[index].email,
-//                           number: snapshot.data!.data[index].number.toString(),
-//                           teamName: snapshot.data!.data[index].roles.name,
-//                           image: snapshot.data!.data[index].image),

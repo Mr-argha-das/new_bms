@@ -82,7 +82,7 @@ class Env {
             ),
             ProxyProvider<Dio, UserService>(
               update: (context, dio, apiService) =>
-                  apiService ?? UserService(dio),
+                  apiService ?? UserService(),
             ),
           ],
           child: UsrMain(),
