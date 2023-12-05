@@ -3,6 +3,8 @@ import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/screens/Clients/main.client.dart';
 import 'package:admin/screens/Clients/views/Add.client.form.dart';
 import 'package:admin/screens/Clients/views/list.main.dart';
+import 'package:admin/screens/Master/Allocation.dart';
+import 'package:admin/screens/Master/QC.dart';
 import 'package:admin/screens/Task.add/AddToDotask.dart';
 import 'package:admin/screens/Task.add/ToDotask.dart';
 import 'package:admin/screens/Task.add/task.add.form.dart';
@@ -40,7 +42,7 @@ class Env {
                   apiService ?? LoginService(dio),
             ),
           ],
-          child: MainScreen(),
+          child: Allocation(),
         ),
     '/dashboard': (context, state, data) => MultiProvider(
           providers: [
@@ -81,8 +83,7 @@ class Env {
               create: (context) => createDio(),
             ),
             ProxyProvider<Dio, UserService>(
-              update: (context, dio, apiService) =>
-                  apiService ?? UserService(),
+              update: (context, dio, apiService) => apiService ?? UserService(),
             ),
           ],
           child: UsrMain(),
