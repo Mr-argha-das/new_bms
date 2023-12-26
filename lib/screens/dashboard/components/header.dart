@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:admin/config/get.user.data.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
 import 'package:beamer/beamer.dart';
@@ -46,6 +49,10 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final getUserData = UserDataGet();
+    
+    getUserData.getUserLocalData();
+    log(getUserData.name);
     return Container(
       margin: EdgeInsets.only(left: defaultPadding),
       padding: EdgeInsets.symmetric(
@@ -59,15 +66,15 @@ class ProfileCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
-            "assets/images/profile_pic.png",
+          Image.network(
+            "https://squid-app-3-s689g.ondigitalocean.app/${getUserData.image}",
             height: 38,
           ),
           if (!Responsive.isMobile(context))
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Angelina Jolie"),
+              child: Text(getUserData.name),
             ),
           Icon(Icons.keyboard_arrow_down),
         ],

@@ -1,7 +1,10 @@
+import 'package:admin/config/get.user.data.dart';
+import 'package:admin/config/locl.storage.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/screens/Clients/main.client.dart';
 import 'package:admin/screens/dashboard/Profile_pages/profile.page.dart';
+import 'package:admin/screens/loginpage/login.page.dart';
 import 'package:admin/screens/loginpage/service/api_service.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/screens/orders/main.orders.dart';
@@ -19,6 +22,7 @@ class Env {
     '/': (context, state, data) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => MenuAppController()),
+            ChangeNotifierProvider(create: (context) => UserDataGet()),
             Provider<Dio>(
               create: (context) => createDio(),
             ),
@@ -27,14 +31,17 @@ class Env {
                   apiService ?? LoginService(dio),
             ),
           ],
-          child: MainScreen(),
+          child: LoginPage(),
         ),
-    '/dashboard': (context, state, data) => MultiProvider(
+    '/dashboard': (context, state, data) {
+      MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (context) => MenuAppController())
+            ChangeNotifierProvider(create: (context) => MenuAppController()),
+            
           ],
           child: MainScreen(),
-        ),
+        );
+    },
     '/venture-list': (context, state, data) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => MenuAppController()),
@@ -102,3 +109,5 @@ class Env {
 }
 
 String appbaseUrl = "https://squid-app-3-s689g.ondigitalocean.app";
+  
+  

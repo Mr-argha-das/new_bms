@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class UserService{
   static Future<UserListModel> getUserList() async {
     final response = await http
-        .get(Uri.parse('https://squid-app-3-s689g.ondigitalocean.app/user'));
+        .get(Uri.parse(' '));
     print("//////////////////////////////////////////////////");
     print(response.body.toString());
     if (response.statusCode == 200) {

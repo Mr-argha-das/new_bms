@@ -1,12 +1,16 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:admin/config/get.user.data.dart';
+import 'package:admin/config/locl.storage.dart';
 import 'package:admin/constants.dart';
+import 'package:admin/screens/main/main_screen.dart';
 import 'package:connectivity/connectivity.dart';
 
 import 'package:admin/screens/loginpage/model/login_model.dart';
 import 'package:admin/screens/loginpage/service/api_service.dart';
 import 'package:beamer/beamer.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -176,36 +180,44 @@ class _LoginPageState extends State<LoginPage> {
                                     ConnectivityResult.none) {
                                   log("Check Internet connection");
                                 } else {
-                                  try {
-                                    log(" Internet connection");
-                                    final LoginResponse data =
-                                        await loginService.login(LoginModel(
-                                            email: _emailController.text,
-                                            password:
-                                                _passwordController.text));
-                                    log(data.message.toLowerCase());
-                                    if (data.status == true) {
-                                      Future.delayed(Duration(seconds: 3), () {
-                                        setState(() {
-                                          nextpageAnimation = true;
-                                        });
-                                      });
-                                      Beamer.of(context)
-                                          .beamToReplacementNamed('/dashboard');
-                                    } else {
+                                  log(" Internet connection");
+                                  final LoginResponse data =
+                                      await loginService.login(LoginModel(
+                                          email: _emailController.text,
+                                          password: _passwordController.text));
+                                  log(data.userData!.toString());
+                                  log(data.message.toLowerCase());
+
+                                  if (data.status == true) {
+                                    Future.delayed(Duration(seconds: 3), () {
                                       setState(() {
-                                        loding = false;
-                                        nextpage = false;
+                                        nextpageAnimation = true;
                                       });
-                                      _showMyDialog(data.message);
-                                    }
-                                  } catch (e) {
+                                    });
+                                    final setUserData =
+                                        UserDataGet();
+                                    setState(() {
+                                      setUserData.setData(
+                                          id: data.userData!.id,
+                                          name: data.userData!.name,
+                                          number:
+                                              data.userData!.number.toString(),
+                                          email: data.userData!.email,
+                                          image: data.userData!.image,
+                                          roleId: data.userData!.roles.name
+                                              .toString());
+                                    });
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                MainScreen()));
+                                  } else {
                                     setState(() {
                                       loding = false;
                                       nextpage = false;
                                     });
-                                    _showMyDialog(
-                                        "User not found. Please check your credentials.");
+                                    _showMyDialog("User not found. Please check your credentials.");
                                   }
                                 }
                               });
