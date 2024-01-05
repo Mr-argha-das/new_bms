@@ -4,6 +4,7 @@ import 'package:admin/screens/Task.add/model/task.by.user.model.dart';
 import 'package:admin/screens/Task.add/model/taskaddmodelres.dart';
 import 'package:admin/screens/Task.add/service/TaskApiService.dart';
 import 'package:beamer/beamer.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -276,12 +277,17 @@ class _CompleatTaskState extends State<CompleatTask> {
                 style: GoogleFonts.inter(fontSize: 14, color: Colors.white),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "${widget.gitlink}",
-                overflow: TextOverflow.clip,
-                style: GoogleFonts.inter(fontSize: 14, color: Colors.white),
+            GestureDetector(
+              onTap: (){
+                FlutterClipboard.copy('${widget.gitlink}').then(( value ) => print('copied'));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "${widget.gitlink}",
+                  overflow: TextOverflow.clip,
+                  style: GoogleFonts.inter(fontSize: 14, color: Colors.white),
+                ),
               ),
             ),
             Padding(
@@ -538,9 +544,14 @@ class _ToDotaskcardState extends State<ToDotaskcard> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text("${widget.projectToDO}"),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("${widget.gitSource}"),
+                    GestureDetector(
+                      onTap: (){
+                        FlutterClipboard.copy('${widget.gitSource}').then(( value ) => print('copied'));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("${widget.gitSource}"),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),

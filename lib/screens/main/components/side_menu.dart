@@ -100,7 +100,7 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/venture-list');
-              }else if(value == 0){
+              } else if (value == 0) {
                 Beamer.of(context).beamToNamed('/add-venture');
               }
             },
@@ -134,7 +134,7 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/team-list');
-              }else if(value == 0){
+              } else if (value == 0) {
                 Beamer.of(context).beamToNamed('/add-team');
               }
             },
@@ -158,7 +158,6 @@ class SideMenu extends StatelessWidget {
                   Icons.arrow_drop_down_rounded,
                   color: Colors.white,
                 )
-                
               ],
             ),
             svgSrc: "assets/icons/menu_store.svg",
@@ -170,7 +169,7 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/user-list');
-              }else if(value == 0){
+              } else if (value == 0) {
                 Beamer.of(context).beamToNamed('/user-add');
               }
             },
@@ -206,7 +205,7 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/client-list');
-              }else if(value == 0){
+              } else if (value == 0) {
                 Beamer.of(context).beamToNamed('/client-add');
               }
             },
@@ -271,14 +270,16 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 0) {
                 Beamer.of(context).beamToNamed('/task-list');
+              } else if (value == 1) {
+                Beamer.of(context).beamToNamed('/task-add');
               }
             },
             items: [
-              
               PagesName(id: 1, name: "Tasks List"),
               PagesName(id: 1, name: "ADD Task"),
             ],
           ),
+          
           // DrawerListTile(
           //   title: "Profile",
           //   svgSrc: "assets/icons/menu_profile.svg",
