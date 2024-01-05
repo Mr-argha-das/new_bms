@@ -1,0 +1,253 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'order_api_service.dart';
+
+// **************************************************************************
+// RetrofitGenerator
+// **************************************************************************
+
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+
+class _OrderService implements OrderService {
+  _OrderService(
+    this._dio, {
+    this.baseUrl,
+  }) {
+    baseUrl ??= 'https://squid-app-3-s689g.ondigitalocean.app';
+  }
+
+  final Dio _dio;
+
+  String? baseUrl;
+
+  @override
+  Future<OrderListModel> getOrderListByUserId(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<OrderListModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/order-find/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = OrderListModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ServiceModel> getService() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ServiceModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/service-get',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ServiceModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Currencymodel> getCurrency() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<Currencymodel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/currency-get',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = Currencymodel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<OrderAddResponse> addOrder({
+    required String clientId,
+    required String currencyId,
+    required String serviceId,
+    required String inrAmmount,
+    required String audAmmount,
+    required String clientAmmount,
+    required String totalAmmount,
+    required String PPT,
+    required String moduleCode,
+    required String moduleName,
+    required String deadline,
+    required String wordCount,
+    required String paymentType,
+    required String shortNote,
+    required File image,
+    required File file,
+    required String userId,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'clientId',
+      clientId,
+    ));
+    _data.fields.add(MapEntry(
+      'currencyId',
+      currencyId,
+    ));
+    _data.fields.add(MapEntry(
+      'serviceId',
+      serviceId,
+    ));
+    _data.fields.add(MapEntry(
+      'inrAmmount',
+      inrAmmount,
+    ));
+    _data.fields.add(MapEntry(
+      'audAmmount',
+      audAmmount,
+    ));
+    _data.fields.add(MapEntry(
+      'clientAmmount',
+      clientAmmount,
+    ));
+    _data.fields.add(MapEntry(
+      'totalAmmount',
+      totalAmmount,
+    ));
+    _data.fields.add(MapEntry(
+      'PPT',
+      PPT,
+    ));
+    _data.fields.add(MapEntry(
+      'moduleCode',
+      moduleCode,
+    ));
+    _data.fields.add(MapEntry(
+      'moduleName',
+      moduleName,
+    ));
+    _data.fields.add(MapEntry(
+      'deadline',
+      deadline,
+    ));
+    _data.fields.add(MapEntry(
+      'wordCount',
+      wordCount,
+    ));
+    _data.fields.add(MapEntry(
+      'paymentType',
+      paymentType,
+    ));
+    _data.fields.add(MapEntry(
+      'shortNote',
+      shortNote,
+    ));
+    _data.files.add(MapEntry(
+      'image',
+      MultipartFile.fromFileSync(
+        image.path,
+        filename: image.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.files.add(MapEntry(
+      'file',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'userId',
+      userId,
+    ));
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<OrderAddResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              '/order-create',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = OrderAddResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
+    if (T != dynamic &&
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
+      if (T == String) {
+        requestOptions.responseType = ResponseType.plain;
+      } else {
+        requestOptions.responseType = ResponseType.json;
+      }
+    }
+    return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
+  }
+}

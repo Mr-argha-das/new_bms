@@ -1,0 +1,119 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'user.api.service.dart';
+
+// **************************************************************************
+// RetrofitGenerator
+// **************************************************************************
+
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+
+class _UserApiService implements UserApiService {
+  _UserApiService(
+    this._dio, {
+    this.baseUrl,
+  }) {
+    baseUrl ??= 'https://squid-app-3-s689g.ondigitalocean.app';
+  }
+
+  final Dio _dio;
+
+  String? baseUrl;
+
+  @override
+  Future<UserAddResponse> addUser({
+    required File image,
+    required String roles,
+    required String teams,
+    required String name,
+    required String email,
+    required String number,
+    required String password,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.add(MapEntry(
+      'image',
+      await MultipartFile.fromFile(
+        image.path,
+        filename: image.path,
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'roles',
+      roles,
+    ));
+    _data.fields.add(MapEntry(
+      'teams',
+      teams,
+    ));
+    _data.fields.add(MapEntry(
+      'name',
+      name,
+    ));
+    _data.fields.add(MapEntry(
+      'email',
+      email,
+    ));
+    _data.fields.add(MapEntry(
+      'number',
+      number,
+    ));
+    _data.fields.add(MapEntry(
+      'password',
+      password,
+    ));
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UserAddResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              '/user-create',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UserAddResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
+    if (T != dynamic &&
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
+      if (T == String) {
+        requestOptions.responseType = ResponseType.plain;
+      } else {
+        requestOptions.responseType = ResponseType.json;
+      }
+    }
+    return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
+  }
+}

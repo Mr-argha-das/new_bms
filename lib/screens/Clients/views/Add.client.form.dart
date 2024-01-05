@@ -1,6 +1,13 @@
+import 'dart:developer';
+
+import 'package:admin/config/get.user.data.dart';
+import 'package:admin/screens/Clients/model/clientAddResponse.dart';
+import 'package:admin/screens/Clients/service/client_api_service.dart';
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:provider/provider.dart';
 
 class AddClientForm extends StatefulWidget {
   const AddClientForm({Key? key}) : super(key: key);
@@ -16,9 +23,13 @@ class _AddClientFormState extends State<AddClientForm> {
   final lastnameController = TextEditingController();
   final universityController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'NG';
+  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  String? iscode;
   @override
   Widget build(BuildContext context) {
+    final clientService = Provider.of<ClientService>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Form(
@@ -107,6 +118,12 @@ class _AddClientFormState extends State<AddClientForm> {
                                                   fontSize: 13,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w300)),
+                                          validator: (value) {
+                                            if (value!.isEmpty ||
+                                                value == null) {
+                                              return "This Field Required";
+                                            }
+                                          },
                                         ),
                                       )),
                                 ),
@@ -137,6 +154,12 @@ class _AddClientFormState extends State<AddClientForm> {
                                                   fontSize: 13,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w300)),
+                                          validator: (value) {
+                                            if (value!.isEmpty ||
+                                                value == null) {
+                                              return "This Field Required";
+                                            }
+                                          },
                                         ),
                                       )),
                                 ),
@@ -173,6 +196,12 @@ class _AddClientFormState extends State<AddClientForm> {
                                                   fontSize: 13,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w300)),
+                                          validator: (value) {
+                                            if (value!.isEmpty ||
+                                                value == null) {
+                                              return "This Field Required";
+                                            }
+                                          },
                                         ),
                                       )),
                                 ),
@@ -203,6 +232,12 @@ class _AddClientFormState extends State<AddClientForm> {
                                                   fontSize: 13,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w300)),
+                                          validator: (value) {
+                                            if (value!.isEmpty ||
+                                                value == null) {
+                                              return "This Field Required";
+                                            }
+                                          },
                                         ),
                                       )),
                                 ),
@@ -213,26 +248,50 @@ class _AddClientFormState extends State<AddClientForm> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: 35,
-                            width: 300,
+                            height: 55,
+                            width: 350,
                             decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 239, 239, 239),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Center(
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    controller: mobileController,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 13),
-                                    decoration: InputDecoration.collapsed(
-                                        border: InputBorder.none,
-                                        hintText: 'Mobile number',
-                                        hintStyle: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w300)),
+                                  child: InternationalPhoneNumberInput(
+                                    onInputChanged: (PhoneNumber number) {
+                                      setState(() {
+                                        iscode = number.dialCode.toString();
+                                      });
+                                    },
+                                    onInputValidated: (bool value) {
+                                      log(value.toString());
+                                    },
+                                    selectorConfig: const SelectorConfig(
+                                      selectorType:
+                                          PhoneInputSelectorType.BOTTOM_SHEET,
+                                    ),
+                                    textStyle: TextStyle(color: Colors.black),
+                                    ignoreBlank: false,
+                                    autoValidateMode: AutovalidateMode.disabled,
+                                    selectorTextStyle:
+                                        const TextStyle(color: Colors.black),
+                                    initialValue: number,
+                                    textFieldController: controller,
+                                    formatInput: false,
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            signed: true, decimal: true),
+                                    inputBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent)),
+                                    onSaved: (PhoneNumber number) {
+                                      log('On Saved: $number');
+                                    },
+                                    validator: (value) {
+                                      if (value!.isEmpty || value == null) {
+                                        return "This Field Required";
+                                      }
+                                    },
                                   ),
                                 )),
                           ),
@@ -251,17 +310,36 @@ class _AddClientFormState extends State<AddClientForm> {
                         SizedBox(
                           height: 40,
                         ),
-                        Container(
-                          height: 40,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Center(
-                            child: Text("Submit",
-                                style: GoogleFonts.montserrat(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
+                        GestureDetector(
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              final getUserData = UserDataGet();
+                              getUserData.getUserLocalData();
+                              ClientAddResponse data = await clientService
+                                  .addClientAdd(ClientAddBody(
+                                      name:
+                                          "${firstnameController.text} ${lastnameController.text}",
+                                      number: "${controller.text}",
+                                      email: emailController.text,
+                                      password: controller.text,
+                                      createdBy: getUserData.id,
+                                      university: universityController.text));
+                               Beamer.of(context).beamToNamed('/client-list');
+                               
+                            }
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 150,
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text("Submit",
+                                  style: GoogleFonts.montserrat(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                            ),
                           ),
                         )
                       ],
@@ -274,6 +352,12 @@ class _AddClientFormState extends State<AddClientForm> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
 

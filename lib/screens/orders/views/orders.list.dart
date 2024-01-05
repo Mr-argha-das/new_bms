@@ -1,7 +1,12 @@
+import 'dart:developer';
+
+import 'package:admin/config/get.user.data.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/models/RecentFile.dart';
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/orders/model/orderlistmodel.dart';
+import 'package:admin/screens/orders/service/order_api_service.dart';
 import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +109,20 @@ class _OrdersHeaderState extends State<OrdersHeader> {
   }
 }
 
+// FutureBuilder<Album>(
+//   future: futureAlbum,
+//   builder: (context, snapshot) {
+//     if (snapshot.hasData) {
+//       return Text(snapshot.data!.title);
+//     } else if (snapshot.hasError) {
+//       return Text('${snapshot.error}');
+//     }
+
+//     // By default, show a loading spinner.
+//     return const CircularProgressIndicator();
+//   },
+// )
+
 class OrdersTable extends StatefulWidget {
   const OrdersTable({Key? key}) : super(key: key);
 
@@ -112,75 +131,108 @@ class OrdersTable extends StatefulWidget {
 }
 
 class _OrdersTableState extends State<OrdersTable> {
-  @override
+  Future<OrderListModel>? model;
+  Future<OrderListModel> getData() async {
+    final orderService = Provider.of<OrderService>(context);
+    final getUserData = UserDataGet();
+    getUserData.getUserLocalData();
+    final data = orderService.getOrderListByUserId(getUserData.id);
+    return data;
+  }
+
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Order List",
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: DataTable(
-              columnSpacing: defaultPadding,
-              columns: [
-                DataColumn(
-                  label: Text("#"),
-                ),
-                DataColumn(
-                  label: Text("Orders Number"),
-                ),
-                DataColumn(
-                  label: Text("Client Name"),
-                ),
-                DataColumn(
-                  label: Text("Deadline"),
-                ),
-                DataColumn(
-                  label: Text("Email"),
-                ),
-                DataColumn(
-                  label: Text("Service"),
-                ),
-                DataColumn(
-                  label: Text("BD Name"),
-                ),
-                DataColumn(
-                  label: Text("Action"),
-                ),
-              ],
-              rows: List.generate(
-                demoRecentFiles.length,
-                (index) => userTable(demoRecentFiles[index], index + 1),
+    model = getData();
+    return FutureBuilder<OrderListModel>(
+        future: model,
+        builder: (context, snapshot) {
+          log("/////////////////////////////////////////////////////");
+          log(snapshot.data!.data.toString());
+          if (snapshot.hasData) {
+            return Container(
+              padding: EdgeInsets.all(defaultPadding),
+              decoration: BoxDecoration(
+                color: secondaryColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
-            ),
-          ),
-        ],
-      ),
-    );
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Order List",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: DataTable(
+                      columnSpacing: defaultPadding,
+                      columns: [
+                        DataColumn(
+                          label: Text("#"),
+                        ),
+                        DataColumn(
+                          label: Text("Orders Number"),
+                        ),
+                        DataColumn(
+                          label: Text("Client Name"),
+                        ),
+                        DataColumn(
+                          label: Text("Deadline"),
+                        ),
+                        DataColumn(
+                          label: Text("Email"),
+                        ),
+                        DataColumn(
+                          label: Text("Service"),
+                        ),
+                        
+                        DataColumn(
+                          label: Text("Action"),
+                        ),
+                      ],
+                      rows: List.generate(
+                        3,
+                        (index) => userTable(
+                            count: index+1,
+                            orderNumber: snapshot.data!.data[index].orderNumber,
+                            clienName: snapshot.data!.data[index].clientId.name,
+                            deadline: snapshot.data!.data[index].deadline,
+                            email: snapshot.data!.data[index].clientId.email,
+                            service: snapshot.data!.data[index].serviceId,
+                            ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+          return const CircularProgressIndicator();
+        });
   }
 }
 
-DataRow userTable(RecentFile fileInfo, int index) {
+DataRow userTable({
+  required int count,
+  required String orderNumber,
+  required String clienName,
+  required String deadline,
+  required String email,
+  required String service,
+
+}) {
   return DataRow(
     cells: [
       DataCell(
-        Text(index.toString()),
+        Text(count.toString()),
       ),
-      DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text(fileInfo.size!)),
+      DataCell(Text(orderNumber)),
+      DataCell(Text(clienName)),
+      DataCell(Text(deadline)),
+      DataCell(Text(email)),
+      DataCell(Text(service)),
+      
       DataCell(
         PopupMenuButton<String>(
           shape: RoundedRectangleBorder(

@@ -10,12 +10,14 @@ VentureCreateField _$VentureCreateFieldFromJson(Map<String, dynamic> json) =>
     VentureCreateField(
       name: json['name'] as String,
       type: json['type'] as String,
+      status: json['status'] as bool,
     );
 
 Map<String, dynamic> _$VentureCreateFieldToJson(VentureCreateField instance) =>
     <String, dynamic>{
       'name': instance.name,
       'type': instance.type,
+      'status': instance.status,
     };
 
 // **************************************************************************

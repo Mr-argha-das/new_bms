@@ -1,7 +1,10 @@
+import 'package:admin/config/get.user.data.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/models/RecentFile.dart';
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/Clients/model/clientlistmodel.dart';
+import 'package:admin/screens/Clients/service/client_api_service.dart';
 import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
 import 'package:admin/screens/venture/user/model/User.list.model.dart';
@@ -108,17 +111,20 @@ class ClientTable extends StatefulWidget {
 }
 
 class _ClientTableState extends State<ClientTable> {
-  Future<UserListModel>? model;
-  Future<UserListModel> getData(data) async {
-    data = await data.getUserList();
+  Future<ClientListModel>? model;
+  Future<ClientListModel> getData() async {
+    final clientService = Provider.of<ClientService>(context);
+    final getUserData = UserDataGet();
+    getUserData.getUserLocalData();
+    final data = clientService.getClientList(getUserData.id);
+    // data = await data.getClientList();
     return data;
   }
 
   @override
   Widget build(BuildContext context) {
-    final userService = Provider.of<UserService>(context);
-    model = getData(userService);
-    return FutureBuilder<UserListModel>(
+    model = getData();
+    return FutureBuilder<ClientListModel>(
       future: model,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -145,7 +151,7 @@ class _ClientTableState extends State<ClientTable> {
                         label: Text("#"),
                       ),
                       DataColumn(
-                        label: Text("Username"),
+                        label: Text("Client name"),
                       ),
                       DataColumn(
                         label: Text("Phone"),
@@ -161,13 +167,13 @@ class _ClientTableState extends State<ClientTable> {
                       ),
                     ],
                     rows: List.generate(
-                      snapshot.data!.data.length + 1,
+                      snapshot.data!.data.length,
                       (index) => userTable(
                           id: snapshot.data!.data[index].id,
                           phone: snapshot.data!.data[index].number.toString(),
                           name: snapshot.data!.data[index].name,
                           email: snapshot.data!.data[index].email,
-                          uni: snapshot.data!.data[index].roles.name,
+                          uni: snapshot.data!.data[index].name,
                           index: index + 1),
                     ),
                   ),

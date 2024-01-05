@@ -34,27 +34,27 @@ class UserDataGet extends ChangeNotifier {
     return _roleId!;
   }
 
-  set id(String value) {
+  set id(String? value) {
     _id = value;
   }
 
-  set name(String value) {
+  set name(String? value) {
     _name = value;
   }
 
-  set number(String value) {
+  set number(String? value) {
     _number = value;
   }
 
-  set email(String value) {
+  set email(String? value) {
     _email = value;
   }
 
-  set image(String value) {
+  set image(String? value) {
     _image = value;
   }
 
-  set roleId(String value) {
+  set roleId(String? value) {
     _roleId = value;
   }
 
@@ -71,13 +71,7 @@ class UserDataGet extends ChangeNotifier {
     number = number;
     image = image;
     roleId = roleId;
-    // SharedPreferences pref = await SharedPreferences.getInstance();
-    // await pref.setString('id', id);
-    // await pref.setString('name', name);
-    // await pref.setString('number', number);
-    // await pref.setString('email', email);
-    // await pref.setString('image', image);
-    // await pref.setString('roleid', roleId);
+
     SessionStorage()
       ..addAll({
         'id': id,
@@ -90,19 +84,12 @@ class UserDataGet extends ChangeNotifier {
   }
 
   void getUserLocalData() async {
-    // SharedPreferences pref = await SharedPreferences.getInstance();
-    // id = pref.getString('id')!;
-    // name = pref.getString('name')!;
-    // number = pref.getString('number')!;
-    // email = pref.getString('email')!;
-    // image = pref.getString('image')!;
-    // roleId = pref.getString('roleid')!;
-     final session = SessionStorage();
-     id = session['id'].toString();
-     name = session['name'].toString();
-     number = session['number'].toString();
-     email = session['email'].toString();
-     image = session['image'].toString();
-     roleId = session['roleid'].toString();
+    final session = SessionStorage();
+    id = session['id'].toString();
+    name = session['name'].toString();
+    number = session['number'].toString();
+    email = session['email'].toString();
+    image = session['image'].toString();
+    roleId = session['roleid'].toString();
   }
 }

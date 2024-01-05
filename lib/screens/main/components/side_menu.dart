@@ -134,6 +134,8 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/team-list');
+              }else if(value == 0){
+                Beamer.of(context).beamToNamed('/add-team');
               }
             },
             height: 70,
@@ -168,6 +170,8 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/user-list');
+              }else if(value == 0){
+                Beamer.of(context).beamToNamed('/user-add');
               }
             },
             height: 70,
@@ -202,6 +206,8 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/client-list');
+              }else if(value == 0){
+                Beamer.of(context).beamToNamed('/client-add');
               }
             },
           ),
@@ -237,6 +243,40 @@ class SideMenu extends StatelessWidget {
               PagesName(id: 1, name: "Order add"),
               PagesName(id: 1, name: "Order List"),
               PagesName(id: 1, name: "Order chat"),
+            ],
+          ),
+          DrawerListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "TASKS",
+                  style: GoogleFonts.montserrat(
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(
+                  Icons.arrow_drop_down_rounded,
+                  color: Colors.white,
+                )
+              ],
+            ),
+            height: 100,
+            svgSrc: "assets/icons/menu_profile.svg",
+            press: () {},
+            onPageChange: (value) {
+              if (value == 0) {
+                Beamer.of(context).beamToNamed('/task-list');
+              }
+            },
+            items: [
+              
+              PagesName(id: 1, name: "Tasks List"),
+              PagesName(id: 1, name: "ADD Task"),
             ],
           ),
           // DrawerListTile(

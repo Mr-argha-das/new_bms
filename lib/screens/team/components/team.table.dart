@@ -16,6 +16,7 @@ class TeamTable extends StatefulWidget {
 class _TeamTableState extends State<TeamTable> {
   @override
   Future<TeamListModel>? model;
+  
   Future<TeamListModel> getTeams(data) async {
     data = await data.getTeamList();
     return data;

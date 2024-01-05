@@ -24,10 +24,13 @@ class VentureCreateField {
   String name;
   @JsonKey(name: 'type')
   String type;
+  @JsonKey(name: 'status')
+  bool status;
 
   VentureCreateField({
     required this.name,
     required this.type,
+    required this.status,
   });
 
   factory VentureCreateField.fromJson(Map<String, dynamic> json) =>
