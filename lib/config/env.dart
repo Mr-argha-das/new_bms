@@ -3,10 +3,21 @@ import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/config/rolesservices/rolesservice.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/screens/Clients/main.client.dart';
+<<<<<<< HEAD
 import 'package:admin/screens/Clients/service/client_api_service.dart';
 import 'package:admin/screens/Task.add/ToDoTask.dart';
 import 'package:admin/screens/Task.add/main.task.dart';
 import 'package:admin/screens/Task.add/service/TaskApiService.dart';
+=======
+
+import 'package:admin/screens/Clients/views/Add.client.form.dart';
+import 'package:admin/screens/Clients/views/list.main.dart';
+import 'package:admin/screens/Master/Allocation.dart';
+import 'package:admin/screens/Master/QC.dart';
+import 'package:admin/screens/Task.add/AddToDotask.dart';
+import 'package:admin/screens/Task.add/ToDotask.dart';
+
+>>>>>>> ff2a6741d3d3780ede7418877fc466325707317d
 import 'package:admin/screens/dashboard/Profile_pages/profile.page.dart';
 import 'package:admin/screens/loginpage/login.page.dart';
 import 'package:admin/screens/loginpage/service/api_service.dart';
@@ -49,7 +60,11 @@ class Env {
                   apiService ?? LoginService(dio),
             ),
           ],
+<<<<<<< HEAD
           child: LoginPage(),
+=======
+          child: Allocation(),
+>>>>>>> ff2a6741d3d3780ede7418877fc466325707317d
         ),
     '/add-team': (context, state, data) => MultiProvider(
           providers: [
