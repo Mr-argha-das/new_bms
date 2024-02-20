@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:admin/config/get.user.data.dart';
 import 'package:admin/screens/Task.add/model/TaskModel.dart';
 import 'package:admin/screens/Task.add/model/task.by.user.model.dart';
+import 'package:admin/screens/Task.add/model/taskUpdateModel.dart';
 import 'package:admin/screens/Task.add/model/taskaddmodelres.dart';
 import 'package:admin/screens/Task.add/service/TaskApiService.dart';
 import 'package:beamer/beamer.dart';
@@ -20,12 +23,13 @@ class ToDoTask extends StatefulWidget {
 class _ToDoTaskState extends State<ToDoTask> {
   Future<TaskListModel>? model;
   Future<TaskByUserModel>? taskbyUsermodel;
-
+  List<String>? selectedTaskLsit = [];
   @override
   Widget build(BuildContext context) {
     final taskApiService = Provider.of<TaskApiService>(context);
     final data = UserDataGet();
     data.getUserLocalData();
+    log(selectedTaskLsit!.indexOf('dad').toString());
     model = taskApiService.getTasks();
     taskbyUsermodel = taskApiService.getTasksByUserId(data.id);
 
@@ -84,16 +88,22 @@ class _ToDoTaskState extends State<ToDoTask> {
                                         projectToDO: snapshot
                                             .data!.data[index].projectTudo,
                                         taskId: snapshot.data!.data[index].id,
-                                        onSubmit: () {
+                                        status:
+                                            snapshot.data!.data[index].status,
+                                        isdone:
+                                            snapshot.data!.data[index].isDone,
+                                        onSubmit: (value) {
                                           setState(() {
                                             model = taskApiService.getTasks();
                                             taskbyUsermodel = taskApiService
                                                 .getTasksByUserId(data.id);
+                                                selectedTaskLsit!.add(value);
                                           });
                                         },
                                       ),
                                     ),
                                   );
+                                  
                                 })
                           ],
                         ),
@@ -126,7 +136,9 @@ class _ToDoTaskState extends State<ToDoTask> {
                                         width: 50,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
-                                            image: DecorationImage(image: NetworkImage('https://squid-app-3-s689g.ondigitalocean.app/${data.image}')),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    'https://squid-app-3-s689g.ondigitalocean.app/${data.image}')),
                                             borderRadius:
                                                 BorderRadius.circular(30)),
                                       ),
@@ -195,7 +207,10 @@ class _ToDoTaskState extends State<ToDoTask> {
                                                     .data!
                                                     .data[index]
                                                     .taskId
-                                                    .projectTudo, hours: snapshot2.data!.data[index].points.toString(),
+                                                    .projectTudo,
+                                                hours: snapshot2
+                                                    .data!.data[index].points
+                                                    .toString(),
                                               );
                                             });
                                       } else if (snapshot.hasError) {
@@ -278,8 +293,11 @@ class _CompleatTaskState extends State<CompleatTask> {
               ),
             ),
             GestureDetector(
-              onTap: (){
-                FlutterClipboard.copy('${widget.gitlink}').then(( value ) => print('copied'));
+              onTap: () {
+                FlutterClipboard.copy('${widget.gitlink}').then((value) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Link Copid succes")));
+                });
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -312,6 +330,8 @@ class ToDotaskcard extends StatefulWidget {
   final String description;
   final String taskId;
   final Function onSubmit;
+  final bool isdone;
+  final bool status;
   const ToDotaskcard(
       {Key? key,
       required this.index,
@@ -319,6 +339,8 @@ class ToDotaskcard extends StatefulWidget {
       required this.gitSource,
       required this.description,
       required this.projectToDO,
+      required this.isdone,
+      required this.status,
       required this.taskId})
       : super(key: key);
 
@@ -340,229 +362,268 @@ class _ToDotaskcardState extends State<ToDotaskcard> {
     final taskApiService = Provider.of<TaskApiService>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 200,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color.fromARGB(255, 42, 46, 62),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.black),
-                        child: Center(
-                          child: Text(
-                            "${widget.index}",
-                            style: GoogleFonts.inter(
-                                fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  flex: 4,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 30,
-                          width: 350,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color.fromARGB(24, 255, 255, 255)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8),
-                                      child: Text(
-                                        "Hours|",
-                                        style: GoogleFonts.inter(
-                                            fontSize: 16, color: Colors.white),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.amber.shade500,
-                                    ),
-                                    DropdownButtonHideUnderline(
-                                      child: DropdownButton2<String>(
-                                        isExpanded: true,
-                                        hint: Text(
-                                          "1",
-                                          style: GoogleFonts.inter(
-                                              fontSize: 14,
-                                              color: Colors.white),
-                                        ),
-                                        items: items
-                                            .map((String item) =>
-                                                DropdownMenuItem<String>(
-                                                  value: item,
-                                                  child: Text(
-                                                    item,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ))
-                                            .toList(),
-                                        value: selectedValue,
-                                        onChanged: (String? value) {
-                                          setState(() {
-                                            selectedValue = value;
-                                          });
-                                        },
-                                        buttonStyleData: const ButtonStyleData(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 16),
-                                          height: 40,
-                                          width: 80,
-                                        ),
-                                        menuItemStyleData:
-                                            const MenuItemStyleData(
-                                          height: 40,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(4),
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final userData = UserDataGet();
-                                    userData.getUserLocalData();
-                                    TaskAddResponseModel response =
-                                        await taskApiService.taskAccept(
-                                            TaskAcceptBody(
-                                                userId: userData.id,
-                                                taskId: widget.taskId,
-                                                points: selectedValue!));
-                                    widget.onSubmit();
-                                  },
-                                  child: Container(
-                                    height: 25,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.red),
-                                    child: Center(
-                                      child: Text(
-                                        "Accept",
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12, color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            height: 200,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: const Color.fromARGB(255, 42, 46, 62),
             ),
-            Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Project Name"),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: Colors.black),
+                            child: Center(
+                              child: Text(
+                                "${widget.index}",
+                                style: GoogleFonts.inter(
+                                    fontSize: 18, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Github Source"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Description"),
-                    ),
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("|"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("|"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("|"),
-                    ),
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("${widget.projectToDO}"),
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        FlutterClipboard.copy('${widget.gitSource}').then(( value ) => print('copied'));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("${widget.gitSource}"),
+                    Expanded(
+                      flex: 4,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 30,
+                              width: 350,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color.fromARGB(24, 255, 255, 255)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8),
+                                          child: Text(
+                                            "Hours|",
+                                            style: GoogleFonts.inter(
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          color: Colors.amber.shade500,
+                                        ),
+                                        DropdownButtonHideUnderline(
+                                          child: DropdownButton2<String>(
+                                            isExpanded: true,
+                                            hint: Text(
+                                              "1",
+                                              style: GoogleFonts.inter(
+                                                  fontSize: 14,
+                                                  color: Colors.white),
+                                            ),
+                                            items: items
+                                                .map((String item) =>
+                                                    DropdownMenuItem<String>(
+                                                      value: item,
+                                                      child: Text(
+                                                        item,
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                            value: selectedValue,
+                                            onChanged: (String? value) {
+                                              setState(() {
+                                                selectedValue = value;
+                                              });
+                                            },
+                                            buttonStyleData:
+                                                const ButtonStyleData(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 16),
+                                              height: 40,
+                                              width: 80,
+                                            ),
+                                            menuItemStyleData:
+                                                const MenuItemStyleData(
+                                              height: 40,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                      child: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        if (widget.status == false) {
+                                          final userData = UserDataGet();
+                                          userData.getUserLocalData();
+                                          TaskAddResponseModel response =
+                                              await taskApiService.taskAccept(
+                                                  TaskAcceptBody(
+                                                      userId: userData.id,
+                                                      taskId: widget.taskId,
+                                                      points: selectedValue!));
+                                          TaskUpdateModel response2 =
+                                              await taskApiService.taskUpdate(
+                                                  widget.taskId,
+                                                  TaskUpdateBodyModel(
+                                                      status: "true",
+                                                      isDone: "false"));
+                                          widget.onSubmit();
+                                        }
+                                      },
+                                      child: Container(
+                                        height: 25,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.red),
+                                        child: Center(
+                                          child: Text(
+                                            "Accept",
+                                            style: GoogleFonts.inter(
+                                                fontSize: 12,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ))
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("${widget.description}"),
-                    ),
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Project Name"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Github Source"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("Description"),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("|"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("|"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("|"),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("${widget.projectToDO}"),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            FlutterClipboard.copy('${widget.gitSource}')
+                                .then((value) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Link Copid succes")));
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("${widget.gitSource}"),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("${widget.description}"),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+          if (widget.status == true) ...[
+            Container(
+              height: 200,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white.withOpacity(0.7)),
+                  child: Center(child: Text("This Task Picked By Someone", style: GoogleFonts.montserrat(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22
+                  ),)),
+            ),
+          ]
+        ],
       ),
     );
   }

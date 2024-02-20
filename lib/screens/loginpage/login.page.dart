@@ -36,8 +36,7 @@ class _LoginPageState extends State<LoginPage> {
     final data = UserDataGet();
     data.getUserLocalData();
     if (data.id == null) {
-      Navigator.push(
-          context, CupertinoPageRoute(builder: (context) => MainScreen()));
+      
     }
   }
 

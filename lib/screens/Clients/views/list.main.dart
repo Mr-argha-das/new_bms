@@ -237,7 +237,8 @@ DataRow userTable(
             PopupMenuItem<String>(
               padding: EdgeInsets.all(10),
               height: 25,
-              child: Center(child: Icon(Icons.shopping_cart)),
+              child: Center(child: GestureDetector(
+                child: Icon(Icons.shopping_cart))),
             ),
             // Add more menu items as needed
           ],

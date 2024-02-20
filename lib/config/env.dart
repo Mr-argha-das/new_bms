@@ -11,6 +11,7 @@ import 'package:admin/screens/Task.add/service/TaskApiService.dart';
 import 'package:admin/screens/dashboard/Profile_pages/profile.page.dart';
 import 'package:admin/screens/loginpage/login.page.dart';
 import 'package:admin/screens/loginpage/service/api_service.dart';
+import 'package:admin/screens/main.service/fileupload.service.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/screens/orders/main.orders.dart';
 import 'package:admin/screens/orders/service/order_api_service.dart';
@@ -37,7 +38,7 @@ class Env {
                   apiService ?? OrderService(dio),
             ),
           ],
-          child: AddOrders(),
+          child: MainAddOrder(),
         ),
     '/': (context, state, data) => MultiProvider(
           providers: [
@@ -67,13 +68,8 @@ class Env {
           ],
           child: TeamFromMain(),
         ),
-    '/dashboard': (context, state, data) {
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => MenuAppController()),
-        ],
-        child: MainScreen(),
-      );
+    '/main': (context, state, data) {
+      MainScreen();
     },
     '/venture-list': (context, state, data) => MultiProvider(
           providers: [
@@ -137,6 +133,10 @@ class Env {
               update: (context, dio, apiService) =>
                   apiService ?? UserApiService(dio),
             ),
+            ProxyProvider<Dio, FileUploadService>(
+              update: (context, dio, apiService) =>
+                  apiService ?? FileUploadService(dio),
+            )
           ],
           child: UserAddMain(),
         ),
@@ -227,7 +227,7 @@ class Env {
             ),
           ],
           child: TaskADD(),
-        )
+        ),
   };
 }
 

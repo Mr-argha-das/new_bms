@@ -22,7 +22,7 @@ abstract class AddTeamApi{
 
 @JsonSerializable()
 class TeamAddModel {
-  
+   
   @JsonKey(name:'name')
   final String name;
   @JsonKey(name: 'type')

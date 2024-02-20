@@ -13,11 +13,7 @@ abstract class UserApiService {
   @POST('/user-create')
   @MultiPart()
   Future<UserAddResponse> addUser(
-      {@Part() required File image,
-      @Part() required String roles,
-      @Part() required String teams,
-      @Part() required String name,
-      @Part() required String email,
-      @Part() required String number,
-      @Part() required String password});
+      {@Part() required Map<String, dynamic> data});
+     
+  
 }

@@ -2,13 +2,16 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/config/rolesmodel/roles.model.dart';
 import 'package:admin/config/rolesservices/rolesservice.dart';
+import 'package:admin/screens/main.service/fileupload.service.dart';
 import 'package:admin/screens/team/model/team.list.model.dart';
 import 'package:admin/screens/team/service/add_team_api.dart';
 import 'package:admin/screens/venture/user/model/user.add.res.dart';
 import 'package:admin/screens/venture/user/service/user.api.service.dart';
 import 'package:beamer/beamer.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,7 +39,6 @@ class _AddUserFormState extends State<AddUserForm> {
   final rmidController = TextEditingController();
   final symbolController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  File? _pickedImage;
   Uint8List _webImagePick = Uint8List(8);
   final List<String> items = [];
   final List<String> rolesList = [];
@@ -64,12 +66,16 @@ class _AddUserFormState extends State<AddUserForm> {
       final files = uploadInput.files;
       final file = files![0];
       final reader = html.FileReader();
-
+      log("///////////////////////////");
+    
       reader.onLoadEnd.listen((event) {
         setState(() {
           _bytesData =
               Base64Decoder().convert(reader.result.toString().split(',').last);
           _selectFiles = _bytesData;
+          // _pickedImage = File.;
+          log("====================");
+          // log(_pickedImage!.path.toString());
         });
       });
       reader.readAsDataUrl(file);
@@ -150,12 +156,12 @@ class _AddUserFormState extends State<AddUserForm> {
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),
-                                  // Positioned.fill(
-                                  //   child: Image(
-                                  //     image: AssetImage("assets/images/Add User.gif"),
-                                  //     fit: BoxFit.cover,
-                                  //   ),
-                                  // ),
+                                  Positioned.fill(
+                                    child: Image(
+                                      image: AssetImage("assets/images/Add User.gif"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ],
                               )
                             ],
@@ -572,32 +578,33 @@ class _AddUserFormState extends State<AddUserForm> {
                                     GestureDetector(
                                       onTap: () async {
                                         log("/////////////////////////////");
+                                          final addUserService = UserApiService(createDio());
 
+                                          //  final fileUpload = FileUploadService(createDio());
+                                          //  log("====================: 1");
+                                          // //  final byteImage = await _pickedImage!.readAsBytes();
+                                           final multipartFile =  MultipartFile.fromBytes(_bytesData!, filename: "data.png");
+                                          //   log("====================: 2");
+                                          //  final data ={
+                                          //    "images": multipartFile,
+                                          //    "bucketName": "ahec"
+                                          //  };
+                                          //   log("====================: 3");
+                                          // await fileUpload.upload( data: data);
+                                          //  log("====================: 4");
                                         if (_formKey.currentState!.validate()) {
-                                          addUser(
-                                              roles: roleId!,
-                                              name: nameController.text,
-                                              teams: teamId!,
-                                              email: emailController.text,
-                                              number: mobileController.text,
-                                              password: mobileController.text);
+                                         final formData = {
+                                          "roles": roleId,
+                                          "name": nameController.text,
+                                          "teams": teamId,
+                                          "email":emailController.text,
+                                          "number": mobileController.text,
+                                          "password": mobileController.text,
+                                          "image": multipartFile
+                                         };
 
-                                          // UserAddResponse response =
-                                          //     await userService.addUser(
-                                          //         image:
-                                          //             File(_pickedImage!.path),
-                                          //         roles: roleId!,
-                                          //         teams: teamId!,
-                                          //         name: nameController.text,
-                                          //         email: emailController.text,
-                                          //         number: mobileController.text,
-                                          //         password:
-                                          //             mobileController.text);
-
-                                          // if (response.status == true) {
-                                          //   Beamer.of(context)
-                                          //       .beamToNamed('/user-list');
-                                          // }
+                                         UserAddResponse response = await addUserService.addUser(data: formData);
+                                         
                                         }
                                       },
                                       child: Container(
@@ -639,69 +646,40 @@ class _AddUserFormState extends State<AddUserForm> {
     super.dispose();
   }
 
-  void addUser(
-      {required String roles,
-      required String name,
-      required String teams,
-      required String email,
-      required String number,
-      required String password}) async {
-    var request = http.MultipartRequest("POST",
-        Uri.parse("https://squid-app-3-s689g.ondigitalocean.app/user-create"));
-    request.headers["Access-Control-Allow-Origin"] = "*";
-    request.headers["Access-Control-Allow-Credentials"] = "true";
-    request.headers["Access-Control-Allow-Headers"] =
-        "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale";
-    request.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS";
-    request.fields["roles"] = roles;
-    request.fields["name"] = name;
-    request.fields["teams"] = teams;
-    request.fields["email"] = email;
-    request.fields["number"] = number;
-    request.fields["password"] = password;
-    DateTime myFileDate = DateTime.now();
-    request.files.add(await http.MultipartFile.fromBytes('image', _bytesData!,
-        contentType: MediaType('application', 'json'),
-        filename:
-            "${myFileDate.day}_${myFileDate.month}_${myFileDate.year}_${myFileDate.second}${myFileDate.hour}"));
+  // void addUser(
+  //     {required String roles,
+  //     required String name,
+  //     required String teams,
+  //     required String email,
+  //     required String number,
+  //     required String password}) async {
+  //   var request = http.MultipartRequest("POST",
+  //       Uri.parse("https://squid-app-3-s689g.ondigitalocean.app/user-create"));
+  //   request.headers["Access-Control-Allow-Origin"] = "*";
+  //   request.headers["Access-Control-Allow-Credentials"] = "true";
+  //   request.headers["Access-Control-Allow-Headers"] =
+  //       "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale";
+  //   request.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS";
+  //   request.fields["roles"] = roles;
+  //   request.fields["name"] = name;
+  //   request.fields["teams"] = teams;
+  //   request.fields["email"] = email;
+  //   request.fields["number"] = number;
+  //   request.fields["password"] = password;
+  //   DateTime myFileDate = DateTime.now();
+  //   request.files.add(await http.MultipartFile.fromBytes('image', _bytesData!,
+  //       contentType: MediaType('application', 'json'),
+  //       filename:
+  //           "${myFileDate.day}_${myFileDate.month}_${myFileDate.year}_${myFileDate.second}${myFileDate.hour}"));
 
-    request.send().then((response) {
-      http.Response.fromStream(response).then((value) {
-        log(value.body.toString());
-      });
-    });
-  }
+  //   request.send().then((response) {
+  //     http.Response.fromStream(response).then((value) {
+  //       log(value.body.toString());
+  //     });
+  //   });
+  // }
 
-  void getImage() async {
-    if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          _pickedImage = selected;
-          log(image.path.toString());
-        });
-      } else {
-        log("no image was picked");
-      }
-    } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
-        setState(() {
-          _webImagePick = f;
-          _pickedImage = File(image.path);
-        });
-      } else {
-        log("no image was picked");
-      }
-    } else {
-      log("something went wrong");
-    }
-  }
+  
 }
 
 class MyUploadImage {

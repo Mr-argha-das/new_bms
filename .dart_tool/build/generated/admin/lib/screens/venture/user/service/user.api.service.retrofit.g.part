@@ -17,50 +17,11 @@ class _UserApiService implements UserApiService {
   String? baseUrl;
 
   @override
-  Future<UserAddResponse> addUser({
-    required File image,
-    required String roles,
-    required String teams,
-    required String name,
-    required String email,
-    required String number,
-    required String password,
-  }) async {
+  Future<UserAddResponse> addUser({required Map<String, dynamic> data}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-      'image',
-      MultipartFile.fromFileSync(
-        image.path,
-        filename: image.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    _data.fields.add(MapEntry(
-      'roles',
-      roles,
-    ));
-    _data.fields.add(MapEntry(
-      'teams',
-      teams,
-    ));
-    _data.fields.add(MapEntry(
-      'name',
-      name,
-    ));
-    _data.fields.add(MapEntry(
-      'email',
-      email,
-    ));
-    _data.fields.add(MapEntry(
-      'number',
-      number,
-    ));
-    _data.fields.add(MapEntry(
-      'password',
-      password,
-    ));
+    final _data = FormData.fromMap(data);
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<UserAddResponse>(Options(
       method: 'POST',

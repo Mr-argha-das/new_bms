@@ -1,4 +1,5 @@
 import 'package:admin/screens/Clients/views/list.main.dart';
+import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/screens/orders/views/orders.list.dart';
 import 'package:admin/screens/team/views/team.list.dart';
 import 'package:admin/screens/venture/views/list.venture.dart';
@@ -61,7 +62,7 @@ class SideMenu extends StatelessWidget {
           // ),
           ListTile(
               onTap: () {
-                Beamer.of(context).beamToNamed('/dashboard');
+               Navigator.push(context, CupertinoPageRoute(builder: (context) => MainScreen()));
               },
               horizontalTitleGap: 0.0,
               leading: SvgPicture.asset(
@@ -236,6 +237,8 @@ class SideMenu extends StatelessWidget {
             onPageChange: (value) {
               if (value == 1) {
                 Beamer.of(context).beamToNamed('/orders-list');
+              }else if(value == 0){
+                Beamer.of(context).beamToNamed('/add-order');
               }
             },
             items: [
@@ -250,7 +253,7 @@ class SideMenu extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "TASKS",
+                  "Tasks",
                   style: GoogleFonts.montserrat(
                     color: Colors.white,
                   ),
@@ -279,6 +282,43 @@ class SideMenu extends StatelessWidget {
               PagesName(id: 1, name: "ADD Task"),
             ],
           ),
+          GestureDetector(
+            onTap: (){
+              Beamer.of(context).beamToNamed('/');
+            },
+            child: DrawerListTile(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Logout",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  
+                ],
+              ),
+              height: 100,
+              svgSrc: "assets/icons/menu_profile.svg",
+              press: () {},
+              onPageChange: (value) {
+                // if (value == 0) {
+                //   Beamer.of(context).beamToNamed('/task-list');
+                // } else if (value == 1) {
+                //   Beamer.of(context).beamToNamed('/task-add');
+                // }
+              },
+              items: [
+                // PagesName(id: 1, name: "Tasks List"),
+                // PagesName(id: 1, name: "ADD Task"),
+              ],
+            ),
+          )
           
           // DrawerListTile(
           //   title: "Profile",
@@ -357,13 +397,16 @@ class _DrawerListTileState extends State<DrawerListTile> {
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            widget.items[index].name,
-                            style:
-                                TextStyle(color: Colors.white54, fontSize: 13),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 50.0),
+                            child: Text(
+                              widget.items[index].name,
+                              style:
+                                  TextStyle(color: Colors.white54, fontSize: 13),
+                            ),
                           )
                         ],
                       ),
