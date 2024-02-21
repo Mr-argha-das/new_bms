@@ -23,22 +23,6 @@ abstract class OrderService {
   @POST('/order-create')
   @MultiPart()
   Future<OrderAddResponse> addOrder({
-    @Part() required String clientId,
-    @Part() required String currencyId,
-    @Part() required String serviceId,
-    @Part() required String inrAmmount,
-    @Part() required String audAmmount,
-    @Part() required String clientAmmount,
-    @Part() required String totalAmmount,
-    @Part() required String PPT,
-    @Part() required String moduleCode,
-    @Part() required String moduleName,
-    @Part() required String deadline,
-    @Part() required String wordCount,
-    @Part() required String paymentType,
-    @Part() required String shortNote,
-    @Part() required File image,
-    @Part() required File file,
-    @Part() required String userId,
+  @Part() Map<String, dynamic> data
   });
 }

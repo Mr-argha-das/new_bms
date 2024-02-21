@@ -98,103 +98,12 @@ class _OrderService implements OrderService {
   }
 
   @override
-  Future<OrderAddResponse> addOrder({
-    required String clientId,
-    required String currencyId,
-    required String serviceId,
-    required String inrAmmount,
-    required String audAmmount,
-    required String clientAmmount,
-    required String totalAmmount,
-    required String PPT,
-    required String moduleCode,
-    required String moduleName,
-    required String deadline,
-    required String wordCount,
-    required String paymentType,
-    required String shortNote,
-    required File image,
-    required File file,
-    required String userId,
-  }) async {
+  Future<OrderAddResponse> addOrder(
+      {required Map<String, dynamic> data}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.fields.add(MapEntry(
-      'clientId',
-      clientId,
-    ));
-    _data.fields.add(MapEntry(
-      'currencyId',
-      currencyId,
-    ));
-    _data.fields.add(MapEntry(
-      'serviceId',
-      serviceId,
-    ));
-    _data.fields.add(MapEntry(
-      'inrAmmount',
-      inrAmmount,
-    ));
-    _data.fields.add(MapEntry(
-      'audAmmount',
-      audAmmount,
-    ));
-    _data.fields.add(MapEntry(
-      'clientAmmount',
-      clientAmmount,
-    ));
-    _data.fields.add(MapEntry(
-      'totalAmmount',
-      totalAmmount,
-    ));
-    _data.fields.add(MapEntry(
-      'PPT',
-      PPT,
-    ));
-    _data.fields.add(MapEntry(
-      'moduleCode',
-      moduleCode,
-    ));
-    _data.fields.add(MapEntry(
-      'moduleName',
-      moduleName,
-    ));
-    _data.fields.add(MapEntry(
-      'deadline',
-      deadline,
-    ));
-    _data.fields.add(MapEntry(
-      'wordCount',
-      wordCount,
-    ));
-    _data.fields.add(MapEntry(
-      'paymentType',
-      paymentType,
-    ));
-    _data.fields.add(MapEntry(
-      'shortNote',
-      shortNote,
-    ));
-    _data.files.add(MapEntry(
-      'image',
-      MultipartFile.fromFileSync(
-        image.path,
-        filename: image.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    _data.files.add(MapEntry(
-      'file',
-      MultipartFile.fromFileSync(
-        file.path,
-        filename: file.path.split(Platform.pathSeparator).last,
-      ),
-    ));
-    _data.fields.add(MapEntry(
-      'userId',
-      userId,
-    ));
+    final _data = FormData.fromMap(data);
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<OrderAddResponse>(Options(
       method: 'POST',
