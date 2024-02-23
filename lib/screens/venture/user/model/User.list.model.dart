@@ -37,20 +37,23 @@ class Datum {
     String name;
     int number;
     String email;
+    String password;
     String image;
     bool isDelete;
     bool isVerify;
     bool status;
-    Roles roles;
+    Roles? roles;
     DateTime createdAt;
     DateTime updatedAt;
     int v;
+    String? teams;
 
     Datum({
         required this.id,
         required this.name,
         required this.number,
         required this.email,
+        required this.password,
         required this.image,
         required this.isDelete,
         required this.isVerify,
@@ -59,36 +62,41 @@ class Datum {
         required this.createdAt,
         required this.updatedAt,
         required this.v,
+        this.teams,
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["_id"] ?? '-',
-        name: json["name"]?? '-',
-        number: json["number"]?? '-',
-        email: json["email"]?? '-',
-        image: json["image"]?? '-',
-        isDelete: json["is_delete"]?? '-',
-        isVerify: json["isVerify"]?? '-',
-        status: json["status"]?? '-',
-        roles: Roles.fromJson(json["roles"]?? '-'),
-        createdAt: DateTime.parse(json["createdAt"]?? '-'),
-        updatedAt: DateTime.parse(json["updatedAt"]?? '-'),
-        v: json["__v"]?? '-',
+        id: json["_id"],
+        name: json["name"],
+        number: json["number"],
+        email: json["email"],
+        password: json["password"],
+        image: json["image"],
+        isDelete: json["is_delete"],
+        isVerify: json["isVerify"],
+        status: json["status"],
+        roles: json["roles"] == null ? null : Roles.fromJson(json["roles"]),
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
+        teams: json["teams"],
     );
 
     Map<String, dynamic> toJson() => {
-        "_id": id?? '-',
-        "name": name?? '-',
-        "number": number?? '-',
-        "email": email?? '-',
-        "image": image?? '-',
-        "is_delete": isDelete?? '-',
-        "isVerify": isVerify?? '-',
-        "status": status?? '-',
-        "roles": roles.toJson()?? '-',
-        "createdAt": createdAt.toIso8601String()?? '-',
-        "updatedAt": updatedAt.toIso8601String()?? '-',
+        "_id": id,
+        "name": name,
+        "number": number,
+        "email": email,
+        "password": password,
+        "image": image,
+        "is_delete": isDelete,
+        "isVerify": isVerify,
+        "status": status,
+        "roles": roles?.toJson(),
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
+        "teams": teams,
     };
 }
 
@@ -108,18 +116,18 @@ class Roles {
     });
 
     factory Roles.fromJson(Map<String, dynamic> json) => Roles(
-        id: json["_id"]?? '-',
-        name: json["name"]?? '-',
-        createdAt: DateTime.parse(json["createdAt"]?? '-'),
-        updatedAt: DateTime.parse(json["updatedAt"]?? '-'),
-        v: json["__v"]?? '-',
+        id: json["_id"],
+        name: json["name"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
     );
 
     Map<String, dynamic> toJson() => {
-        "_id": id?? '-',
-        "name": name?? '-',
-        "createdAt": createdAt.toIso8601String()?? '-',
-        "updatedAt": updatedAt.toIso8601String()?? '-',
-        "__v": v?? '-',
+        "_id": id,
+        "name": name,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
     };
 }

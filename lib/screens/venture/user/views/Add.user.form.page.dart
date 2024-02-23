@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/config/rolesmodel/roles.model.dart';
 import 'package:admin/config/rolesservices/rolesservice.dart';
+import 'package:admin/screens/main.service/file.upload.model.dart';
 import 'package:admin/screens/main.service/fileupload.service.dart';
 import 'package:admin/screens/team/model/team.list.model.dart';
 import 'package:admin/screens/team/service/add_team_api.dart';
@@ -46,6 +47,7 @@ class _AddUserFormState extends State<AddUserForm> {
   Image? bytesFromPicker;
   List<int>? _selectFiles;
   Uint8List? _bytesData;
+  bool pageLodar = false;
   Future<TeamListModel> getData(data) async {
     data = await data.getTeamList();
     return data;
@@ -67,7 +69,7 @@ class _AddUserFormState extends State<AddUserForm> {
       final file = files![0];
       final reader = html.FileReader();
       log("///////////////////////////");
-    
+
       reader.onLoadEnd.listen((event) {
         setState(() {
           _bytesData =
@@ -118,7 +120,9 @@ class _AddUserFormState extends State<AddUserForm> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Form(
+          : pageLodar ? Center(
+            child: CircularProgressIndicator(),
+          ): Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -158,7 +162,8 @@ class _AddUserFormState extends State<AddUserForm> {
                                   ),
                                   Positioned.fill(
                                     child: Image(
-                                      image: AssetImage("assets/images/Add User.gif"),
+                                      image: AssetImage(
+                                          "assets/images/Add User.gif"),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -577,34 +582,63 @@ class _AddUserFormState extends State<AddUserForm> {
                                     ),
                                     GestureDetector(
                                       onTap: () async {
+                                        setState(() {
+                                          pageLodar = true;
+                                        });
                                         log("/////////////////////////////");
-                                          final addUserService = UserApiService(createDio());
+                                        final addUserService =
+                                            UserApiService(createDio());
 
-                                          //  final fileUpload = FileUploadService(createDio());
-                                          //  log("====================: 1");
-                                          // //  final byteImage = await _pickedImage!.readAsBytes();
-                                           final multipartFile =  MultipartFile.fromBytes(_bytesData!, filename: "data.png");
-                                          //   log("====================: 2");
-                                          //  final data ={
-                                          //    "images": multipartFile,
-                                          //    "bucketName": "ahec"
-                                          //  };
-                                          //   log("====================: 3");
-                                          // await fileUpload.upload( data: data);
-                                          //  log("====================: 4");
+                                        //  final fileUpload = FileUploadService(createDio());
+                                        //  log("====================: 1");
+                                        // //  final byteImage = await _pickedImage!.readAsBytes();
+                                        final multipartFile =
+                                            MultipartFile.fromBytes(_bytesData!,
+                                                filename: "data.png");
+                                        //   log("====================: 2");
+                                        //  final data ={
+                                        //    "images": multipartFile,
+                                        //    "bucketName": "ahec"
+                                        //  };
+                                        //   log("====================: 3");
+                                        // await fileUpload.upload( data: data);
+                                        //  log("====================: 4");
                                         if (_formKey.currentState!.validate()) {
-                                         final formData = {
-                                          "roles": roleId,
-                                          "name": nameController.text,
-                                          "teams": teamId,
-                                          "email":emailController.text,
-                                          "number": mobileController.text,
-                                          "password": mobileController.text,
-                                          "image": multipartFile
-                                         };
-
-                                         UserAddResponse response = await addUserService.addUser(data: formData);
-                                         
+                                          final fileUploadService =
+                                              FileUploadService(createDio());
+                                          FileUploadResponse
+                                              responseFileUpload =
+                                              await fileUploadService.upload(
+                                                  data: {
+                                                "images": multipartFile,
+                                                "bucketName": "ahec"
+                                              });
+                                          // final formData = {
+                                          //   "roles": roleId,
+                                          //   "name": nameController.text,
+                                          //   "teams": teamId,
+                                          //   "email": emailController.text,
+                                          //   "number": mobileController.text,
+                                          //   "password": mobileController.text,
+                                          //   "image":
+                                          //       "https://whale-app-9emyb.ondigitalocean.app/${responseFileUpload.data}"
+                                          // };
+                                          int number =
+                                              int.parse(mobileController.text);
+                                          AddUserModel formData = AddUserModel(
+                                              image:
+                                                  "https://ahec.diwamjewels.com/${responseFileUpload.data}",
+                                              roles: roleId!,
+                                              teams: teamId!,
+                                              name: nameController.text,
+                                              email: emailController.text,
+                                              number: number,
+                                              password: "$number");
+                                          UserAddResponse response =
+                                            await addUserService
+                                                  .addUser(formData);
+                                          Beamer.of(context)
+                                                .beamToNamed("/user-list");
                                         }
                                       },
                                       child: Container(
@@ -678,8 +712,6 @@ class _AddUserFormState extends State<AddUserForm> {
   //     });
   //   });
   // }
-
-  
 }
 
 class MyUploadImage {

@@ -103,8 +103,8 @@ class Env {
             Provider<Dio>(
               create: (context) => createDio(),
             ),
-            ProxyProvider<Dio, UserService>(
-              update: (context, dio, apiService) => apiService ?? UserService(),
+            ProxyProvider<Dio, UserApiService>(
+              update: (context, dio, apiService) => apiService ?? UserApiService(dio),
             ),
           ],
           child: UsrMain(),

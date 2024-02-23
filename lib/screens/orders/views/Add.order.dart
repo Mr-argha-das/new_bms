@@ -29,6 +29,11 @@ class _AddOrdersState extends State<AddOrders> {
 
   final List<ItemClass> items = [];
   final List<ItemClass> serviceList = [];
+  final List<ItemClass> paymentType = [
+    ItemClass(title: "Full Payment", value: "FullPayment"),
+    ItemClass(title: "Partially Payment", value: "PartiallyPayment"),
+    ItemClass(title: "Renaming Payment", value: "RenamingPayment"),
+  ];
   String? selectedValue;
   Future<Currencymodel> getData(data) async {
     data = await data.getCurrency();
@@ -36,11 +41,9 @@ class _AddOrdersState extends State<AddOrders> {
   }
 
   Future<ServiceModel> getService(data) async {
-   data = await data.getService();
-   return data;
+    data = await data.getService();
+    return data;
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -61,23 +64,25 @@ class _AddOrdersState extends State<AddOrders> {
         }
       }
     });
-    service.then((value){
-    for (int i = 0; i <value.data.length; i++){
-      if(value.data.length > serviceList.length){
-        setState(() {
-          serviceList.addAll([ItemClass(title: "${value.data[i].name}", value: value.data[i].id)]);
-        });
+    service.then((value) {
+      for (int i = 0; i < value.data.length; i++) {
+        if (value.data.length > serviceList.length) {
+          setState(() {
+            serviceList.addAll([
+              ItemClass(title: "${value.data[i].name}", value: value.data[i].id)
+            ]);
+          });
+        }
       }
-    }
     });
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: items.isEmpty
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-                  child: Column(
+        backgroundColor: Colors.white,
+        body: items.isEmpty
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -130,7 +135,6 @@ class _AddOrdersState extends State<AddOrders> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                           
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Color(0x542A2E3E),
@@ -636,7 +640,7 @@ class _AddOrdersState extends State<AddOrders> {
                                 Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: MySearchapleDropDown(
-                                      items: items,
+                                      items: paymentType,
                                       id: "",
                                       callBack: (value) {},
                                       title: "Select Payment Type",
@@ -805,7 +809,6 @@ class _AddOrdersState extends State<AddOrders> {
                     ],
                   ),
                 ],
-              ))
-    );
+              )));
   }
 }

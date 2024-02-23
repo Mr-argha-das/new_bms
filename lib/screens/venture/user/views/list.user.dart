@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:math';
 
+import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/models/RecentFile.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
 import 'package:admin/screens/venture/user/model/User.list.model.dart';
+import 'package:admin/screens/venture/user/service/user.api.service.dart';
 import 'package:admin/screens/venture/user/service/user.service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +105,9 @@ class _UserTableState extends State<UserTable> {
   @override
   void initState() {
     super.initState();
-    dataModel = UserService.getUserList();
+    final userapiService = UserApiService(createDio());
+
+    dataModel = userapiService.getUserData();
   }
   @override
   Widget build(BuildContext context) {
@@ -112,7 +116,7 @@ class _UserTableState extends State<UserTable> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Container(
-            height: 200,
+            
             padding: EdgeInsets.all(defaultPadding),
             decoration: BoxDecoration(
               color: secondaryColor,
@@ -158,7 +162,7 @@ class _UserTableState extends State<UserTable> {
                           name: snapshot.data!.data[index].name,
                           email: snapshot.data!.data[index].email,
                           number: snapshot.data!.data[index].number.toString(),
-                          teamName: snapshot.data!.data[index].roles.name,
+                          teamName: snapshot.data!.data[index].roles?.name ?? "-",
                           image: snapshot.data!.data[index].image),
                     ),
                   ),
@@ -194,7 +198,7 @@ DataRow userTable({
         height: 40,
         width: 40,
         decoration: BoxDecoration(
-            image: DecorationImage(image: NetworkImage('https://squid-app-3-s689g.ondigitalocean.app/${image}',), fit: BoxFit.fill),
+            image: DecorationImage(image: NetworkImage(image,), fit: BoxFit.fill),
             color: Colors.white, borderRadius: BorderRadius.circular(50)),
       )),
       DataCell(Text(name)),

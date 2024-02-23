@@ -1,11 +1,10 @@
-import 'dart:io';
+
 
 import 'package:admin/screens/orders/model/currencymodel.dart';
 import 'package:admin/screens/orders/model/order.add.response.dart';
 import 'package:admin/screens/orders/model/orderlistmodel.dart';
 import 'package:admin/screens/orders/model/service.model.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:dio/dio.dart';
 
 part 'order_api_service.g.dart';
@@ -23,6 +22,6 @@ abstract class OrderService {
   @POST('/order-create')
   @MultiPart()
   Future<OrderAddResponse> addOrder({
-  @Part() Map<String, dynamic> data
+  @Part() required Map<String, dynamic> data
   });
 }
