@@ -13,6 +13,7 @@ import 'package:admin/screens/loginpage/login.page.dart';
 import 'package:admin/screens/loginpage/service/api_service.dart';
 import 'package:admin/screens/main.service/fileupload.service.dart';
 import 'package:admin/screens/main/main_screen.dart';
+import 'package:admin/screens/orderhestory/views/order.perticuler.dart';
 import 'package:admin/screens/orders/main.orders.dart';
 import 'package:admin/screens/orders/service/order_api_service.dart';
 import 'package:admin/screens/orders/views/Add.order.dart';
@@ -37,6 +38,9 @@ class Env {
               update: (context, dio, apiService) =>
                   apiService ?? OrderService(dio),
             ),
+            ProxyProvider<Dio, ClientService>(
+                update: (context, dio, apiService) =>
+                    apiService ?? ClientService(dio))
           ],
           child: MainAddOrder(),
         ),
@@ -54,6 +58,17 @@ class Env {
           ],
           child: LoginPage(),
         ),
+    '/perticuler-order/:orderid': (context, state, data) {
+       final bookId = state.pathParameters['orderid']!;
+      return MultiProvider(
+          providers: [
+            
+            ChangeNotifierProvider(create: (context) => MenuAppController()),
+            ChangeNotifierProvider(create: (context) => UserDataGet()),
+          ],
+          child: OrderPerticuler(orderID: bookId,),
+        );
+    },
     '/add-team': (context, state, data) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => MenuAppController()),
@@ -104,7 +119,8 @@ class Env {
               create: (context) => createDio(),
             ),
             ProxyProvider<Dio, UserApiService>(
-              update: (context, dio, apiService) => apiService ?? UserApiService(dio),
+              update: (context, dio, apiService) =>
+                  apiService ?? UserApiService(dio),
             ),
           ],
           child: UsrMain(),

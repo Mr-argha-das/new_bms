@@ -315,7 +315,8 @@ class _AddClientFormState extends State<AddClientForm> {
                             if (_formKey.currentState!.validate()) {
                               final getUserData = UserDataGet();
                               getUserData.getUserLocalData();
-                              ClientAddResponse data = await clientService
+                              try{
+                                ClientAddResponse data = await clientService
                                   .addClientAdd(ClientAddBody(
                                       name:
                                           "${firstnameController.text} ${lastnameController.text}",
@@ -324,7 +325,11 @@ class _AddClientFormState extends State<AddClientForm> {
                                       password: controller.text,
                                       createdBy: getUserData.id,
                                       university: universityController.text));
-                               Beamer.of(context).beamToNamed('/client-list');
+                                      Beamer.of(context).beamToNamed('/client-list');
+                              } catch (e, st){
+                              Beamer.of(context).beamToNamed('/client-list');
+                              }
+                               
                                
                             }
                           },

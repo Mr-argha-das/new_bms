@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     final loginService = Provider.of<LoginService>(context);
@@ -207,14 +207,14 @@ class _LoginPageState extends State<LoginPage> {
                                       });
                                       final setUserData = UserDataGet();
                                       setState(() {
-                                        setUserData.setData(
+                                        setUserData.setData( 
                                             id: data.userData!.id,
                                             name: data.userData!.name,
                                             number: data.userData!.number
                                                 .toString(),
                                             email: data.userData!.email,
                                             image: data.userData!.image,
-                                            roleId: data.userData!.roles.name
+                                            roleId: data.userData!.roles.id
                                                 .toString());
                                       });
                                       Navigator.push(

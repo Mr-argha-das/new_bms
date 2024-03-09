@@ -1,5 +1,7 @@
 
 
+import 'package:admin/screens/orders/model/add.order.body.model.dart';
+import 'package:admin/screens/orders/model/allocation.model.dart';
 import 'package:admin/screens/orders/model/currencymodel.dart';
 import 'package:admin/screens/orders/model/order.add.response.dart';
 import 'package:admin/screens/orders/model/orderlistmodel.dart';
@@ -19,9 +21,8 @@ abstract class OrderService {
   Future<ServiceModel> getService();
   @GET('/currency-get')
   Future<Currencymodel> getCurrency();
+  @GET('/allocation-list')
+  Future<AllocationListmodel> getAllocvationList();
   @POST('/order-create')
-  @MultiPart()
-  Future<OrderAddResponse> addOrder({
-  @Part() required Map<String, dynamic> data
-  });
+  Future<OrderAddResponse> addOrder(@Body() AddOrderBody body);
 }

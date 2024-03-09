@@ -9,6 +9,7 @@ import 'package:admin/screens/orders/model/orderlistmodel.dart';
 import 'package:admin/screens/orders/service/order_api_service.dart';
 import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagination/widgets/button_styles.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -184,21 +185,24 @@ class _OrdersTableState extends State<OrdersTable> {
                         DataColumn(
                           label: Text("Service"),
                         ),
-                        
                         DataColumn(
                           label: Text("Action"),
                         ),
                       ],
                       rows: List.generate(
-                        3,
+                        snapshot.data!.data.length,
                         (index) => userTable(
-                            count: index+1,
-                            orderNumber: snapshot.data!.data[index].orderNumber,
-                            clienName: snapshot.data!.data[index].clientId.name,
-                            deadline: snapshot.data!.data[index].deadline,
-                            email: snapshot.data!.data[index].clientId.email,
-                            service: snapshot.data!.data[index].serviceId,
-                            ),
+
+                          context,
+                          count: index + 1,
+                          orderid: snapshot.data!.data[index].id,
+                          orderNumber: snapshot.data!.data[index].orderNumber,
+                          clienName: snapshot.data!.data[index].clientId.name,
+                          deadline: snapshot.data!.data[index].deadline,
+                          email: snapshot.data!.data[index].clientId.email,
+                          service:
+                              snapshot.data!.data[index].serviceId?.name ?? "-",
+                        ),
                       ),
                     ),
                   ),
@@ -213,16 +217,20 @@ class _OrdersTableState extends State<OrdersTable> {
   }
 }
 
-DataRow userTable({
+DataRow userTable(
+  context, {
+  required String orderid,
   required int count,
   required String orderNumber,
   required String clienName,
   required String deadline,
   required String email,
   required String service,
-
 }) {
   return DataRow(
+    onSelectChanged: (value){
+      Beamer.of(context).beamToNamed('/perticuler-order/$orderid');
+    },
     cells: [
       DataCell(
         Text(count.toString()),
@@ -232,7 +240,6 @@ DataRow userTable({
       DataCell(Text(deadline)),
       DataCell(Text(email)),
       DataCell(Text(service)),
-      
       DataCell(
         PopupMenuButton<String>(
           shape: RoundedRectangleBorder(

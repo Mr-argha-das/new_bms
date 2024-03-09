@@ -25,9 +25,11 @@ class _MySearchapleDropDownState extends State<MySearchapleDropDown> {
   bool showDrop = false;
   final _textController = TextEditingController();
   List<ItemClass> _clientsList = [];
+  List<ItemClass> clientsList = [];
   void initState() {
     super.initState();
     _clientsList = widget.items;
+    clientsList = widget.items;
     logic();
   }
 
@@ -42,12 +44,26 @@ class _MySearchapleDropDownState extends State<MySearchapleDropDown> {
   }
 
   void myLogic(String enterKeyword) {
-    final suggestions = _clientsList.where((element) {
-      final statusValue = element.title.toLowerCase();
-      final input = enterKeyword.toLowerCase();
-      return statusValue.contains(input);
-    }).toList();
-    setState(() => _clientsList = suggestions);
+    if (enterKeyword.isNotEmpty) {
+      _clientsList = widget.items
+          .where(
+              (tag) => tag.title.toLowerCase().contains(enterKeyword.toLowerCase()))
+          .toList();
+    } else {
+      _clientsList = widget.items;
+    }
+    setState(() {
+      clientsList = _clientsList;
+    });
+    // final suggestions = _clientsList.where((element) {
+    //   final statusValue = element.title.toLowerCase();
+    //   final input = enterKeyword.toLowerCase();
+    //   return statusValue.contains(input);
+    // }).toList();
+    // setState(() => _clientsList = suggestions);
+    // if(_textController.text == ""){
+    //   _clientsList = widget.items;
+    // }
   }
 
   @override
@@ -97,19 +113,19 @@ class _MySearchapleDropDownState extends State<MySearchapleDropDown> {
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: _clientsList.length,
+                  itemCount: clientsList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        widget.callBack(_clientsList[index].value);
+                        widget.callBack(clientsList[index].value);
                         setState(() {
-                          _textController.text =_clientsList[index].title;
+                          _textController.text =clientsList[index].title;
                           showDrop = false;
                         });
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
-                        child: Text("${_clientsList[index].title}",
+                        child: Text("${clientsList[index].title}",
                             style: GoogleFonts.montserrat(color: Colors.black)),
                       ),
                     );

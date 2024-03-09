@@ -634,11 +634,17 @@ class _AddUserFormState extends State<AddUserForm> {
                                               email: emailController.text,
                                               number: number,
                                               password: "$number");
-                                          UserAddResponse response =
+                                          try{
+                                             UserAddResponse response =
                                             await addUserService
                                                   .addUser(formData);
+                                                  Beamer.of(context)
+                                                .beamToNamed("/user-list");
+                                          } catch(e, st){
                                           Beamer.of(context)
                                                 .beamToNamed("/user-list");
+                                          }
+                                          
                                         }
                                       },
                                       child: Container(

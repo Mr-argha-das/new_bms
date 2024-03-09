@@ -36,8 +36,8 @@ class Datum {
     String id;
     String orderNumber;
     ClientId clientId;
-    dynamic currencyId;
-    dynamic serviceId;
+    CurrencyId? currencyId;
+    ServiceId? serviceId;
     String userId;
     String inrAmmount;
     String audAmmount;
@@ -84,28 +84,28 @@ class Datum {
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["_id"]??"",
-        orderNumber: json["orderNumber"]??"",
-        clientId: ClientId.fromJson(json["clientId"]??""),
-        currencyId: json["currencyId"]??"",
-        serviceId: json["serviceId"]??"",
-        userId: json["userId"]??"",
-        inrAmmount: json["inrAmmount"]??"",
-        audAmmount: json["audAmmount"]??"",
-        clientAmmount: json["clientAmmount"]??"",
-        totalAmmount: json["totalAmmount"]??"",
-        ppt: json["PPT"]??"",
-        moduleCode: json["moduleCode"]??"",
-        moduleName: json["moduleName"]??"",
-        deadline: json["deadline"]??"",
-        wordCount: json["wordCount"]??"",
-        paymentType: json["paymentType"]??"",
-        shortNote: json["shortNote"]??"",
-        image: json["image"]??"",
-        file: json["file"]??"",
-        date: json["Date"]??"",
-        createdAt: DateTime.parse(json["createdAt"]??""),
-        updatedAt: DateTime.parse(json["updatedAt"]??""),
+        id: json["_id"],
+        orderNumber: json["orderNumber"],
+        clientId: ClientId.fromJson(json["clientId"]),
+        currencyId: json["currencyId"] == null ? null : CurrencyId.fromJson(json["currencyId"]),
+        serviceId: json["serviceId"] == null ? null : ServiceId.fromJson(json["serviceId"]),
+        userId: json["userId"],
+        inrAmmount: json["inrAmmount"],
+        audAmmount: json["audAmmount"],
+        clientAmmount: json["clientAmmount"],
+        totalAmmount: json["totalAmmount"],
+        ppt: json["PPT"],
+        moduleCode: json["moduleCode"],
+        moduleName: json["moduleName"],
+        deadline: json["deadline"],
+        wordCount: json["wordCount"],
+        paymentType: json["paymentType"],
+        shortNote: json["shortNote"],
+        image: json["image"],
+        file: json["file"],
+        date: json["Date"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
     );
 
@@ -113,8 +113,8 @@ class Datum {
         "_id": id,
         "orderNumber": orderNumber,
         "clientId": clientId.toJson(),
-        "currencyId": currencyId,
-        "serviceId": serviceId,
+        "currencyId": currencyId?.toJson(),
+        "serviceId": serviceId?.toJson(),
         "userId": userId,
         "inrAmmount": inrAmmount,
         "audAmmount": audAmmount,
@@ -193,5 +193,77 @@ class ClientId {
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
         "createdBy": createdBy,
+    };
+}
+
+class CurrencyId {
+    String id;
+    String name;
+    String type;
+    String symbol;
+    DateTime createdAt;
+    DateTime updatedAt;
+    int v;
+
+    CurrencyId({
+        required this.id,
+        required this.name,
+        required this.type,
+        required this.symbol,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.v,
+    });
+
+    factory CurrencyId.fromJson(Map<String, dynamic> json) => CurrencyId(
+        id: json["_id"],
+        name: json["name"],
+        type: json["type"],
+        symbol: json["symbol"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
+        "type": type,
+        "symbol": symbol,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
+    };
+}
+
+class ServiceId {
+    String id;
+    String name;
+    DateTime createdAt;
+    DateTime updatedAt;
+    int v;
+
+    ServiceId({
+        required this.id,
+        required this.name,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.v,
+    });
+
+    factory ServiceId.fromJson(Map<String, dynamic> json) => ServiceId(
+        id: json["_id"],
+        name: json["name"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
     };
 }
