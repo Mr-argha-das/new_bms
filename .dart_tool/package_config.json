@@ -729,7 +729,7 @@
     },
     {
       "name": "retrofit",
-      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/retrofit-4.0.3",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/retrofit-4.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -980,7 +980,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2024-03-08T04:46:01.266820Z",
+  "generated": "2024-03-11T07:20:03.786450Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }

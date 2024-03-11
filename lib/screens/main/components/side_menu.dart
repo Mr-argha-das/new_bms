@@ -295,6 +295,42 @@ class SideMenu extends StatelessWidget {
               // PagesName(id: 1, name: "Order chat"),
             ],
           ),
+          DrawerListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Allocation",
+                  style: GoogleFonts.montserrat(
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(
+                  Icons.arrow_drop_down_rounded,
+                  color: Colors.white,
+                )
+              ],
+            ),
+            height: 80,
+            svgSrc: "assets/icons/menu_profile.svg",
+            press: () {},
+            onPageChange: (value) {
+              if (value == 1) {
+                Beamer.of(context).beamToNamed('/allocation-list');
+              } else if (value == 0) {
+                Beamer.of(context).beamToNamed('/allocation-add');
+              }
+            },
+            items: [
+              PagesName(id: 1, name: "Allocation add"),
+              PagesName(id: 1, name: "Allocation List"),
+              // PagesName(id: 1, name: "Order chat"),
+            ],
+          ),
           if (getUserData.roleId == "6530f9f7023837a84d6f033c" ||
               getUserData.roleId == "6594278bfeeb0681fa958bd3") ...[
             DrawerListTile(
@@ -445,22 +481,13 @@ class _DrawerListTileState extends State<DrawerListTile> {
                       widget.onPageChange(index);
                     },
                     child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50.0),
+                            padding: const EdgeInsets.only(left: 25.0, top: 10),
                             child: Text(
                               widget.items[index].name,
                               style: TextStyle(
                                   color: Colors.white54, fontSize: 13),
                             ),
                           )
-                        ],
-                      ),
-                    ),
                   );
                 }),
           )

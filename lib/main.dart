@@ -8,7 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure that Flutter is initialized
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Ensure that Flutter is initialized
   await Connectivity().checkConnectivity();
   runApp(MyApp());
 }
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      
       debugShowCheckedModeBanner: false,
       title: 'Flutter Admin Panel',
       theme: ThemeData.dark().copyWith(
