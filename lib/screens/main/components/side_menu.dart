@@ -301,7 +301,7 @@ class SideMenu extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Allocation",
+                  "Master",
                   style: GoogleFonts.montserrat(
                     color: Colors.white,
                   ),
@@ -316,7 +316,7 @@ class SideMenu extends StatelessWidget {
               ],
             ),
             height: 80,
-            svgSrc: "assets/icons/menu_profile.svg",
+            svgSrc: "assets/icons/menu_setting.svg",
             press: () {},
             onPageChange: (value) {
               if (value == 1) {
