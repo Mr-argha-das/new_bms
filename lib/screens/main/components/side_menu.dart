@@ -323,11 +323,14 @@ class SideMenu extends StatelessWidget {
                 Beamer.of(context).beamToNamed('/allocation-list');
               } else if (value == 0) {
                 Beamer.of(context).beamToNamed('/allocation-add');
+              }else if(value == 2){
+                Beamer.of(context).beamToNamed('/list-writer-qc');
               }
             },
             items: [
               PagesName(id: 1, name: "Allocation add"),
               PagesName(id: 1, name: "Allocation List"),
+              PagesName(id: 1, name: "Qc, Writer List"),
               // PagesName(id: 1, name: "Order chat"),
             ],
           ),

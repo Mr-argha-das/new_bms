@@ -24,6 +24,7 @@ import 'package:admin/screens/venture/main.venture.dart';
 import 'package:admin/screens/venture/user/main.use.dart';
 import 'package:admin/screens/venture/user/service/user.api.service.dart';
 import 'package:admin/screens/venture/user/service/user.service.dart';
+import 'package:admin/screens/writer/main.writer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -70,6 +71,15 @@ class Env {
         child: OrderPerticuler(
           orderID: bookId,
         ),
+      );
+    },
+    '/list-writer-qc': (context, state, data){
+      return MultiProvider(providers: [
+        ChangeNotifierProvider(create: (context)=> MenuAppController()),
+        ChangeNotifierProvider(create: (context) => UserDataGet())
+
+      ],
+      child: QcWriterListmain()
       );
     },
     '/add-team': (context, state, data) => MultiProvider(
