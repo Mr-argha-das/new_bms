@@ -6,8 +6,6 @@ import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/allocation/service/allocation.service.dart';
 import 'package:admin/screens/orders/model/allocation.model.dart';
-import 'package:admin/screens/orders/views/Pagination.dart';
-import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -29,8 +27,8 @@ class _AllocationListState extends State<AllocationList> {
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-          AllocationHeader(),
-          SizedBox(
+            AllocationHeader(),
+            SizedBox(
               height: defaultPadding,
             ),
             Row(
@@ -55,7 +53,6 @@ class _AllocationListState extends State<AllocationList> {
             SizedBox(
               height: 50,
             ),
-            
           ],
         ),
       ),
@@ -88,7 +85,7 @@ class _AllocationHeaderState extends State<AllocationHeader> {
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-        
+
         // ProfileCard()
       ],
     );
@@ -127,7 +124,6 @@ class _AllocationTableState extends State<AllocationTable> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                
                   SizedBox(
                     width: double.infinity,
                     child: DataTable(
@@ -151,15 +147,13 @@ class _AllocationTableState extends State<AllocationTable> {
                       ],
                       rows: List.generate(
                         snapshot.data!.data.length,
-                        (index) => userTable(
-
-                          context,
-                          count: index + 1,
-                          id: snapshot.data!.data[index].id,
-                          name: snapshot.data!.data[index].name,
-                          email: snapshot.data!.data[index].email,
-                          number: snapshot.data!.data[index].number.toString()
-                        ),
+                        (index) => userTable(context,
+                            count: index + 1,
+                            id: snapshot.data!.data[index].id,
+                            name: snapshot.data!.data[index].name,
+                            email: snapshot.data!.data[index].email,
+                            number:
+                                snapshot.data!.data[index].number.toString()),
                       ),
                     ),
                   ),
@@ -181,10 +175,8 @@ DataRow userTable(
   required String name,
   required String number,
   required String email,
-
 }) {
   return DataRow(
-    
     cells: [
       DataCell(
         Text(count.toString()),

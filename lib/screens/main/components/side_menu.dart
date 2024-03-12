@@ -80,149 +80,149 @@ class SideMenu extends StatelessWidget {
               ),
               title: Text("Dashboard")),
           if (getUserData.roleId == "6530f9f7023837a84d6f033c") ...[
-            DrawerListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Venture",
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.arrow_drop_down_rounded,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-              svgSrc: "assets/icons/menu_task.svg",
-              press: () {},
-              items: [
-                PagesName(id: 1, name: "Venture add"),
-                PagesName(id: 1, name: "Venture list"),
-              ],
-              height: 70,
-              onPageChange: (value) {
-                if (value == 1) {
-                  Beamer.of(context).beamToNamed('/venture-list');
-                } else if (value == 0) {
-                  Beamer.of(context).beamToNamed('/add-venture');
-                }
-              },
-            ),
-            DrawerListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Team",
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.arrow_drop_down_rounded,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-              svgSrc: "assets/icons/menu_doc.svg",
-              press: () {},
-              items: [
-                PagesName(id: 1, name: "Team add"),
-                PagesName(id: 1, name: "Team List"),
-              ],
-              onPageChange: (value) {
-                if (value == 1) {
-                  Beamer.of(context).beamToNamed('/team-list');
-                } else if (value == 0) {
-                  Beamer.of(context).beamToNamed('/add-team');
-                }
-              },
-              height: 70,
-            ),
-            DrawerListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "User",
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.arrow_drop_down_rounded,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-              svgSrc: "assets/icons/menu_store.svg",
-              press: () {},
-              items: [
-                PagesName(id: 1, name: "User add"),
-                PagesName(id: 1, name: "User List"),
-              ],
-              onPageChange: (value) {
-                if (value == 1) {
-                  Beamer.of(context).beamToNamed('/user-list');
-                } else if (value == 0) {
-                  Beamer.of(context).beamToNamed('/user-add');
-                }
-              },
-              height: 70,
-            )
+            // DrawerListTile(
+            //   title: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "Venture",
+            //         style: GoogleFonts.montserrat(
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         width: 10,
+            //       ),
+            //       Icon(
+            //         Icons.arrow_drop_down_rounded,
+            //         color: Colors.white,
+            //       )
+            //     ],
+            //   ),
+            //   svgSrc: "assets/icons/menu_task.svg",
+            //   press: () {},
+            //   items: [
+            //     PagesName(id: 1, name: "Venture add"),
+            //     PagesName(id: 1, name: "Venture list"),
+            //   ],
+            //   height: 70,
+            //   onPageChange: (value) {
+            //     if (value == 1) {
+            //       Beamer.of(context).beamToNamed('/venture-list');
+            //     } else if (value == 0) {
+            //       Beamer.of(context).beamToNamed('/add-venture');
+            //     }
+            //   },
+            // ),
+            // DrawerListTile(
+            //   title: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "Team",
+            //         style: GoogleFonts.montserrat(
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         width: 10,
+            //       ),
+            //       Icon(
+            //         Icons.arrow_drop_down_rounded,
+            //         color: Colors.white,
+            //       )
+            //     ],
+            //   ),
+            //   svgSrc: "assets/icons/menu_doc.svg",
+            //   press: () {},
+            //   items: [
+            //     PagesName(id: 1, name: "Team add"),
+            //     PagesName(id: 1, name: "Team List"),
+            //   ],
+            //   onPageChange: (value) {
+            //     if (value == 1) {
+            //       Beamer.of(context).beamToNamed('/team-list');
+            //     } else if (value == 0) {
+            //       Beamer.of(context).beamToNamed('/add-team');
+            //     }
+            //   },
+            //   height: 70,
+            // ),
+            // DrawerListTile(
+            //   title: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "User",
+            //         style: GoogleFonts.montserrat(
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         width: 10,
+            //       ),
+            //       Icon(
+            //         Icons.arrow_drop_down_rounded,
+            //         color: Colors.white,
+            //       )
+            //     ],
+            //   ),
+            //   svgSrc: "assets/icons/menu_store.svg",
+            //   press: () {},
+            //   items: [
+            //     PagesName(id: 1, name: "User add"),
+            //     PagesName(id: 1, name: "User List"),
+            //   ],
+            //   onPageChange: (value) {
+            //     if (value == 1) {
+            //       Beamer.of(context).beamToNamed('/user-list');
+            //     } else if (value == 0) {
+            //       Beamer.of(context).beamToNamed('/user-add');
+            //     }
+            //   },
+            //   height: 70,
+            // )
           ],
-          if (getUserData.roleId != "6530f9f7023837a84d6f033c") ...[
-            DrawerListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "User",
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.arrow_drop_down_rounded,
-                    color: Colors.white,
-                  )
-                ],
-              ),
-              svgSrc: "assets/icons/menu_store.svg",
-              press: () {},
-              items: [
-                PagesName(id: 1, name: "User add"),
-                PagesName(id: 1, name: "User List"),
-              ],
-              onPageChange: (value) {
-                if (value == 1) {
-                  Beamer.of(context).beamToNamed('/user-list');
-                } else if (value == 0) {
-                  Beamer.of(context).beamToNamed('/user-add');
-                }
-              },
-              height: 70,
-            )
-          ],
+          // if (getUserData.roleId != "6530f9f7023837a84d6f033c") ...[
+          //   DrawerListTile(
+          //     title: Row(
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Text(
+          //           "User",
+          //           style: GoogleFonts.montserrat(
+          //             color: Colors.white,
+          //           ),
+          //         ),
+          //         SizedBox(
+          //           width: 10,
+          //         ),
+          //         Icon(
+          //           Icons.arrow_drop_down_rounded,
+          //           color: Colors.white,
+          //         )
+          //       ],
+          //     ),
+          //     svgSrc: "assets/icons/menu_store.svg",
+          //     press: () {},
+          //     items: [
+          //       PagesName(id: 1, name: "User add"),
+          //       PagesName(id: 1, name: "User List"),
+          //     ],
+          //     onPageChange: (value) {
+          //       if (value == 1) {
+          //         Beamer.of(context).beamToNamed('/user-list');
+          //       } else if (value == 0) {
+          //         Beamer.of(context).beamToNamed('/user-add');
+          //       }
+          //     },
+          //     height: 70,
+          //   )
+          // ],
 
           DrawerListTile(
             title: Row(
@@ -315,22 +315,74 @@ class SideMenu extends StatelessWidget {
                 )
               ],
             ),
-            height: 80,
+            height: 290,
             svgSrc: "assets/icons/menu_setting.svg",
             press: () {},
             onPageChange: (value) {
-              if (value == 1) {
-                Beamer.of(context).beamToNamed('/allocation-list');
-              } else if (value == 0) {
-                Beamer.of(context).beamToNamed('/allocation-add');
-              }else if(value == 2){
-                Beamer.of(context).beamToNamed('/list-writer-qc');
+              if (getUserData.roleId == "6530f9f7023837a84d6f033c") {
+                switch (value) {
+                  case 0:
+                    // do something
+                    Beamer.of(context).beamToNamed('/add-venture');
+                    break;
+                  case 1:
+                    Beamer.of(context).beamToNamed('/venture-list');
+                    break;
+                  case 2:
+                    Beamer.of(context).beamToNamed('/add-team');
+                    break;
+                  case 3:
+                    Beamer.of(context).beamToNamed('/team-list');
+                    break;
+                  case 4:
+                    Beamer.of(context).beamToNamed('/user-add');
+                    break;
+                  case 5:
+                    Beamer.of(context).beamToNamed('/user-list');
+                    break;
+                  case 6:
+                    Beamer.of(context).beamToNamed('/allocation-add');
+                    break;
+                  case 7:
+                    Beamer.of(context).beamToNamed('/allocation-list');
+                    break;
+                  case 8:
+                    Beamer.of(context).beamToNamed('/list-writer-qc');
+                    break;
+                  case 9:
+                    Beamer.of(context).beamToNamed('/add-writer-qc');
+                    break;
+                }
+              }
+              if (getUserData.roleId == "6594278bfeeb0681fa958bd3") {
+                switch (value) {
+                  case 0:
+                    Beamer.of(context).beamToNamed('/user-add');
+                    break;
+                  case 1:
+                    Beamer.of(context).beamToNamed('/user-list');
+                    break;
+                }
               }
             },
             items: [
-              PagesName(id: 1, name: "Allocation add"),
-              PagesName(id: 1, name: "Allocation List"),
-              PagesName(id: 1, name: "Qc, Writer List"),
+              if (getUserData.roleId == "6530f9f7023837a84d6f033c") ...[
+                PagesName(id: 1, name: "Ventuer Add"),
+                PagesName(id: 1, name: "Ventuer List"),
+                PagesName(id: 1, name: "Team Add "),
+                PagesName(id: 1, name: "Team List"),
+                PagesName(id: 1, name: "User Add "),
+                PagesName(id: 1, name: "User List"),
+                PagesName(id: 1, name: "Allocation add"),
+                PagesName(id: 1, name: "Allocation List"),
+                PagesName(id: 1, name: "Qc, Writer List"),
+                PagesName(id: 1, name: "Qc, Writer Add"),
+              ],
+              if (getUserData.roleId == "6594278bfeeb0681fa958bd3") ...[
+                PagesName(id: 1, name: "User Add "),
+                PagesName(id: 1, name: "User List"),
+              ]
+
               // PagesName(id: 1, name: "Order chat"),
             ],
           ),
@@ -480,18 +532,16 @@ class _DrawerListTileState extends State<DrawerListTile> {
                 itemCount: widget.items.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () {
-                      widget.onPageChange(index);
-                    },
-                    child: Padding(
-                            padding: const EdgeInsets.only(left: 25.0, top: 10),
-                            child: Text(
-                              widget.items[index].name,
-                              style: TextStyle(
-                                  color: Colors.white54, fontSize: 13),
-                            ),
-                          )
-                  );
+                      onTap: () {
+                        widget.onPageChange(index);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25.0, top: 10),
+                        child: Text(
+                          widget.items[index].name,
+                          style: TextStyle(color: Colors.white54, fontSize: 13),
+                        ),
+                      ));
                 }),
           )
         ],

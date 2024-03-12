@@ -82,6 +82,15 @@ class Env {
       child: QcWriterListmain()
       );
     },
+     '/add-writer-qc': (context, state, data){
+      return MultiProvider(providers: [
+        ChangeNotifierProvider(create: (context)=> MenuAppController()),
+        ChangeNotifierProvider(create: (context) => UserDataGet())
+
+      ],
+      child: WriterAddMain()
+      );
+    },
     '/add-team': (context, state, data) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => MenuAppController()),

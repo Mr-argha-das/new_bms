@@ -11,7 +11,7 @@ String qcwritterResModelToJson(QcwritterResModel data) => json.encode(data.toJso
 class QcwritterResModel {
     bool status;
     String message;
-    Data data;
+    Data? data;
 
     QcwritterResModel({
         required this.status,
@@ -28,7 +28,7 @@ class QcwritterResModel {
     Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
-        "data": data.toJson(),
+        "data": data!.toJson(),
     };
 }
 
