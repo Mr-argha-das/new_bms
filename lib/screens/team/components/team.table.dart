@@ -88,9 +88,9 @@ class _TeamTableState extends State<TeamTable> {
                       DataColumn(
                         label: Text("Action "),
                       ),
-                      DataColumn(
-                        label: Text("Status"),
-                      ),
+                      // DataColumn(
+                      //   label: Text("Status"),
+                      // ),
                     ],
                     rows: List.generate(
                       snapshot.data!.data.length,
@@ -157,161 +157,127 @@ DataRow teamTable(
       DataCell(Text(name)),
       DataCell(Text(teamType)),
       DataCell(Center(
-        child: GestureDetector(
-          onTap: (){
-            final teamNameController = TextEditingController(text: name);
-            final teamTypeController = TextEditingController(text: teamType);
-            String? ventureIDSelect;
-            log(ventureid);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return GestureDetector(
-                    onTap: (){
-                       Navigator.of(context).pop();
-                    },
-                    child: Container(
-                    
-                      decoration: BoxDecoration(
-                        color: Colors.white24.withOpacity(0.1),
-                      ),
-                      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: (){
+                final teamNameController = TextEditingController(text: name);
+                final teamTypeController = TextEditingController(text: teamType);
+                String? ventureIDSelect;
+                log(ventureid);
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return GestureDetector(
+                        onTap: (){
+                           Navigator.of(context).pop();
+                        },
                         child: Container(
-                          width: 400,
-                          decoration: BoxDecoration(color: secondaryColor, borderRadius: BorderRadius.circular(15)),
-                          child: Material(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  TextField(
-                                    controller: teamNameController,
-                                    decoration: InputDecoration(
-                                      label: Text("Team Name"),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Colors.white, width: 1)
-                                      )
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  TextField(
-                                    controller: teamTypeController,
-                                    decoration: InputDecoration(
-                                      label: Text("Team Type"),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Colors.white, width: 1)
-                                      )
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  // Padding(
-                                  //     padding: const EdgeInsets.all(8.0),
-                                  //     child: MySearchapleDropDown(
-                                  //       items: ventureList,
-                                  //       id: ventureid,
-                                  //       callBack: (value) {
-                                        
-                                  //       },
-                                  //       title: "Select Venture",
-                                  //     )),
-                                  //     SizedBox(
-                                  //   height: 10,
-                                  // ),
-                                  GestureDetector(
-                                    onTap: ()async{
-                                      final service = AddTeamApi(createDio());
-                                      TeamUpdateResModel response = await service.updateTeamData(id, TeamAddModel(name: teamNameController.text, type: teamTypeController.text, vId: ventureIDSelect!));
-                                       Navigator.of(context).pop();
-                                       callBack2();
-                                    },
-                                    child: Container(
-                                      height: 50,
-                                      width: 400,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.circular(10)
+                        
+                          decoration: BoxDecoration(
+                            color: Colors.white24.withOpacity(0.1),
+                          ),
+                          child: Center(
+                            child: Container(
+                              height: 300,
+                              width: 400,
+                              decoration: BoxDecoration(color: secondaryColor, borderRadius: BorderRadius.circular(15)),
+                              child: Material(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      TextField(
+                                        controller: teamNameController,
+                                        decoration: InputDecoration(
+                                          label: Text("Team Name"),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(color: Colors.white, width: 1)
+                                          )
+                                        ),
                                       ),
-                                      child: Center(
-                                        child: Text("Save"),
+                                      SizedBox(
+                                        height: 10,
                                       ),
-                                    ),
+                                      TextField(
+                                        controller: teamTypeController,
+                                        decoration: InputDecoration(
+                                          label: Text("Team Type"),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(color: Colors.white, width: 1)
+                                          )
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                     
+                                      GestureDetector(
+                                        onTap: ()async{
+                                          final service = AddTeamApi(createDio());
+                                          TeamUpdateResModel response = await service.updateTeamData(id, TeamAddModel(name: teamNameController.text, type: teamTypeController.text, vId: ventureid));
+                                           Navigator.of(context).pop();
+                                           callBack2();
+                                        },
+                                        child: Container(
+                                          height: 50,
+                                          width: 400,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          child: Center(
+                                            child: Text("Save"),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   );
-                },
-              );
-          },
-          child: Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(50),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(4, 4))
-                ]),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.edit_outlined,
-                    color: Colors.white,
-                  )
-                ],
+              },
+              child: Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black26,
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(4, 4))
+                    ]),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.edit_outlined,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       )),
-      DataCell(
-        Container(
-          height: 30,
-          width: 80,
-          child: LiteRollingSwitch(
-            //initial value
-
-            width: 90,
-            value: true,
-            textOn: 'ON',
-            textOff: 'OFF',
-            colorOn: bgColor,
-            textOffColor: Colors.white,
-            textOnColor: Colors.white,
-
-            colorOff: Colors.red,
-            iconOn: Icons.done,
-            iconOff: Icons.remove_circle_outline,
-            textSize: 10.0,
-            onChanged: (bool state) {
-              //Use it to manage the different states
-              print('Current State of SWITCH IS: $state');
-            },
-            onSwipe: () {},
-            onDoubleTap: () {},
-            onTap: () {},
-          ),
-        ),
-      )
+      
     ],
   );
 }
