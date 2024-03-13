@@ -44,19 +44,21 @@ class AllocationListMain extends StatefulWidget {
 class _AllocationListMainState extends State<AllocationListMain> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-     key: context.read<MenuAppController>().scaffoldKey,
-     drawer: SideMenu(title: 'Allocation', context: context,),
-     body: SafeArea(child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if(Responsive.isDesktop(context))
-        Expanded(child: SideMenu(title: 'Allocation', context: context)),
-        Expanded(
-          flex: 5,
-          child: AllocationList())
-      ],
-     ),),
+    return Material(
+      child: Scaffold(
+       key: context.read<MenuAppController>().scaffoldKey,
+       drawer: SideMenu(title: 'Allocation', context: context,),
+       body: SafeArea(child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if(Responsive.isDesktop(context))
+          Expanded(child: SideMenu(title: 'Allocation', context: context)),
+          Expanded(
+            flex: 5,
+            child: AllocationList())
+        ],
+       ),),
+      ),
     );
   }
 }

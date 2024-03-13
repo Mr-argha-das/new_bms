@@ -1,15 +1,20 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/allocation/service/allocation.service.dart';
+import 'package:admin/screens/orders/components/searchdrop.dart';
 import 'package:admin/screens/orders/model/allocation.model.dart';
 import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/writer/model/qc.writer.list.model.dart';
 import 'package:admin/screens/writer/service/qc.writer.service.dart';
 import 'package:beamer/beamer.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -117,8 +122,7 @@ class _AllocationTableState extends State<AllocationTable> {
     return FutureBuilder<QcwritterListModel>(
         future: model,
         builder: (context, snapshot) {
-          log("/////////////////////////////////////////////////////");
-          log(snapshot.data!.data.toString());
+       
           if (snapshot.hasData) {
             return Container(
               padding: EdgeInsets.all(defaultPadding),
@@ -161,6 +165,7 @@ class _AllocationTableState extends State<AllocationTable> {
                           context,
                           count: index + 1,
                           role: snapshot.data!.data[index].roles,
+                          allocationId: snapshot.data!.data[index].allocationId,
                           id: snapshot.data!.data[index].id,
                           name: snapshot.data!.data[index].name,
                           email: snapshot.data!.data[index].email,
@@ -182,6 +187,7 @@ class _AllocationTableState extends State<AllocationTable> {
 
 DataRow userTable(
   context, {
+    required String allocationId,
   required String id,
   required int count,
   required String name,
@@ -201,40 +207,504 @@ DataRow userTable(
       DataCell(Text(number)),
       DataCell(Text(role)),
       DataCell(
-        PopupMenuButton<String>(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
-          constraints: BoxConstraints(minHeight: 100, minWidth: 20),
-          color: const Color.fromARGB(255, 42, 46, 62),
-          icon: Container(
-            child: Icon(
-              Icons.more_vert_rounded,
-              color: Colors.white,
-            ),
-          ),
-          onSelected: (String value) {
-            // Handle menu item selection
-            // You can add your logic here based on the selected value
+        GestureDetector(
+          onTap: (){
+            showDialog(context: context, builder: (BuildContext context){
+              return QcWriterEditForm(alloctionId: allocationId, email: email, name: name, number: number,);
+            });
           },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-            PopupMenuItem<String>(
-              padding: EdgeInsets.all(10),
-              height: 25,
-              child: Center(child: Icon(Icons.edit_outlined)),
-            ),
-
-            PopupMenuItem<String>(
-              padding: EdgeInsets.all(10),
-              height: 25,
-              child: Center(child: Icon(Icons.file_open_outlined)),
-            ),
-            // Add more menu items as needed
-          ],
-        ),
+          child: Icon(Icons.edit_outlined))
       ),
     ],
   );
+}
+
+
+class QcWriterEditForm extends StatefulWidget {
+  final String name;
+  final String email;
+  final String number;
+  final String alloctionId;
+  const QcWriterEditForm({Key? key, required this.alloctionId, required this.email, required this.name, required this.number}) : super(key: key);
+
+  @override
+  State<QcWriterEditForm> createState() => _QcWriterEditFormState();
+}
+
+class _QcWriterEditFormState extends State<QcWriterEditForm> {
+    final emailController = TextEditingController();
+  final mobileController = TextEditingController();
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  String? selectedValue;
+  final List<String> items = ['QC', 'Writer'];
+  final List<String> allocationList = ['Satpal', 'Rajat'];
+  String? allocationID;
+  String? filepath;
+  String? imagepath;
+  Uint8List? _bytesData;
+  Uint8List? _images;
+  List<int>? _selectFiles;
+  Future<AllocationListmodel>? model;
+  Future<AllocationListmodel> getData() async {
+    final orderService = AllocationSerive(createDio());
+    final data = orderService.getAllocationList();
+    return data;
+  }
+  bool lodar = false;
+
+  List<ItemClass> allocation = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    emailController.text = widget.email;
+    nameController.text = widget.name;
+    mobileController.text = widget.number;
+  }
+  @override
+  
+  Widget build(BuildContext context) {
+     model = getData();
+    model!.then((value) {
+      for (int i = 0; i < value.data.length; i++) {
+        if (value.data.length > allocation.length) {
+          setState(() {
+            allocation.addAll([
+              ItemClass(title: value.data[i].name, value: value.data[i].id)
+            ]);
+          });
+        }
+      }
+    });
+    return allocation.isEmpty? Center(child: CircularProgressIndicator(),) : GestureDetector(
+      onTap: (){
+       Navigator.of(context).pop();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white24.withOpacity(0.1)
+        ),
+        child: Center(
+          child: Container(
+            height: 650,
+            width: 800,
+            decoration: BoxDecoration(
+              color: Colors.white24.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(15)
+            ),
+            child: FutureBuilder<AllocationListmodel>(
+        future: model,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return  lodar?  Center(
+              child: CircularProgressIndicator(),
+            ) :Scaffold(
+              body: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 1050,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Add Qc Writer",
+                                  style: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 20),
+                                ),
+                                Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        height: 500,
+                                        width: 600,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                      ),
+                                    ),
+                                    const Positioned.fill(
+                                      child: Image(
+                                        image: AssetImage(
+                                            "assets/images/Notebook.gif"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Please fill all field",
+                                    style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 20),
+                                  ),
+                                  const SizedBox(height: 40),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 35,
+                                            width: 300,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromARGB(
+                                                    255, 239, 239, 239),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Center(
+                                                  child: TextFormField(
+                                                    controller: nameController,
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13),
+                                                    decoration:
+                                                        const InputDecoration
+                                                            .collapsed(
+                                                            border: InputBorder
+                                                                .none,
+                                                            hintText: 'Name',
+                                                            hintStyle: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300)),
+                                                    validator: (value) {
+                                                      if (value!.isEmpty ||
+                                                          value == null) {
+                                                        return "This Field is required";
+                                                      }
+                                                    },
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 35,
+                                            width: 300,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromARGB(
+                                                    255, 239, 239, 239),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Center(
+                                                  child: TextFormField(
+                                                    controller: emailController,
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13),
+                                                    decoration:
+                                                        const InputDecoration
+                                                            .collapsed(
+                                                            border: InputBorder
+                                                                .none,
+                                                            hintText: 'Email',
+                                                            hintStyle: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300)),
+                                                    validator: (value) {
+                                                      if (value!.isEmpty ||
+                                                          value == null) {
+                                                        return "This Field is required";
+                                                      }
+                                                    },
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // Expanded(
+                                      //   child: Padding(
+                                      //     padding: const EdgeInsets.all(8.0),
+                                      //     child: Container(
+                                      //       height: 35,
+                                      //       width: 300,
+                                      //       decoration: BoxDecoration(
+                                      //           color: const Color.fromARGB(
+                                      //               255, 239, 239, 239),
+                                      //           borderRadius:
+                                      //               BorderRadius.circular(10)),
+                                      //       child: Padding(
+                                      //           padding:
+                                      //               const EdgeInsets.all(8.0),
+                                      //           child: Center(
+                                      //             child: TextFormField(
+                                      //               controller:
+                                      //                   passwordController,
+                                      //               style: const TextStyle(
+                                      //                   color: Colors.black,
+                                      //                   fontSize: 13),
+                                      //               decoration: const InputDecoration
+                                      //                   .collapsed(
+                                      //                   border:
+                                      //                       InputBorder.none,
+                                      //                   hintText: 'Password',
+                                      //                   hintStyle: TextStyle(
+                                      //                       fontSize: 13,
+                                      //                       color: Colors.black,
+                                      //                       fontWeight:
+                                      //                           FontWeight
+                                      //                               .w300)),
+                                      //               validator: (value) {
+                                      //                 if (value!.isEmpty ||
+                                      //                     value == null) {
+                                      //                   return "This Field is required";
+                                      //                 }
+                                      //               },
+                                      //             ),
+                                      //           )),
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 35,
+                                            width: 300,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromARGB(
+                                                    255, 239, 239, 239),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Center(
+                                                  child: TextFormField(
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    controller:
+                                                        mobileController,
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13),
+                                                    decoration:
+                                                        const InputDecoration
+                                                            .collapsed(
+                                                            border: InputBorder
+                                                                .none,
+                                                            hintText:
+                                                                'Mobile number',
+                                                            hintStyle: TextStyle(
+                                                                fontSize: 13,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300)),
+                                                    validator: (value) {
+                                                      if (value!.isEmpty ||
+                                                          value == null) {
+                                                        return "This Field is required";
+                                                      }
+                                                    },
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                              height: 35,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 239, 239, 239),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  DropdownButtonHideUnderline(
+                                                    child:
+                                                        DropdownButton2<String>(
+                                                      isExpanded: true,
+                                                      hint: const Text(
+                                                        'Role',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      items: items
+                                                          .map((String item) =>
+                                                              DropdownMenuItem<
+                                                                  String>(
+                                                                value: item,
+                                                                child: Text(
+                                                                  item,
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        14,
+                                                                  ),
+                                                                ),
+                                                              ))
+                                                          .toList(),
+                                                      value: selectedValue,
+                                                      onChanged:
+                                                          (String? value) {
+                                                        setState(() {
+                                                          selectedValue = value;
+                                                        });
+                                                      },
+                                                      buttonStyleData:
+                                                          ButtonStyleData(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          horizontal: 16,
+                                                        ),
+                                                        height: 35,
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                        ),
+                                                      ),
+                                                      iconStyleData:
+                                                          const IconStyleData(
+                                                        iconEnabledColor:
+                                                            Colors.black,
+                                                      ),
+                                                      menuItemStyleData:
+                                                          const MenuItemStyleData(
+                                                        height: 35,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Card(
+                                    elevation: 3,
+                                    color: Colors.white,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: MySearchapleDropDown(
+                                        items: allocation,
+                                        id: widget.alloctionId,
+                                        callBack: (value) {
+                                          setState(() {
+                                            allocationID = value;
+                                          });
+                                        },
+                                        title: "Select Allocation Type",
+                                      ),
+                                    ),
+                                  ),
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // ),
+                                  
+                                  const SizedBox(
+                                    height: 40,
+                                  ),
+                                ],
+                              ),
+                            )),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text("Some Thing went wrong"),
+            );
+          }
+
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }),
+          ),
+        ),
+      ),
+    );
+  }
 }
