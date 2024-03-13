@@ -111,9 +111,9 @@ class _VentureTableState extends State<VentureTable> {
                       DataColumn(
                         label: Text("Action", style: TextStyle(color: Colors.white)),
                       ),
-                      DataColumn(
-                        label: Text("Status", style: TextStyle(color: Colors.white)),
-                      ),
+                      // DataColumn(
+                      //   label: Text("Status", style: TextStyle(color: Colors.white)),
+                      // ),
                     ],
                     rows: List.generate(
                       snapshot.data!.data.length,
@@ -261,50 +261,42 @@ DataRow table(
                       blurRadius: 5,
                       offset: Offset(4, 4))
                 ]),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
+            child: Icon(
                     Icons.edit_outlined,
                     color: Colors.white,
                   )
-                ],
-              ),
-            ),
           ),
         ),
       )),
-      DataCell(
-        Container(
-          height: 30,
-          width: 80,
-          child: LiteRollingSwitch(
-            //initial value
+      // DataCell(
+      //   Container(
+      //     height: 30,
+      //     width: 80,
+      //     child: LiteRollingSwitch(
+      //       //initial value
 
-            width: 90,
-            value: true,
-            textOn: 'ON',
-            textOff: 'OFF',
-            colorOn: bgColor,
-            textOffColor: Colors.white,
-            textOnColor: Colors.white,
+      //       width: 90,
+      //       value: true,
+      //       textOn: 'ON',
+      //       textOff: 'OFF',
+      //       colorOn: bgColor,
+      //       textOffColor: Colors.white,
+      //       textOnColor: Colors.white,
 
-            colorOff: Colors.red,
-            iconOn: Icons.done,
-            iconOff: Icons.remove_circle_outline,
-            textSize: 10.0,
-            onChanged: (bool state) {
-              //Use it to manage the different states
-              print('Current State of SWITCH IS: $state');
-            },
-            onSwipe: () {},
-            onDoubleTap: () {},
-            onTap: () {},
-          ),
-        ),
-      )
+      //       colorOff: Colors.red,
+      //       iconOn: Icons.done,
+      //       iconOff: Icons.remove_circle_outline,
+      //       textSize: 10.0,
+      //       onChanged: (bool state) {
+      //         //Use it to manage the different states
+      //         print('Current State of SWITCH IS: $state');
+      //       },
+      //       onSwipe: () {},
+      //       onDoubleTap: () {},
+      //       onTap: () {},
+      //     ),
+      //   ),
+      // )
     ],
   );
 }

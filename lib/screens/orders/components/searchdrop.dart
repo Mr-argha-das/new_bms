@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,8 +39,11 @@ class _MySearchapleDropDownState extends State<MySearchapleDropDown> {
     for (int i = 0; i < _clientsList.length; i++) {
       if (widget.items[i].value == widget.id) {
         setState(() {
-          preValue = _clientsList[i].title;
+          _textController.text = _clientsList[i].title;
         });
+        log("match");
+      }else{
+        log("not match");
       }
     }
   }

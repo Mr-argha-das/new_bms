@@ -16,35 +16,37 @@ class TeamList extends StatefulWidget {
 class _TeamListState extends State<TeamList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          primary: false,
-          padding: EdgeInsets.all(defaultPadding),
-          child: Column(
-            children: [
-              TeamHeader(),
-              SizedBox(
-                height: defaultPadding,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: Column(
-                      children: [
-                        SizedBox(height: defaultPadding),
-                        TeamTable(),
-                        if (Responsive.isMobile(context))
+    return Material(
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            primary: false,
+            padding: EdgeInsets.all(defaultPadding),
+            child: Column(
+              children: [
+                TeamHeader(),
+                SizedBox(
+                  height: defaultPadding,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        children: [
                           SizedBox(height: defaultPadding),
-                      ],
+                          TeamTable(),
+                          if (Responsive.isMobile(context))
+                            SizedBox(height: defaultPadding),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ));
+                  ],
+                )
+              ],
+            ),
+          )),
+    );
   }
 }
