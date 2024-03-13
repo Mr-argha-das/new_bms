@@ -23,54 +23,56 @@ class ClientsList extends StatefulWidget {
 class _ClientsListState extends State<ClientsList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          primary: false,
-          padding: EdgeInsets.all(defaultPadding),
-          child: Column(
-            children: [
-              UserHeader(),
-              SizedBox(
-                height: defaultPadding,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                      child: Column(
-                    children: [
-                      SizedBox(
-                        height: defaultPadding,
-                      ),
-                      ClientTable(),
-                      if (Responsive.isMobile(context))
+    return Material(
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            primary: false,
+            padding: EdgeInsets.all(defaultPadding),
+            child: Column(
+              children: [
+                UserHeader(),
+                SizedBox(
+                  height: defaultPadding,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        child: Column(
+                      children: [
                         SizedBox(
                           height: defaultPadding,
-                        )
-                    ],
-                  ))
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                      height: 45,
-                      width: 380,
-                      decoration: BoxDecoration(
-                          color: secondaryColor,
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Pagination())
-                ],
-              )
-            ],
-          ),
-        ));
+                        ),
+                        ClientTable(),
+                        if (Responsive.isMobile(context))
+                          SizedBox(
+                            height: defaultPadding,
+                          )
+                      ],
+                    ))
+                  ],
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                        height: 45,
+                        width: 380,
+                        decoration: BoxDecoration(
+                            color: secondaryColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Pagination())
+                  ],
+                )
+              ],
+            ),
+          )),
+    );
   }
 }
 
@@ -231,14 +233,24 @@ DataRow userTable(
             PopupMenuItem<String>(
               padding: EdgeInsets.all(10),
               height: 25,
-              child: Center(child: Icon(Icons.edit_outlined)),
+              child: Center(
+                  child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return EditFormUser();
+                          },
+                        );
+                      },
+                      child: Icon(Icons.edit_outlined))),
             ),
 
             PopupMenuItem<String>(
               padding: EdgeInsets.all(10),
               height: 25,
-              child: Center(child: GestureDetector(
-                child: Icon(Icons.shopping_cart))),
+              child: Center(
+                  child: GestureDetector(child: Icon(Icons.shopping_cart))),
             ),
             // Add more menu items as needed
           ],
@@ -246,4 +258,96 @@ DataRow userTable(
       ),
     ],
   );
+}
+
+class EditFormUser extends StatefulWidget {
+  const EditFormUser({Key? key}) : super(key: key);
+
+  @override
+  State<EditFormUser> createState() => _EditFormUserState();
+}
+
+class _EditFormUserState extends State<EditFormUser> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white24.withOpacity(0.1),
+        ),
+        child: Center(
+          child: Container(
+            height: 300,
+            width: 400,
+            decoration: BoxDecoration(
+                color: secondaryColor, borderRadius: BorderRadius.circular(15)),
+            child: Material(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextField(
+                      // controller: teamNameController,
+                      decoration: InputDecoration(
+                          label: Text("Team Name"),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1))),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextField(
+                      // controller: teamTypeController,
+                      decoration: InputDecoration(
+                          label: Text("Team Type"),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1))),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        // final service = AddTeamApi(createDio());
+                        // TeamUpdateResModel response =
+                        //     await service.updateTeamData(
+                        //         id,
+                        //         TeamAddModel(
+                        //             name:
+                        //                 teamNameController.text,
+                        //             type:
+                        //                 teamTypeController.text,
+                        //             vId: ventureid));
+                        // Navigator.of(context).pop();
+                        // callBack2();
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 400,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text("Save"),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
