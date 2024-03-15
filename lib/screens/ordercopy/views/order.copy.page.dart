@@ -93,8 +93,90 @@ class _OrderCopyState extends State<OrderCopy> {
   final _fromKey = GlobalKey<FormState>();
   
 
-  
- 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future<OrderListModel> orderDetailsFirst = orderDetailsGet();
+    orderDetailsFirst.then((value){
+     orderDetails = value;
+         _audTotalamountController.text = orderDetails!.data[0].audAmmount.toString();
+    _inrTotalamountController.text = orderDetails!.data[0].inrAmmount.toString();
+    _clientaudAmountController.text = orderDetails!.data[0].clientAmmount.toString();
+    _clientinrAmountController.text = orderDetails!.data[0].totalAmmount.toString();
+    _assignmentType.text = orderDetails!.data[0].ppt;
+    _moduleCodeController.text = orderDetails!.data[0].moduleCode;
+    _moduleNameController.text = orderDetails!.data[0].moduleName;
+    _notesController.text = orderDetails!.data[0].shortNote;
+    _wordCountController.text = orderDetails!.data[0].wordCount;
+    clientId = orderDetails!.data[0].clientId.id;
+    servicId = orderDetails!.data[0].serviceId!.id;
+    currencyId = orderDetails!.data[0].currencyId!.id;
+    paymentType = orderDetails!.data[0].paymentType;
+    });
+  }
+    String? filepath;
+  String? imagepath;
+  Uint8List? _bytesData;
+  Uint8List? _images;
+  webFilePicker() async {
+    html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
+    uploadInput.multiple = false;
+    uploadInput.draggable = true;
+    uploadInput.click();
+
+    uploadInput.onChange.listen((event) {
+      final files = uploadInput.files;
+      final file = files![0];
+      final reader = html.FileReader();
+      log("///////////////////////////");
+
+      reader.onLoadEnd.listen((event) async {
+        setState(() async {
+          _bytesData =
+              Base64Decoder().convert(reader.result.toString().split(',').last);
+          _selectFiles = _bytesData;
+          filepath = file.name;
+          log("====================");
+          // log(_pickedImage!.path.toString());
+        });
+      });
+      reader.readAsDataUrl(file);
+    });
+  }
+
+  filePicker() async {
+    html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
+    uploadInput.multiple = false;
+    uploadInput.draggable = true;
+    uploadInput.click();
+
+    uploadInput.onChange.listen((event) {
+      final files = uploadInput.files;
+      final file = files![0];
+      final reader = html.FileReader();
+      log("///////////////////////////");
+
+      reader.onLoadEnd.listen((event) {
+        setState(() async {
+          _images =
+              Base64Decoder().convert(reader.result.toString().split(',').last);
+          _selectFiles = _bytesData;
+          // _pickedImage = File.;
+          imagepath = file.name;
+          log("====================");
+          // log(_pickedImage!.path.toString());
+          final multipartFile =
+              MultipartFile.fromBytes(_images!, filename: "${file.name}");
+          final fileUploadService = FileUploadService(createDio());
+          FileUploadResponse response = await fileUploadService
+              .upload(data: {"images": multipartFile, "bucketName": "ahec"});
+          imagepath = response.data;
+        });
+      });
+      reader.readAsDataUrl(file);
+    });
+  }
 
   bool lodar = false;
   @override
@@ -105,21 +187,7 @@ class _OrderCopyState extends State<OrderCopy> {
     Future<Currencymodel> data = getData(orderService);
     Future<ServiceModel> service = getService(orderService);
     Future<AllocationListmodel> allocationData = getAllocation(orderService);
-    Future<OrderListModel> orderDetailsFirst = orderDetailsGet();
-    orderDetailsFirst.then((value){
-    setState(() {
-       orderDetails = value;
-         _audTotalamountController.text = orderDetails!.data[0].audAmmount.toString();
-    _inrTotalamountController.text = orderDetails!.data[0].inrAmmount.toString();
-    _clientaudAmountController.text = orderDetails!.data[0].clientAmmount.toString();
-    _clientinrAmountController.text = orderDetails!.data[0].totalAmmount.toString();
-    _assignmentType.text = orderDetails!.data[0].ppt;
-    _moduleCodeController.text = orderDetails!.data[0].moduleCode;
-    _moduleNameController.text = orderDetails!.data[0].moduleName;
-    _notesController.text = orderDetails!.data[0].shortNote;
-    _wordCountController.text = orderDetails!.data[0].wordCount;
-    });
-    });
+    
     clientDatas.then((value) {
       for (int i = 0; i < value.data.length; i++) {
         if (value.data.length > clientList.length) {
@@ -197,7 +265,7 @@ class _OrderCopyState extends State<OrderCopy> {
                           padding: const EdgeInsets.only(
                               top: 20, left: 25, bottom: 15),
                           child: Text(
-                            "Orders Details",
+                            "Orders Copy",
                             style: GoogleFonts.inter(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -225,103 +293,29 @@ class _OrderCopyState extends State<OrderCopy> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: true,
-                                                  initialValue: "(${orderDetails!.data[0].clientId.name}) ${orderDetails!.data[0].clientId.email}",
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                         label: Text("Client", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Total Order Amount in INR",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: MySearchapleDropDown(
+                                        items: clientList,
+                                        id: "${orderDetails!.data[0].clientId.id}",
+                                        callBack: (value) {
+                                          setState(() {
+                                            clientId = value;
+                                          });
+                                        },
+                                        title: "Search Client",
+                                      )),
                                   Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: true,
-                                                  initialValue: "${orderDetails!.data[0].currencyId!.symbol} ${orderDetails!.data[0].currencyId!.name}",
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                        label: Text("Currency", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Total Order Amount in INR",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: MySearchapleDropDown(
+                                        items: items,
+                                        id: "${orderDetails!.data[0].currencyId!.id}",
+                                        callBack: (value) {
+                                          setState(() {
+                                            currencyId = value;
+                                          });
+                                        },
+                                        title: "Search Currency",
+                                      )),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,7 +346,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 padding: const EdgeInsets.only(
                                                     top: 8, bottom: 8, left: 15),
                                                 child: TextFormField(
-                                                  readOnly: true,
+                                                  readOnly: false,
                                                   controller:
                                                       _inrTotalamountController,
                                                   keyboardType:
@@ -404,7 +398,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 padding: const EdgeInsets.only(
                                                     top: 8, bottom: 8, left: 15),
                                                 child: TextFormField(
-                                                  readOnly: true,
+                                                  readOnly: false,
                                                   controller:
                                                       _audTotalamountController,
                                                   keyboardType:
@@ -463,7 +457,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 padding: const EdgeInsets.only(
                                                     top: 8, bottom: 8, left: 15),
                                                 child: TextFormField(
-                                                  readOnly: true,
+                                                  readOnly: false,
                                                   controller:
                                                       _clientinrAmountController,
                                                   keyboardType:
@@ -515,7 +509,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 padding: const EdgeInsets.only(
                                                     top: 8, bottom: 8, left: 15),
                                                 child: TextFormField(
-                                                  readOnly: true,
+                                                  readOnly: false,
                                                   controller:
                                                       _clientaudAmountController,
                                                   keyboardType:
@@ -544,56 +538,17 @@ class _OrderCopyState extends State<OrderCopy> {
                                     ],
                                   ),
                                   Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: true,
-                                                  initialValue: "${orderDetails!.data[0].serviceId!.name}",
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                      
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                        label: Text("Service Type", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    
-                                                    hintText:
-                                                        "Total Order Amount in INR",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: MySearchapleDropDown(
+                                        items: serviceList,
+                                        id: "${orderDetails!.data[0].serviceId!.id}",
+                                        callBack: (value) {
+                                          setState(() {
+                                            servicId = value;
+                                          });
+                                        },
+                                        title: "Search Service",
+                                      )),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 8, right: 8, left: 8, bottom: 8),
@@ -614,7 +569,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                           padding: const EdgeInsets.only(
                                               top: 8, bottom: 8, left: 15),
                                           child: TextFormField(
-                                            readOnly: true,
+                                            readOnly: false,
                                             controller: _assignmentType,
                                             // keyboardType: TextInputType.number,
                                             style: TextStyle(
@@ -664,7 +619,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 padding: const EdgeInsets.only(
                                                     top: 8, bottom: 8, left: 15),
                                                 child: TextFormField(
-                                                  readOnly: true,
+                                                  readOnly: false,
                                                   controller:
                                                       _moduleCodeController,
                                                   // keyboardType: TextInputType.number,
@@ -714,7 +669,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 padding: const EdgeInsets.only(
                                                     top: 8, bottom: 8, left: 15),
                                                 child: TextFormField(
-                                                  readOnly: true,
+                                                  readOnly: false,
                                                   controller:
                                                       _moduleNameController,
                                                   // keyboardType: TextInputType.number,
@@ -753,7 +708,12 @@ class _OrderCopyState extends State<OrderCopy> {
                                               bottom: 8),
                                           child: InkWell(
                                             onTap: () async {
-                                             
+                                             pickDate = (await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime.now(),
+                                                  lastDate: DateTime(2030)))!;
+                                              setState(() {});
                                             },
                                             child: Container(
                                               height: 40,
@@ -766,8 +726,11 @@ class _OrderCopyState extends State<OrderCopy> {
                                                       color: Colors.white,
                                                       style: BorderStyle.solid)),
                                               child: Center(
-                                                child: Text(
-                                                        orderDetails!.data[0].deadline)
+                                                child: pickDate != null
+                                                    ? Text(
+                                                        "${pickDate.day}-${pickDate.month}-${pickDate.year}")
+                                                    : const Text(
+                                                        "Select Deadline"),
                                               ),
                                             ),
                                           ),
@@ -799,7 +762,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 padding: const EdgeInsets.only(
                                                     top: 8, bottom: 8, left: 15),
                                                 child: TextFormField(
-                                                  readOnly: true,
+                                                  readOnly: false,
                                                   controller:
                                                       _wordCountController,
                                                   // keyboardType: TextInputType.number,
@@ -826,45 +789,17 @@ class _OrderCopyState extends State<OrderCopy> {
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, right: 8, left: 8, bottom: 8),
-                                    child: Container(
-                                      height: 40,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                          255,
-                                          239,
-                                          239,
-                                          239,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8, bottom: 8, left: 15),
-                                          child: TextFormField(
-                                            readOnly: true,
-                                            initialValue: orderDetails!.data[0].paymentType,
-                                            // keyboardType: TextInputType.number,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14),
-                                            decoration: InputDecoration(
-                                              label: Text("Payment Type", style: TextStyle(color: Colors.black),),
-                                              border: InputBorder.none,
-                                              hintText: "Assignment Type",
-                                              hintStyle: GoogleFonts.montserrat(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: MySearchapleDropDown(
+                                        items: _paymentType,
+                                        id: "${orderDetails!.data[0].paymentType}",
+                                        callBack: (value) {
+                                          setState(() {
+                                            paymentType = value;
+                                          });
+                                        },
+                                        title: "Select Payment Type",
+                                      )),
                                   
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -886,7 +821,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                           padding: const EdgeInsets.only(
                                               top: 8, bottom: 8, left: 15),
                                           child: TextFormField(
-                                            readOnly: true,
+                                            readOnly: false,
                                             maxLines: 5,
                                             controller: _notesController,
                                             // keyboardType: TextInputType.number,
@@ -911,16 +846,197 @@ class _OrderCopyState extends State<OrderCopy> {
                                   SizedBox(
                                     height: 10,
                                   ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            webFilePicker();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8,
+                                                right: 8,
+                                                left: 8,
+                                                bottom: 8),
+                                            child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: filepath != null
+                                                    ? Center(
+                                                        child: Icon(
+                                                          Icons.done,
+                                                          color: Colors.green,
+                                                        ),
+                                                      )
+                                                    : Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .file_upload_outlined,
+                                                            color: Colors.black,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                            "upload any attachment",
+                                                            style: GoogleFonts
+                                                                .montserrat(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: Colors
+                                                                        .black),
+                                                          ),
+                                                        ],
+                                                      )),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            filePicker();
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      top: 12,
+                                                      right: 8,
+                                                      left: 8,
+                                                      bottom: 8),
+                                                  child: Container(
+                                                    height: 35,
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .width,
+                                                    decoration: BoxDecoration(
+                                                      color: const Color.fromARGB(
+                                                        255,
+                                                        239,
+                                                        239,
+                                                        239,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                    ),
+                                                    child: imagepath != null
+                                                        ? Center(
+                                                            child: Icon(
+                                                              Icons.done,
+                                                              color: Colors.green,
+                                                            ),
+                                                          )
+                                                        : Center(
+                                                            child: Text(
+                                                              "Payment SS",
+                                                              style: GoogleFonts
+                                                                  .montserrat(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      color: Colors
+                                                                          .black),
+                                                            ),
+                                                          ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(child: SizedBox(width: 8))
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: GestureDetector(
                                       onTap: () async {
-                                        
-                                        // mysastalogic(callBack: (value) {
-                                        //   setState(() {
-                                        //     allocationId = value;
-                                        //   });
-                                        // });
+                                                                              if(_fromKey.currentState!.validate()){
+                                          final multipartFile =
+                                            MultipartFile.fromBytes(_bytesData!,
+                                                filename: "${filepath}");
+                                        final multipartFile2 =
+                                            MultipartFile.fromBytes(_images!,
+                                                filename: "${imagepath}");
+                                        final fileUploadService =
+                                            FileUploadService(createDio());
+                                        FileUploadResponse response =
+                                            await fileUploadService.upload(data: {
+                                          "images": multipartFile,
+                                          "bucketName": "ahec"
+                                        });
+                                        FileUploadResponse response2 =
+                                            await fileUploadService.upload(data: {
+                                          "images": multipartFile2,
+                                          "bucketName": "ahec"
+                                        });
+                                        setState(() {
+                                          filepath = response.data;
+                                          imagepath = response2.data;
+                                        });
+                                        final getUserData = UserDataGet();
+                                        getUserData.getUserLocalData();
+                                        setState(() {
+                                          lodar = true;
+                                        });
+                                        OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
+                                            orderNumber: "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
+                                            clientId: clientId!,
+                                            currencyId: currencyId!,
+                                            serviceId: servicId!,
+                                            inrAmmount: int.parse(
+                                                _inrTotalamountController.text),
+                                            audAmmount: int.parse(
+                                                _audTotalamountController.text),
+                                            clientAmmount: int.parse(
+                                                _clientaudAmountController.text),
+                                            totalAmmount: int.parse(
+                                                _audTotalamountController.text),
+                                            ppt: _assignmentType.text,
+                                            moduleCode:
+                                                _moduleCodeController.text,
+                                            moduleName:
+                                                _moduleNameController.text, 
+                                            deadline:
+                                                "${pickDate.day}-${pickDate.month}-${pickDate.year}",
+                                            wordCount: _wordCountController.text,
+                                            paymentType: paymentType!,
+                                            shortNote: _notesController.text,
+                                            image: imagepath!,
+                                            file: filepath!,
+                                            userId: getUserData.id));
+                                            
+                                        Beamer.of(context)
+                                            .beamToNamed('/orders-list');
+
+                                        }
                                         
                                       },
                                       child: Container(
@@ -932,7 +1048,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            "Click To Copy",
+                                            "Submit",
                                             style: GoogleFonts.montserrat(
                                                 fontSize: 20,
                                                 color: Colors.white),
