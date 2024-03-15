@@ -10,12 +10,14 @@ import 'package:admin/screens/orders/components/searchdrop.dart';
 import 'package:admin/screens/orders/model/allocation.model.dart';
 import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/writer/model/qc.writer.list.model.dart';
+import 'package:admin/screens/writer/model/qc.writer.res.model.dart';
 import 'package:admin/screens/writer/service/qc.writer.service.dart';
 import 'package:beamer/beamer.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -164,6 +166,11 @@ class _AllocationTableState extends State<AllocationTable> {
 
                           context,
                           count: index + 1,
+                          callBack: (){
+                            setState(() {
+                                model = getData();
+                            });
+                          },
                           role: snapshot.data!.data[index].roles,
                           allocationId: snapshot.data!.data[index].allocationId,
                           id: snapshot.data!.data[index].id,
@@ -189,6 +196,7 @@ DataRow userTable(
   context, {
     required String allocationId,
   required String id,
+  required Function callBack,
   required int count,
   required String name,
   required String number,
@@ -210,7 +218,7 @@ DataRow userTable(
         GestureDetector(
           onTap: (){
             showDialog(context: context, builder: (BuildContext context){
-              return QcWriterEditForm(alloctionId: allocationId, email: email, name: name, number: number,);
+              return QcWriterEditForm(id: id, alloctionId: allocationId, email: email, name: name, number: number, callBack: callBack,);
             });
           },
           child: Icon(Icons.edit_outlined))
@@ -221,11 +229,13 @@ DataRow userTable(
 
 
 class QcWriterEditForm extends StatefulWidget {
+  final String id;
+  final Function callBack;
   final String name;
   final String email;
   final String number;
   final String alloctionId;
-  const QcWriterEditForm({Key? key, required this.alloctionId, required this.email, required this.name, required this.number}) : super(key: key);
+  const QcWriterEditForm({Key? key, required this.id, required this.alloctionId, required this.callBack, required this.email, required this.name, required this.number}) : super(key: key);
 
   @override
   State<QcWriterEditForm> createState() => _QcWriterEditFormState();
@@ -262,6 +272,7 @@ class _QcWriterEditFormState extends State<QcWriterEditForm> {
     emailController.text = widget.email;
     nameController.text = widget.name;
     mobileController.text = widget.number;
+    allocationID = widget.alloctionId;
   }
   @override
   
@@ -301,6 +312,7 @@ class _QcWriterEditFormState extends State<QcWriterEditForm> {
             return  lodar?  Center(
               child: CircularProgressIndicator(),
             ) :Scaffold(
+              backgroundColor: Colors.white24.withOpacity(0.1),
               body: Form(
                 key: _formKey,
                 child: Column(
@@ -681,6 +693,25 @@ class _QcWriterEditFormState extends State<QcWriterEditForm> {
                                   const SizedBox(
                                     height: 40,
                                   ),
+                                  GestureDetector(
+                                    onTap: ()async{
+                                      if(_formKey.currentState!.validate()){
+                                        final qcwriterService = QcWriterService(createDio());
+                                        QcwritterResModel response = await qcwriterService.updateQcWrite(widget.id, QcwritterUpdateModel(roles: selectedValue!, allocationId: allocationID!, name: nameController.text, email: emailController.text, number: mobileController.text));
+                                        widget.callBack();
+                                         Navigator.of(context).pop();
+                                      }
+                                    },
+                                    child: Container(height: 50, decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: Center(
+                                      child: Text("Save"),
+                                    ),
+                                    ),
+                                  )
+
                                 ],
                               ),
                             )),
