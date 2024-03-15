@@ -10,6 +10,7 @@ import 'package:admin/screens/orders/service/order_api_service.dart';
 import 'package:admin/screens/orders/views/Pagination.dart';
 import 'package:admin/screens/venture/components/widgets/header.ven.dart';
 import 'package:beamer/beamer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagination/widgets/button_styles.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -241,39 +242,25 @@ DataRow userTable(
       DataCell(Text(email)),
       DataCell(Text(service)),
       DataCell(
-        PopupMenuButton<String>(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
-          constraints: BoxConstraints(minHeight: 100, minWidth: 20),
-          color: const Color.fromARGB(255, 42, 46, 62),
-          icon: Container(
-            child: Icon(
-              Icons.more_vert_rounded,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.edit_outlined,
               color: Colors.white,
             ),
-          ),
-          onSelected: (String value) {
-            // Handle menu item selection
-            // You can add your logic here based on the selected value
-          },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-            PopupMenuItem<String>(
-              padding: EdgeInsets.all(10),
-              height: 25,
-              child: Center(child: Icon(Icons.edit_outlined)),
+            SizedBox(
+              width: 20,
             ),
-
-            PopupMenuItem<String>(
-              padding: EdgeInsets.all(10),
-              height: 25,
-              child: Center(child: Icon(Icons.file_open_outlined)),
-            ),
-            // Add more menu items as needed
+            GestureDetector(
+              onTap: (){
+                Beamer.of(context).beamToNamed('/perticuler-order/$orderid');
+              },
+              child: Icon(Icons.file_open_outlined))
           ],
-        ),
+        )
+        ,
       ),
     ],
   );

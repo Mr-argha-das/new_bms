@@ -18,6 +18,7 @@ import 'package:admin/screens/orderhestory/views/order.perticuler.dart';
 import 'package:admin/screens/orders/main.orders.dart';
 import 'package:admin/screens/orders/service/order_api_service.dart';
 import 'package:admin/screens/orders/views/Add.order.dart';
+import 'package:admin/screens/perticulerorder/views/perticuler.order.page.dart';
 import 'package:admin/screens/team/main.team.dart';
 import 'package:admin/screens/team/service/add_team_api.dart';
 import 'package:admin/screens/venture/main.venture.dart';
@@ -67,7 +68,7 @@ class Env {
           ChangeNotifierProvider(create: (context) => MenuAppController()),
           ChangeNotifierProvider(create: (context) => UserDataGet()),
         ],
-        child: OrderPerticuler(
+        child: OrderDetails(
           orderID: bookId,
         ),
       );
