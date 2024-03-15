@@ -23,15 +23,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class OrderDetails extends StatefulWidget {
+class OrderCopy extends StatefulWidget {
   final String orderID;
-  const OrderDetails({Key? key,required this.orderID}) : super(key: key);
+  const OrderCopy({Key? key,required this.orderID}) : super(key: key);
 
   @override
-  State<OrderDetails> createState() => _OrderDetailsState();
+  State<OrderCopy> createState() => _OrderCopyState();
 }
 
-class _OrderDetailsState extends State<OrderDetails> {
+class _OrderCopyState extends State<OrderCopy> {
   final _clientnameController = TextEditingController();
   final _inrTotalamountController = TextEditingController();
   final _audTotalamountController = TextEditingController();

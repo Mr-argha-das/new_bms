@@ -14,6 +14,7 @@ import 'package:admin/screens/loginpage/login.page.dart';
 import 'package:admin/screens/loginpage/service/api_service.dart';
 import 'package:admin/screens/main.service/fileupload.service.dart';
 import 'package:admin/screens/main/main_screen.dart';
+import 'package:admin/screens/ordercopy/main.order.copy.dart';
 import 'package:admin/screens/orderhestory/views/order.perticuler.dart';
 import 'package:admin/screens/orders/main.orders.dart';
 import 'package:admin/screens/orders/service/order_api_service.dart';
@@ -72,6 +73,16 @@ class Env {
           orderID: bookId,
         ),
       );
+    },
+    '/copy-order/:ordeerID': (context, state, data){
+     final orderid = state.pathParameters['ordeerID']!;
+     return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => MenuAppController()),
+          ChangeNotifierProvider(create: (context) => UserDataGet()),
+     ], 
+     child: MainOrderCopy(orderID: orderid,),
+     
+     );
     },
     '/list-writer-qc': (context, state, data){
       return MultiProvider(providers: [

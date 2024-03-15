@@ -193,7 +193,6 @@ class _OrdersTableState extends State<OrdersTable> {
                       rows: List.generate(
                         snapshot.data!.data.length,
                         (index) => userTable(
-
                           context,
                           count: index + 1,
                           orderid: snapshot.data!.data[index].id,
@@ -229,7 +228,7 @@ DataRow userTable(
   required String service,
 }) {
   return DataRow(
-    onSelectChanged: (value){
+    onSelectChanged: (value) {
       Beamer.of(context).beamToNamed('/perticuler-order/$orderid');
     },
     cells: [
@@ -254,13 +253,20 @@ DataRow userTable(
               width: 20,
             ),
             GestureDetector(
-              onTap: (){
-                Beamer.of(context).beamToNamed('/perticuler-order/$orderid');
-              },
-              child: Icon(Icons.file_open_outlined))
+                onTap: () {
+                  Beamer.of(context).beamToNamed('/perticuler-order/$orderid');
+                },
+                child: Icon(Icons.file_open_outlined)),
+            SizedBox(
+              width: 20,
+            ),
+            GestureDetector(
+                onTap: () {
+                  Beamer.of(context).beamToNamed('/copy-order/$orderid');
+                },
+                child: Icon(Icons.copy))
           ],
-        )
-        ,
+        ),
       ),
     ],
   );
