@@ -39,3 +39,34 @@ class AllocationAddModel {
         "ProfilePic": profilePic,
     };
 }
+
+// To parse this JSON data, do
+//
+//     final allocationAddModel = allocationAddModelFromJson(jsonString);
+
+class AllocationUpdateModel {
+    String name;
+    String email;
+    String number;
+
+
+    AllocationUpdateModel({
+        required this.name,
+        required this.email,
+        required this.number,
+    });
+
+    factory AllocationUpdateModel.fromJson(Map<String, dynamic> json) => AllocationUpdateModel(
+        name: json["name"],
+        email: json["email"],
+        number: json["number"],
+
+
+    );
+
+    Map<String, dynamic> toJson() => {
+        "name": name,
+        "email": email,
+        "number": number,
+    };
+}

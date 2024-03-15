@@ -135,7 +135,7 @@ class _UserTableState extends State<UserTable> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "User List",
+                  "Emp List",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 SizedBox(
