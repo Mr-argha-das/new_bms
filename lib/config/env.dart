@@ -74,33 +74,38 @@ class Env {
         ),
       );
     },
-    '/copy-order/:ordeerID': (context, state, data){
-     final orderid = state.pathParameters['ordeerID']!;
-     return MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => MenuAppController()),
+    '/send-allocation/:orderID': (context, state, data) {
+      final orderid = state.pathParameters['orderID']!;
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => MenuAppController()),
           ChangeNotifierProvider(create: (context) => UserDataGet()),
-     ], 
-     child: MainOrderCopy(orderID: orderid,),
-     
-     );
-    },
-    '/list-writer-qc': (context, state, data){
-      return MultiProvider(providers: [
-        ChangeNotifierProvider(create: (context)=> MenuAppController()),
-        ChangeNotifierProvider(create: (context) => UserDataGet())
-
-      ],
-      child: QcWriterListmain()
+        ],
       );
     },
-     '/add-writer-qc': (context, state, data){
-      return MultiProvider(providers: [
-        ChangeNotifierProvider(create: (context)=> MenuAppController()),
-        ChangeNotifierProvider(create: (context) => UserDataGet())
-
-      ],
-      child: WriterAddMain()
+    '/copy-order/:ordeerID': (context, state, data) {
+      final orderid = state.pathParameters['ordeerID']!;
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => MenuAppController()),
+          ChangeNotifierProvider(create: (context) => UserDataGet()),
+        ],
+        child: MainOrderCopy(
+          orderID: orderid,
+        ),
       );
+    },
+    '/list-writer-qc': (context, state, data) {
+      return MultiProvider(providers: [
+        ChangeNotifierProvider(create: (context) => MenuAppController()),
+        ChangeNotifierProvider(create: (context) => UserDataGet())
+      ], child: QcWriterListmain());
+    },
+    '/add-writer-qc': (context, state, data) {
+      return MultiProvider(providers: [
+        ChangeNotifierProvider(create: (context) => MenuAppController()),
+        ChangeNotifierProvider(create: (context) => UserDataGet())
+      ], child: WriterAddMain());
     },
     '/add-team': (context, state, data) => MultiProvider(
           providers: [

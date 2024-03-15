@@ -1097,83 +1097,91 @@ class _OrderCopyState extends State<OrderCopy> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: GestureDetector(
                                           onTap: () async {
-                                            //                                       if(_fromKey.currentState!.validate()){
-                                            //   final multipartFile =
-                                            //     MultipartFile.fromBytes(_bytesData!,
-                                            //         filename: "${filepath}");
-                                            // final multipartFile2 =
-                                            //     MultipartFile.fromBytes(_images!,
-                                            //         filename: "${imagepath}");
-                                            // final fileUploadService =
-                                            //     FileUploadService(createDio());
-                                            // FileUploadResponse response =
-                                            //     await fileUploadService.upload(data: {
-                                            //   "images": multipartFile,
-                                            //   "bucketName": "ahec"
-                                            // });
-                                            // FileUploadResponse response2 =
-                                            //     await fileUploadService.upload(data: {
-                                            //   "images": multipartFile2,
-                                            //   "bucketName": "ahec"
-                                            // });
-                                            // setState(() {
-                                            //   filepath = response.data;
-                                            //   imagepath = response2.data;
-                                            // });
-                                            // final getUserData = UserDataGet();
-                                            // getUserData.getUserLocalData();
-                                            // setState(() {
-                                            //   lodar = true;
-                                            // });
-                                            // OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
-                                            //     orderNumber: "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
-                                            //     clientId: clientId!,
-                                            //     currencyId: currencyId!,
-                                            //     serviceId: servicId!,
-                                            //     inrAmmount: int.parse(
-                                            //         _inrTotalamountController.text),
-                                            //     audAmmount: int.parse(
-                                            //         _audTotalamountController.text),
-                                            //     clientAmmount: int.parse(
-                                            //         _clientaudAmountController.text),
-                                            //     totalAmmount: int.parse(
-                                            //         _audTotalamountController.text),
-                                            //     ppt: _assignmentType.text,
-                                            //     moduleCode:
-                                            //         _moduleCodeController.text,
-                                            //     moduleName:
-                                            //         _moduleNameController.text,
-                                            //     deadline:
-                                            //         "${pickDate.day}-${pickDate.month}-${pickDate.year}",
-                                            //     wordCount: _wordCountController.text,
-                                            //     paymentType: paymentType!,
-                                            //     shortNote: _notesController.text,
-                                            //     image: imagepath!,
-                                            //     file: filepath!,
-                                            //     userId: getUserData.id));
+                                            if (_fromKey.currentState!
+                                                .validate()) {
+                                              final multipartFile =
+                                                  MultipartFile.fromBytes(
+                                                      _bytesData!,
+                                                      filename: "${filepath}");
+                                              final multipartFile2 =
+                                                  MultipartFile.fromBytes(
+                                                      _images!,
+                                                      filename: "${imagepath}");
+                                              final fileUploadService =
+                                                  FileUploadService(
+                                                      createDio());
+                                              FileUploadResponse response =
+                                                  await fileUploadService
+                                                      .upload(data: {
+                                                "images": multipartFile,
+                                                "bucketName": "ahec"
+                                              });
+                                              FileUploadResponse response2 =
+                                                  await fileUploadService
+                                                      .upload(data: {
+                                                "images": multipartFile2,
+                                                "bucketName": "ahec"
+                                              });
+                                              setState(() {
+                                                filepath = response.data;
+                                                imagepath = response2.data;
+                                              });
+                                              final getUserData = UserDataGet();
+                                              getUserData.getUserLocalData();
+                                              setState(() {
+                                                lodar = true;
+                                              });
+                                              OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
+                                                  orderNumber:
+                                                      "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
+                                                  clientId: clientId!,
+                                                  currencyId: currencyId!,
+                                                  serviceId: servicId!,
+                                                  inrAmmount: int.parse(
+                                                      _inrTotalamountController
+                                                          .text),
+                                                  audAmmount: int.parse(
+                                                      _audTotalamountController
+                                                          .text),
+                                                  clientAmmount: int.parse(
+                                                      _clientaudAmountController
+                                                          .text),
+                                                  totalAmmount: int.parse(
+                                                      _audTotalamountController
+                                                          .text),
+                                                  ppt: _assignmentType.text,
+                                                  moduleCode:
+                                                      _moduleCodeController.text,
+                                                  moduleName: _moduleNameController.text,
+                                                  deadline: "${pickDate.day}-${pickDate.month}-${pickDate.year}",
+                                                  wordCount: _wordCountController.text,
+                                                  paymentType: paymentType!,
+                                                  shortNote: _notesController.text,
+                                                  image: imagepath!,
+                                                  file: filepath!,
+                                                  userId: getUserData.id));
 
-                                            // Beamer.of(context)
-                                            //     .beamToNamed('/orders-list');
+                                              Beamer.of(context)
+                                                  .beamToNamed('/orders-list/${orderData.data.oderDetails.id}');
+                                            }
 
-                                            // }
-
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return SendToAllocation(
-                                                  allocationListmodel:
-                                                      allocationList,
-                                                  callBack: (value) {
-                                                    log(value);
-                                                  },
-                                                  // email: email,
-                                                  // mobile: number,
-                                                  // name: name,
-                                                  // rmidController: rmid,
-                                                  // symbol: symbol,
-                                                );
-                                              },
-                                            );
+                                            // showDialog(
+                                            //   context: context,
+                                            //   builder: (BuildContext context) {
+                                            //     return SendToAllocation(
+                                            //       allocationListmodel:
+                                            //           allocationList,
+                                            //       callBack: (value) {
+                                            //         log(value);
+                                            //       },
+                                            //       // email: email,
+                                            //       // mobile: number,
+                                            //       // name: name,
+                                            //       // rmidController: rmid,
+                                            //       // symbol: symbol,
+                                            //     );
+                                            //   },
+                                            // );
                                           },
                                           child: Container(
                                             height: 45,
