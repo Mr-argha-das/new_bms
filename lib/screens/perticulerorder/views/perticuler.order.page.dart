@@ -911,36 +911,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        
-                                        // mysastalogic(callBack: (value) {
-                                        //   setState(() {
-                                        //     allocationId = value;
-                                        //   });
-                                        // });
-                                        
-                                      },
-                                      child: Container(
-                                        height: 45,
-                                        width: 250,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius: BorderRadius.circular(15),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Click To Copy",
-                                            style: GoogleFonts.montserrat(
-                                                fontSize: 20,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
+                                  
                                 ],
                               ),
                             ),

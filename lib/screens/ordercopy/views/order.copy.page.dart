@@ -25,7 +25,7 @@ import 'package:provider/provider.dart';
 
 class OrderCopy extends StatefulWidget {
   final String orderID;
-  const OrderCopy({Key? key,required this.orderID}) : super(key: key);
+  const OrderCopy({Key? key, required this.orderID}) : super(key: key);
 
   @override
   State<OrderCopy> createState() => _OrderCopyState();
@@ -58,11 +58,13 @@ class _OrderCopyState extends State<OrderCopy> {
     ItemClass(title: "Renaming Payment", value: "RenamingPayment"),
   ];
   OrderListModel? orderDetails;
-  Future<OrderListModel> orderDetailsGet(){
+  Future<OrderListModel> orderDetailsGet() {
     final orderService = OrderService(createDio());
-    final response = orderService.getOrderListByUserId(widget.orderID.toString());
+    final response =
+        orderService.getOrderListByUserId(widget.orderID.toString());
     return response;
   }
+
   final List<ItemClass> clientList = [];
   final List<DataListModel> allocationList = [];
   String? selectedValue;
@@ -88,34 +90,37 @@ class _OrderCopyState extends State<OrderCopy> {
     return data;
   }
 
-
   List<int>? _selectFiles;
   final _fromKey = GlobalKey<FormState>();
-  
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Future<OrderListModel> orderDetailsFirst = orderDetailsGet();
-    orderDetailsFirst.then((value){
-     orderDetails = value;
-         _audTotalamountController.text = orderDetails!.data[0].audAmmount.toString();
-    _inrTotalamountController.text = orderDetails!.data[0].inrAmmount.toString();
-    _clientaudAmountController.text = orderDetails!.data[0].clientAmmount.toString();
-    _clientinrAmountController.text = orderDetails!.data[0].totalAmmount.toString();
-    _assignmentType.text = orderDetails!.data[0].ppt;
-    _moduleCodeController.text = orderDetails!.data[0].moduleCode;
-    _moduleNameController.text = orderDetails!.data[0].moduleName;
-    _notesController.text = orderDetails!.data[0].shortNote;
-    _wordCountController.text = orderDetails!.data[0].wordCount;
-    clientId = orderDetails!.data[0].clientId.id;
-    servicId = orderDetails!.data[0].serviceId!.id;
-    currencyId = orderDetails!.data[0].currencyId!.id;
-    paymentType = orderDetails!.data[0].paymentType;
+    orderDetailsFirst.then((value) {
+      orderDetails = value;
+      _audTotalamountController.text =
+          orderDetails!.data[0].audAmmount.toString();
+      _inrTotalamountController.text =
+          orderDetails!.data[0].inrAmmount.toString();
+      _clientaudAmountController.text =
+          orderDetails!.data[0].clientAmmount.toString();
+      _clientinrAmountController.text =
+          orderDetails!.data[0].totalAmmount.toString();
+      _assignmentType.text = orderDetails!.data[0].ppt;
+      _moduleCodeController.text = orderDetails!.data[0].moduleCode;
+      _moduleNameController.text = orderDetails!.data[0].moduleName;
+      _notesController.text = orderDetails!.data[0].shortNote;
+      _wordCountController.text = orderDetails!.data[0].wordCount;
+      clientId = orderDetails!.data[0].clientId.id;
+      servicId = orderDetails!.data[0].serviceId!.id;
+      currencyId = orderDetails!.data[0].currencyId!.id;
+      paymentType = orderDetails!.data[0].paymentType;
     });
   }
-    String? filepath;
+
+  String? filepath;
   String? imagepath;
   Uint8List? _bytesData;
   Uint8List? _images;
@@ -187,7 +192,7 @@ class _OrderCopyState extends State<OrderCopy> {
     Future<Currencymodel> data = getData(orderService);
     Future<ServiceModel> service = getService(orderService);
     Future<AllocationListmodel> allocationData = getAllocation(orderService);
-    
+
     clientDatas.then((value) {
       for (int i = 0; i < value.data.length; i++) {
         if (value.data.length > clientList.length) {
@@ -241,627 +246,97 @@ class _OrderCopyState extends State<OrderCopy> {
         }
       }
     });
-   
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: items.isEmpty || orderDetails == null
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : lodar==true?  Center(
-              child: CircularProgressIndicator(),
-            ) : SingleChildScrollView(
-                child: Form(
-                  key: _fromKey,
-                  child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, left: 25, bottom: 15),
-                          child: Text(
-                            "Orders Copy",
-                            style: GoogleFonts.inter(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
+            : lodar == true
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
+                    child: Form(
+                    key: _fromKey,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color(0x542A2E3E),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20, left: 25, bottom: 15),
+                              child: Text(
+                                "Orders Copy",
+                                style: GoogleFonts.inter(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MySearchapleDropDown(
-                                        items: clientList,
-                                        id: "${orderDetails!.data[0].clientId.id}",
-                                        callBack: (value) {
-                                          setState(() {
-                                            clientId = value;
-                                          });
-                                        },
-                                        title: "Search Client",
-                                      )),
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MySearchapleDropDown(
-                                        items: items,
-                                        id: "${orderDetails!.data[0].currencyId!.id}",
-                                        callBack: (value) {
-                                          setState(() {
-                                            currencyId = value;
-                                          });
-                                        },
-                                        title: "Search Currency",
-                                      )),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: false,
-                                                  controller:
-                                                      _inrTotalamountController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                        label: Text("Total Order Amount in INR", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Total Order Amount in INR",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: false,
-                                                  controller:
-                                                      _audTotalamountController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                        label: Text("Total Order Amount in AUD", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    
-                                                    hintText:
-                                                        "Total Order Amount in AUD",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color(0x542A2E3E),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: false,
-                                                  controller:
-                                                      _clientinrAmountController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                        label: Text("Client Paid Amount in INR", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Client Paid Amount in INR",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: false,
-                                                  controller:
-                                                      _clientaudAmountController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                        label: Text("Client Paid Amount in AUD", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Client Paid Amount in AUD",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MySearchapleDropDown(
-                                        items: serviceList,
-                                        id: "${orderDetails!.data[0].serviceId!.id}",
-                                        callBack: (value) {
-                                          setState(() {
-                                            servicId = value;
-                                          });
-                                        },
-                                        title: "Search Service",
-                                      )),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, right: 8, left: 8, bottom: 8),
-                                    child: Container(
-                                      height: 40,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                          255,
-                                          239,
-                                          239,
-                                          239,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8, bottom: 8, left: 15),
-                                          child: TextFormField(
-                                            readOnly: false,
-                                            controller: _assignmentType,
-                                            // keyboardType: TextInputType.number,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14),
-                                            decoration: InputDecoration(
-                                              label: Text("Assignment Type", style: TextStyle(color: Colors.black),),
-                                              border: InputBorder.none,
-                                              hintText: "Assignment Type",
-                                              hintStyle: GoogleFonts.montserrat(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: false,
-                                                  controller:
-                                                      _moduleCodeController,
-                                                  // keyboardType: TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                         label: Text("Module code", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    hintText: "Module code",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: false,
-                                                  controller:
-                                                      _moduleNameController,
-                                                  // keyboardType: TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                         label: Text("Module Name", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    hintText: "Module name",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: InkWell(
-                                            onTap: () async {
-                                             pickDate = (await showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime.now(),
-                                                  firstDate: DateTime.now(),
-                                                  lastDate: DateTime(2030)))!;
-                                              setState(() {});
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MySearchapleDropDown(
+                                            items: clientList,
+                                            id: "${orderDetails!.data[0].clientId.id}",
+                                            callBack: (value) {
+                                              setState(() {
+                                                clientId = value;
+                                              });
                                             },
-                                            child: Container(
-                                              height: 40,
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.transparent,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  border: Border.all(
-                                                      color: Colors.white,
-                                                      style: BorderStyle.solid)),
-                                              child: Center(
-                                                child: pickDate != null
-                                                    ? Text(
-                                                        "${pickDate.day}-${pickDate.month}-${pickDate.year}")
-                                                    : const Text(
-                                                        "Select Deadline"),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 40,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  readOnly: false,
-                                                  controller:
-                                                      _wordCountController,
-                                                  // keyboardType: TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration(
-                                                        label: Text("Word count", style: TextStyle(color: Colors.black),),
-                                                    border: InputBorder.none,
-                                                    hintText: "Word count",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MySearchapleDropDown(
-                                        items: _paymentType,
-                                        id: "${orderDetails!.data[0].paymentType}",
-                                        callBack: (value) {
-                                          setState(() {
-                                            paymentType = value;
-                                          });
-                                        },
-                                        title: "Select Payment Type",
-                                      )),
-                                  
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, right: 8, left: 8, bottom: 8),
-                                    child: Container(
-                                      height: 75,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                          255,
-                                          239,
-                                          239,
-                                          239,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8, bottom: 8, left: 15),
-                                          child: TextFormField(
-                                            readOnly: false,
-                                            maxLines: 5,
-                                            controller: _notesController,
-                                            // keyboardType: TextInputType.number,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14),
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: "Notes",
-                                              label: Text("Notes", style: TextStyle(color: Colors.black),),
-                                              hintStyle: GoogleFonts.montserrat(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            webFilePicker();
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 8,
-                                                right: 8,
-                                                left: 8,
-                                                bottom: 8),
-                                            child: Container(
+                                            title: "Search Client",
+                                          )),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MySearchapleDropDown(
+                                            items: items,
+                                            id: "${orderDetails!.data[0].currencyId!.id}",
+                                            callBack: (value) {
+                                              setState(() {
+                                                currencyId = value;
+                                              });
+                                            },
+                                            title: "Search Currency",
+                                          )),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
                                                 height: 40,
                                                 width: MediaQuery.of(context)
                                                     .size
@@ -876,66 +351,635 @@ class _OrderCopyState extends State<OrderCopy> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                child: filepath != null
-                                                    ? Center(
-                                                        child: Icon(
-                                                          Icons.done,
-                                                          color: Colors.green,
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _inrTotalamountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Total Order Amount in INR",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
                                                         ),
-                                                      )
-                                                    : Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons
-                                                                .file_upload_outlined,
-                                                            color: Colors.black,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text(
-                                                            "upload any attachment",
-                                                            style: GoogleFonts
-                                                                .montserrat(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    color: Colors
-                                                                        .black),
-                                                          ),
-                                                        ],
-                                                      )),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Total Order Amount in INR",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _audTotalamountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Total Order Amount in AUD",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Total Order Amount in AUD",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _clientinrAmountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Client Paid Amount in INR",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Client Paid Amount in INR",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _clientaudAmountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Client Paid Amount in AUD",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Client Paid Amount in AUD",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MySearchapleDropDown(
+                                            items: serviceList,
+                                            id: "${orderDetails!.data[0].serviceId!.id}",
+                                            callBack: (value) {
+                                              setState(() {
+                                                servicId = value;
+                                              });
+                                            },
+                                            title: "Search Service",
+                                          )),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8,
+                                            right: 8,
+                                            left: 8,
+                                            bottom: 8),
+                                        child: Container(
+                                          height: 40,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                              255,
+                                              239,
+                                              239,
+                                              239,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8, bottom: 8, left: 15),
+                                              child: TextFormField(
+                                                readOnly: false,
+                                                controller: _assignmentType,
+                                                // keyboardType: TextInputType.number,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14),
+                                                decoration: InputDecoration(
+                                                  label: Text(
+                                                    "Assignment Type",
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  border: InputBorder.none,
+                                                  hintText: "Assignment Type",
+                                                  hintStyle:
+                                                      GoogleFonts.montserrat(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            filePicker();
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 2,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      top: 12,
-                                                      right: 8,
-                                                      left: 8,
-                                                      bottom: 8),
-                                                  child: Container(
-                                                    height: 35,
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _moduleCodeController,
+                                                      // keyboardType: TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Module code",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: "Module code",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _moduleNameController,
+                                                      // keyboardType: TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Module Name",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: "Module name",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  pickDate =
+                                                      (await showDatePicker(
+                                                          context: context,
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate:
+                                                              DateTime.now(),
+                                                          lastDate:
+                                                              DateTime(2030)))!;
+                                                  setState(() {});
+                                                },
+                                                child: Container(
+                                                  height: 40,
+                                                  width: double.infinity,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      border: Border.all(
+                                                          color: Colors.white,
+                                                          style: BorderStyle
+                                                              .solid)),
+                                                  child: Center(
+                                                    child: pickDate != null
+                                                        ? Text(
+                                                            "${pickDate.day}-${pickDate.month}-${pickDate.year}")
+                                                        : const Text(
+                                                            "Select Deadline"),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _wordCountController,
+                                                      // keyboardType: TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Word count",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: "Word count",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MySearchapleDropDown(
+                                            items: _paymentType,
+                                            id: "${orderDetails!.data[0].paymentType}",
+                                            callBack: (value) {
+                                              setState(() {
+                                                paymentType = value;
+                                              });
+                                            },
+                                            title: "Select Payment Type",
+                                          )),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8,
+                                            right: 8,
+                                            left: 8,
+                                            bottom: 8),
+                                        child: Container(
+                                          height: 75,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                              255,
+                                              239,
+                                              239,
+                                              239,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8, bottom: 8, left: 15),
+                                              child: TextFormField(
+                                                readOnly: false,
+                                                maxLines: 5,
+                                                controller: _notesController,
+                                                // keyboardType: TextInputType.number,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14),
+                                                decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  hintText: "Notes",
+                                                  label: Text(
+                                                    "Notes",
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  hintStyle:
+                                                      GoogleFonts.montserrat(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                webFilePicker();
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8,
+                                                    right: 8,
+                                                    left: 8,
+                                                    bottom: 8),
+                                                child: Container(
+                                                    height: 40,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
                                                     decoration: BoxDecoration(
-                                                      color: const Color.fromARGB(
+                                                      color:
+                                                          const Color.fromARGB(
                                                         255,
                                                         239,
                                                         239,
@@ -943,219 +987,223 @@ class _OrderCopyState extends State<OrderCopy> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15),
+                                                              10),
                                                     ),
-                                                    child: imagepath != null
+                                                    child: filepath != null
                                                         ? Center(
                                                             child: Icon(
                                                               Icons.done,
-                                                              color: Colors.green,
+                                                              color:
+                                                                  Colors.green,
                                                             ),
                                                           )
-                                                        : Center(
-                                                            child: Text(
-                                                              "Payment SS",
-                                                              style: GoogleFonts
-                                                                  .montserrat(
+                                                        : Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .file_upload_outlined,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(
+                                                                "upload any attachment",
+                                                                style: GoogleFonts.montserrat(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: Colors
+                                                                        .black),
+                                                              ),
+                                                            ],
+                                                          )),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                filePicker();
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 12,
+                                                              right: 8,
+                                                              left: 8,
+                                                              bottom: 8),
+                                                      child: Container(
+                                                        height: 35,
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: const Color
+                                                              .fromARGB(
+                                                            255,
+                                                            239,
+                                                            239,
+                                                            239,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        child: imagepath != null
+                                                            ? Center(
+                                                                child: Icon(
+                                                                  Icons.done,
+                                                                  color: Colors
+                                                                      .green,
+                                                                ),
+                                                              )
+                                                            : Center(
+                                                                child: Text(
+                                                                  "Payment SS",
+                                                                  style: GoogleFonts.montserrat(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
                                                                       color: Colors
                                                                           .black),
-                                                            ),
-                                                          ),
+                                                                ),
+                                                              ),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
+                                                  Expanded(
+                                                      child: SizedBox(width: 8))
+                                                ],
                                               ),
-                                              Expanded(child: SizedBox(width: 8))
-                                            ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            //                                       if(_fromKey.currentState!.validate()){
+                                            //   final multipartFile =
+                                            //     MultipartFile.fromBytes(_bytesData!,
+                                            //         filename: "${filepath}");
+                                            // final multipartFile2 =
+                                            //     MultipartFile.fromBytes(_images!,
+                                            //         filename: "${imagepath}");
+                                            // final fileUploadService =
+                                            //     FileUploadService(createDio());
+                                            // FileUploadResponse response =
+                                            //     await fileUploadService.upload(data: {
+                                            //   "images": multipartFile,
+                                            //   "bucketName": "ahec"
+                                            // });
+                                            // FileUploadResponse response2 =
+                                            //     await fileUploadService.upload(data: {
+                                            //   "images": multipartFile2,
+                                            //   "bucketName": "ahec"
+                                            // });
+                                            // setState(() {
+                                            //   filepath = response.data;
+                                            //   imagepath = response2.data;
+                                            // });
+                                            // final getUserData = UserDataGet();
+                                            // getUserData.getUserLocalData();
+                                            // setState(() {
+                                            //   lodar = true;
+                                            // });
+                                            // OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
+                                            //     orderNumber: "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
+                                            //     clientId: clientId!,
+                                            //     currencyId: currencyId!,
+                                            //     serviceId: servicId!,
+                                            //     inrAmmount: int.parse(
+                                            //         _inrTotalamountController.text),
+                                            //     audAmmount: int.parse(
+                                            //         _audTotalamountController.text),
+                                            //     clientAmmount: int.parse(
+                                            //         _clientaudAmountController.text),
+                                            //     totalAmmount: int.parse(
+                                            //         _audTotalamountController.text),
+                                            //     ppt: _assignmentType.text,
+                                            //     moduleCode:
+                                            //         _moduleCodeController.text,
+                                            //     moduleName:
+                                            //         _moduleNameController.text,
+                                            //     deadline:
+                                            //         "${pickDate.day}-${pickDate.month}-${pickDate.year}",
+                                            //     wordCount: _wordCountController.text,
+                                            //     paymentType: paymentType!,
+                                            //     shortNote: _notesController.text,
+                                            //     image: imagepath!,
+                                            //     file: filepath!,
+                                            //     userId: getUserData.id));
+
+                                            // Beamer.of(context)
+                                            //     .beamToNamed('/orders-list');
+
+                                            // }
+
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return SendToAllocation(
+                                                  allocationListmodel:
+                                                      allocationList,
+                                                  callBack: (value) {
+                                                    log(value);
+                                                  },
+                                                  // email: email,
+                                                  // mobile: number,
+                                                  // name: name,
+                                                  // rmidController: rmid,
+                                                  // symbol: symbol,
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 45,
+                                            width: 250,
+                                            decoration: BoxDecoration(
+                                              color: Colors.black,
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Submit",
+                                                style: GoogleFonts.montserrat(
+                                                    fontSize: 20,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                      )
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                                                              if(_fromKey.currentState!.validate()){
-                                          final multipartFile =
-                                            MultipartFile.fromBytes(_bytesData!,
-                                                filename: "${filepath}");
-                                        final multipartFile2 =
-                                            MultipartFile.fromBytes(_images!,
-                                                filename: "${imagepath}");
-                                        final fileUploadService =
-                                            FileUploadService(createDio());
-                                        FileUploadResponse response =
-                                            await fileUploadService.upload(data: {
-                                          "images": multipartFile,
-                                          "bucketName": "ahec"
-                                        });
-                                        FileUploadResponse response2 =
-                                            await fileUploadService.upload(data: {
-                                          "images": multipartFile2,
-                                          "bucketName": "ahec"
-                                        });
-                                        setState(() {
-                                          filepath = response.data;
-                                          imagepath = response2.data;
-                                        });
-                                        final getUserData = UserDataGet();
-                                        getUserData.getUserLocalData();
-                                        setState(() {
-                                          lodar = true;
-                                        });
-                                        OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
-                                            orderNumber: "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
-                                            clientId: clientId!,
-                                            currencyId: currencyId!,
-                                            serviceId: servicId!,
-                                            inrAmmount: int.parse(
-                                                _inrTotalamountController.text),
-                                            audAmmount: int.parse(
-                                                _audTotalamountController.text),
-                                            clientAmmount: int.parse(
-                                                _clientaudAmountController.text),
-                                            totalAmmount: int.parse(
-                                                _audTotalamountController.text),
-                                            ppt: _assignmentType.text,
-                                            moduleCode:
-                                                _moduleCodeController.text,
-                                            moduleName:
-                                                _moduleNameController.text, 
-                                            deadline:
-                                                "${pickDate.day}-${pickDate.month}-${pickDate.year}",
-                                            wordCount: _wordCountController.text,
-                                            paymentType: paymentType!,
-                                            shortNote: _notesController.text,
-                                            image: imagepath!,
-                                            file: filepath!,
-                                            userId: getUserData.id));
-                                            
-                                        Beamer.of(context)
-                                            .beamToNamed('/orders-list');
-
-                                        }
-                                        
-                                      },
-                                      child: Container(
-                                        height: 45,
-                                        width: 250,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius: BorderRadius.circular(15),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Submit",
-                                            style: GoogleFonts.montserrat(
-                                                fontSize: 20,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                                ),
-                )));
-  }
-
-  void mysastalogic({required Function callBack}) {
-    log(allocationList.length.toString());
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 400,
-          width: 400,
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Select Allocation Team To send Order",
-                        style: GoogleFonts.montserrat(
-                            color: Colors.black, fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-                allocationList.isEmpty
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListView.builder(
-                        itemCount: allocationList.length,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                callBack(allocationList[index].value);
-                                Navigator.pop(context);
-                              },
-                              child: Card(
-                                color: allocationId == null
-                                    ? Colors.white
-                                    : allocationId ==
-                                            allocationList[index].value
-                                        ? Colors.blue
-                                        : Colors.white,
-                                child: ListTile(
-                                  title: Text(
-                                    "Allocation: ${allocationList[index].name}",
-                                    style: GoogleFonts.montserrat(
-                                      color: allocationId == null
-                                          ? Colors.black
-                                          : allocationId ==
-                                                  allocationList[index].value
-                                              ? Colors.white
-                                              : Colors.black,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    "Email:  ${allocationList[index].email}",
-                                    style: GoogleFonts.montserrat(
-                                      color: allocationId == null
-                                          ? Colors.black
-                                          : allocationId ==
-                                                  allocationList[index].value
-                                              ? Colors.white
-                                              : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        })
-              ],
-            ),
-          ),
-        );
-      },
-    );
+                  )));
   }
 }
 
@@ -1165,4 +1213,126 @@ class DataListModel {
   final String value;
 
   DataListModel({required this.name, required this.email, required this.value});
+}
+
+class SendToAllocation extends StatefulWidget {
+  final List<DataListModel> allocationListmodel;
+  final Function callBack;
+  const SendToAllocation(
+      {Key? key, required this.allocationListmodel, required this.callBack})
+      : super(key: key);
+
+  @override
+  State<SendToAllocation> createState() => _SendToAllocationState();
+}
+
+class _SendToAllocationState extends State<SendToAllocation> {
+  String? allocationId;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white24.withOpacity(0.1),
+      body: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white24.withOpacity(0.1),
+          ),
+          child: Center(
+            child: Container(
+              height: 400,
+              width: 400,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Select Allocation Team To send Order",
+                            style: GoogleFonts.montserrat(
+                                color: Colors.black, fontSize: 20),
+                          ),
+                        ),
+                      ],
+                    ),
+                    widget.allocationListmodel.isEmpty
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ListView.builder(
+                            itemCount: widget.allocationListmodel.length,
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    widget.callBack(widget
+                                        .allocationListmodel[index].value);
+
+                                    Navigator.pop(context);
+                                  },
+                                  child: Card(
+                                    color: allocationId == null
+                                        ? Colors.white
+                                        : allocationId ==
+                                                widget
+                                                    .allocationListmodel[index]
+                                                    .value
+                                            ? Colors.blue
+                                            : Colors.white,
+                                    child: ListTile(
+                                      title: Text(
+                                        "Allocation: ${widget.allocationListmodel[index].name}",
+                                        style: GoogleFonts.montserrat(
+                                          color: allocationId == null
+                                              ? Colors.black
+                                              : allocationId ==
+                                                      widget
+                                                          .allocationListmodel[
+                                                              index]
+                                                          .value
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "Email:  ${widget.allocationListmodel[index].email}",
+                                        style: GoogleFonts.montserrat(
+                                          color: allocationId == null
+                                              ? Colors.black
+                                              : allocationId ==
+                                                      widget
+                                                          .allocationListmodel[
+                                                              index]
+                                                          .value
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            })
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
