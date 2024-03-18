@@ -1161,27 +1161,9 @@ class _OrderCopyState extends State<OrderCopy> {
                                                   file: filepath!,
                                                   userId: getUserData.id));
 
-                                              Beamer.of(context)
-                                                  .beamToNamed('/orders-list/${orderData.data.oderDetails.id}');
+                                              Beamer.of(context).beamToNamed(
+                                                  '/orders-list');
                                             }
-
-                                            // showDialog(
-                                            //   context: context,
-                                            //   builder: (BuildContext context) {
-                                            //     return SendToAllocation(
-                                            //       allocationListmodel:
-                                            //           allocationList,
-                                            //       callBack: (value) {
-                                            //         log(value);
-                                            //       },
-                                            //       // email: email,
-                                            //       // mobile: number,
-                                            //       // name: name,
-                                            //       // rmidController: rmid,
-                                            //       // symbol: symbol,
-                                            //     );
-                                            //   },
-                                            // );
                                           },
                                           child: Container(
                                             height: 45,

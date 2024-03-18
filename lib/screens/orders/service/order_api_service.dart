@@ -6,6 +6,7 @@ import 'package:admin/screens/orders/model/currencymodel.dart';
 import 'package:admin/screens/orders/model/order.add.response.dart';
 import 'package:admin/screens/orders/model/orderlistmodel.dart';
 import 'package:admin/screens/orders/model/service.model.dart';
+import 'package:admin/screens/orders/model/sharmodel.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -25,4 +26,6 @@ abstract class OrderService {
   Future<AllocationListmodel> getAllocvationList();
   @POST('/order-create')
   Future<OrderAddResponse> addOrder(@Body() AddOrderBody body);
+  @POST('/order-list-create')
+  Future<CreateSharReseModel> shareOrder(@Body() CreateShareModel body);
 }
