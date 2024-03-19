@@ -6,6 +6,7 @@ import 'package:admin/config/get.user.data.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/screens/Clients/model/clientlistmodel.dart';
 import 'package:admin/screens/Clients/service/client_api_service.dart';
+import 'package:admin/screens/allocation/service/allocation.service.dart';
 import 'package:admin/screens/main.service/file.upload.model.dart';
 import 'package:admin/screens/main.service/fileupload.service.dart';
 import 'package:admin/screens/orders/components/searchdrop.dart';
@@ -15,6 +16,7 @@ import 'package:admin/screens/orders/model/currencymodel.dart';
 import 'package:admin/screens/orders/model/order.add.response.dart';
 import 'package:admin/screens/orders/model/orderlistmodel.dart';
 import 'package:admin/screens/orders/model/service.model.dart';
+import 'package:admin/screens/orders/model/sharmodel.dart';
 import 'package:admin/screens/orders/service/order_api_service.dart';
 import 'package:beamer/beamer.dart';
 import 'package:dio/dio.dart';
@@ -1160,9 +1162,18 @@ class _OrderCopyState extends State<OrderCopy> {
                                                   image: imagepath!,
                                                   file: filepath!,
                                                   userId: getUserData.id));
-
-                                              Beamer.of(context).beamToNamed(
-                                                  '/orders-list');
+                                                  final allocationService = AllocationSerive(createDio());
+                                                  AllocationListmodel allocationList = await allocationService.getAllocationList();
+                                                  CreateSharReseModel responseData = await orderService.shareOrder(
+                                                    CreateShareModel(oderId: orderData.data.oderDetails.id, 
+                                                    sendar: getUserData.id, 
+                                                    receiver: allocationList.data[0].id, 
+                                                    status: "Work Allocated", 
+                                                    message: _notesController.text, 
+                                                    file: filepath!));
+                                              // Beamer.of(context).beamToNamed(
+                                              //     '/orders-list');
+                                              
                                             }
                                           },
                                           child: Container(
