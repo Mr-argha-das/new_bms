@@ -1162,18 +1162,30 @@ class _OrderCopyState extends State<OrderCopy> {
                                                   image: imagepath!,
                                                   file: filepath!,
                                                   userId: getUserData.id));
-                                                  final allocationService = AllocationSerive(createDio());
-                                                  AllocationListmodel allocationList = await allocationService.getAllocationList();
-                                                  CreateSharReseModel responseData = await orderService.shareOrder(
-                                                    CreateShareModel(oderId: orderData.data.oderDetails.id, 
-                                                    sendar: getUserData.id, 
-                                                    receiver: allocationList.data[0].id, 
-                                                    status: "Work Allocated", 
-                                                    message: _notesController.text, 
-                                                    file: filepath!));
-                                              // Beamer.of(context).beamToNamed(
-                                              //     '/orders-list');
-                                              
+                                              final allocationService =
+                                                  AllocationSerive(createDio());
+                                              AllocationListmodel
+                                                  allocationList =
+                                                  await allocationService
+                                                      .getAllocationList();
+                                              CreateSharReseModel responseData =
+                                                  await orderService.shareOrder(
+                                                      CreateShareModel(
+                                                          oderId: orderData.data
+                                                              .oderDetails.id,
+                                                          sendar:
+                                                              getUserData.id,
+                                                          receiver:
+                                                              allocationList
+                                                                  .data[0].id,
+                                                          status:
+                                                              "Work Allocated",
+                                                          message:
+                                                              _notesController
+                                                                  .text,
+                                                          file: filepath!));
+                                              Beamer.of(context)
+                                                  .beamToNamed('/orders-list');
                                             }
                                           },
                                           child: Container(
