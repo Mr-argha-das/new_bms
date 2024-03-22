@@ -294,7 +294,7 @@ class _AddUserFormState extends State<AddUserForm> {
                                                       InputDecoration.collapsed(
                                                           border:
                                                               InputBorder.none,
-                                                          hintText: 'RMID',
+                                                          hintText: 'RMCODE',
                                                           hintStyle: TextStyle(
                                                               fontSize: 13,
                                                               color:
@@ -631,6 +631,8 @@ class _AddUserFormState extends State<AddUserForm> {
                                               roles: roleId!,
                                               teams: teamId!,
                                               name: nameController.text,
+                                              rmCode: rmidController.text,
+                                              symbol: symbolController.text,
                                               email: emailController.text,
                                               number: number,
                                               password: "$number");

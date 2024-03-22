@@ -39,10 +39,14 @@ class AddUserModel {
     String teams;
     String name;
     String email;
+    String rmCode;
+    String symbol;
     int number;
     String password;
 
     AddUserModel({
+      required this.rmCode,
+      required this.symbol,
         required this.image,
         required this.roles,
         required this.teams,
@@ -54,6 +58,8 @@ class AddUserModel {
 
     factory AddUserModel.fromJson(Map<String, dynamic> json) => AddUserModel(
         image: json["image"],
+        rmCode: json["rmCode"],
+        symbol: json["symbol"],
         roles: json["roles"],
         teams: json["teams"],
         name: json["name"],
@@ -70,5 +76,7 @@ class AddUserModel {
         "email": email,
         "number": number,
         "password": password,
+        "rmCode":rmCode,
+        "symbol":symbol
     };
 }
