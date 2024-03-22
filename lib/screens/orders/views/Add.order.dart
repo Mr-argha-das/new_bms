@@ -6,6 +6,7 @@ import 'package:admin/config/get.user.data.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/screens/Clients/model/clientlistmodel.dart';
 import 'package:admin/screens/Clients/service/client_api_service.dart';
+import 'package:admin/screens/allocation/service/allocation.service.dart';
 import 'package:admin/screens/main.service/file.upload.model.dart';
 import 'package:admin/screens/main.service/fileupload.service.dart';
 import 'package:admin/screens/orders/components/searchdrop.dart';
@@ -14,11 +15,13 @@ import 'package:admin/screens/orders/model/allocation.model.dart';
 import 'package:admin/screens/orders/model/currencymodel.dart';
 import 'package:admin/screens/orders/model/order.add.response.dart';
 import 'package:admin/screens/orders/model/service.model.dart';
+import 'package:admin/screens/orders/model/sharmodel.dart';
 import 'package:admin/screens/orders/service/order_api_service.dart';
 import 'package:beamer/beamer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -144,7 +147,6 @@ class _AddOrdersState extends State<AddOrders> {
       reader.readAsDataUrl(file);
     });
   }
- 
 
   bool lodar = false;
   @override
@@ -214,619 +216,115 @@ class _AddOrdersState extends State<AddOrders> {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : lodar==true?  Center(
-              child: CircularProgressIndicator(),
-            ) : SingleChildScrollView(
-                child: Form(
-                  key: _fromKey,
-                  child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, left: 25, bottom: 15),
-                          child: Text(
-                            "Create Orders",
-                            style: GoogleFonts.inter(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
+            : lodar == true
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
+                    child: Form(
+                    key: _fromKey,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              height: 45,
-                            ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 600,
-                                width: 550,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/images/loda.gif"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
+                              padding: const EdgeInsets.only(
+                                  top: 20, left: 25, bottom: 15),
+                              child: Text(
+                                "Create Orders",
+                                style: GoogleFonts.inter(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color(0x542A2E3E),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MySearchapleDropDown(
-                                        items: clientList,
-                                        id: "",
-                                        callBack: (value) {
-                                          setState(() {
-                                            clientId = value;
-                                          });
-                                        },
-                                        title: "Search Client",
-                                      )),
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MySearchapleDropDown(
-                                        items: items,
-                                        id: "",
-                                        callBack: (value) {
-                                          setState(() {
-                                            currencyId = value;
-                                          });
-                                        },
-                                        title: "Search Currency",
-                                      )),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 35,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  controller:
-                                                      _inrTotalamountController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Total Order Amount in INR",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 35,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  controller:
-                                                      _audTotalamountController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Total Order Amount in AUD",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 35,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  controller:
-                                                      _clientinrAmountController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Client Paid Amount in INR",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 35,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  controller:
-                                                      _clientaudAmountController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintText:
-                                                        "Client Paid Amount in AUD",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MySearchapleDropDown(
-                                        items: serviceList,
-                                        id: "",
-                                        callBack: (value) {
-                                          setState(() {
-                                            servicId = value;
-                                          });
-                                        },
-                                        title: "Search Service",
-                                      )),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, right: 8, left: 8, bottom: 8),
-                                    child: Container(
-                                      height: 35,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                          255,
-                                          239,
-                                          239,
-                                          239,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8, bottom: 8, left: 15),
-                                          child: TextFormField(
-                                            controller: _assignmentType,
-                                            // keyboardType: TextInputType.number,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14),
-                                            decoration: InputDecoration.collapsed(
-                                              border: InputBorder.none,
-                                              hintText: "Assignment Type",
-                                              hintStyle: GoogleFonts.montserrat(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 45,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 600,
+                                    width: 550,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/loda.gif"),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 35,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  controller:
-                                                      _moduleCodeController,
-                                                  // keyboardType: TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintText: "Module code",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 35,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  controller:
-                                                      _moduleNameController,
-                                                  // keyboardType: TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintText: "Module name",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color(0x542A2E3E),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              pickDate = (await showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime.now(),
-                                                  firstDate: DateTime.now(),
-                                                  lastDate: DateTime(2030)))!;
-                                              setState(() {});
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MySearchapleDropDown(
+                                            items: clientList,
+                                            id: "",
+                                            callBack: (value) {
+                                              setState(() {
+                                                clientId = value;
+                                              });
                                             },
-                                            child: Container(
-                                              height: 35,
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.transparent,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  border: Border.all(
-                                                      color: Colors.white,
-                                                      style: BorderStyle.solid)),
-                                              child: Center(
-                                                child: pickDate != null
-                                                    ? Text(
-                                                        "${pickDate.day}-${pickDate.month}-${pickDate.year}")
-                                                    : const Text(
-                                                        "Select Deadline"),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8,
-                                              right: 8,
-                                              left: 8,
-                                              bottom: 8),
-                                          child: Container(
-                                            height: 35,
-                                            width:
-                                                MediaQuery.of(context).size.width,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                239,
-                                                239,
-                                                239,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, bottom: 8, left: 15),
-                                                child: TextFormField(
-                                                  controller:
-                                                      _wordCountController,
-                                                  // keyboardType: TextInputType.number,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 14),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintText: "Word count",
-                                                    hintStyle:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: MySearchapleDropDown(
-                                        items: _paymentType,
-                                        id: "",
-                                        callBack: (value) {
-                                          setState(() {
-                                            paymentType = value;
-                                          });
-                                        },
-                                        title: "Select Payment Type",
-                                      )),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, right: 8, left: 8, bottom: 8),
-                                    child: Container(
-                                      height: 75,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                          255,
-                                          239,
-                                          239,
-                                          239,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8, bottom: 8, left: 15),
-                                          child: TextFormField(
-                                            maxLines: 5,
-                                            controller: _notesController,
-                                            // keyboardType: TextInputType.number,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14),
-                                            decoration: InputDecoration.collapsed(
-                                              border: InputBorder.none,
-                                              hintText: "Notes",
-                                              hintStyle: GoogleFonts.montserrat(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            webFilePicker();
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 8,
-                                                right: 8,
-                                                left: 8,
-                                                bottom: 8),
-                                            child: Container(
-                                                height: 40,
+                                            title: "Search Client",
+                                          )),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MySearchapleDropDown(
+                                            items: items,
+                                            id: "",
+                                            callBack: (value) {
+                                              setState(() {
+                                                currencyId = value;
+                                              });
+                                            },
+                                            title: "Search Currency",
+                                          )),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 35,
                                                 width: MediaQuery.of(context)
                                                     .size
                                                     .width,
@@ -840,66 +338,580 @@ class _AddOrdersState extends State<AddOrders> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                child: filepath != null
-                                                    ? Center(
-                                                        child: Icon(
-                                                          Icons.done,
-                                                          color: Colors.green,
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          _inrTotalamountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration
+                                                              .collapsed(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Total Order Amount in INR",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
                                                         ),
-                                                      )
-                                                    : Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons
-                                                                .file_upload_outlined,
-                                                            color: Colors.black,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          Text(
-                                                            "upload any attachment",
-                                                            style: GoogleFonts
-                                                                .montserrat(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    color: Colors
-                                                                        .black),
-                                                          ),
-                                                        ],
-                                                      )),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 35,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          _audTotalamountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration
+                                                              .collapsed(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Total Order Amount in AUD",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 35,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          _clientinrAmountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration
+                                                              .collapsed(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Client Paid Amount in INR",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 35,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          _clientaudAmountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration
+                                                              .collapsed(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Client Paid Amount in AUD",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MySearchapleDropDown(
+                                            items: serviceList,
+                                            id: "",
+                                            callBack: (value) {
+                                              setState(() {
+                                                servicId = value;
+                                              });
+                                            },
+                                            title: "Search Service",
+                                          )),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8,
+                                            right: 8,
+                                            left: 8,
+                                            bottom: 8),
+                                        child: Container(
+                                          height: 35,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                              255,
+                                              239,
+                                              239,
+                                              239,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8, bottom: 8, left: 15),
+                                              child: TextFormField(
+                                                controller: _assignmentType,
+                                                // keyboardType: TextInputType.number,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14),
+                                                decoration:
+                                                    InputDecoration.collapsed(
+                                                  border: InputBorder.none,
+                                                  hintText: "Assignment Type",
+                                                  hintStyle:
+                                                      GoogleFonts.montserrat(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            filePicker();
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 2,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      top: 12,
-                                                      right: 8,
-                                                      left: 8,
-                                                      bottom: 8),
-                                                  child: Container(
-                                                    height: 35,
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 35,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          _moduleCodeController,
+                                                      // keyboardType: TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration
+                                                              .collapsed(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: "Module code",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 35,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          _moduleNameController,
+                                                      // keyboardType: TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration
+                                                              .collapsed(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: "Module name",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  pickDate =
+                                                      (await showDatePicker(
+                                                          context: context,
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate:
+                                                              DateTime.now(),
+                                                          lastDate:
+                                                              DateTime(2030)))!;
+                                                  setState(() {});
+                                                },
+                                                child: Container(
+                                                  height: 35,
+                                                  width: double.infinity,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      border: Border.all(
+                                                          color: Colors.white,
+                                                          style: BorderStyle
+                                                              .solid)),
+                                                  child: Center(
+                                                    child: pickDate != null
+                                                        ? Text(
+                                                            "${pickDate.day}-${pickDate.month}-${pickDate.year}")
+                                                        : const Text(
+                                                            "Select Deadline"),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 35,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      controller:
+                                                          _wordCountController,
+                                                      // keyboardType: TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration
+                                                              .collapsed(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: "Word count",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: MySearchapleDropDown(
+                                            items: _paymentType,
+                                            id: "",
+                                            callBack: (value) {
+                                              setState(() {
+                                                paymentType = value;
+                                              });
+                                            },
+                                            title: "Select Payment Type",
+                                          )),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8,
+                                            right: 8,
+                                            left: 8,
+                                            bottom: 8),
+                                        child: Container(
+                                          height: 75,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                              255,
+                                              239,
+                                              239,
+                                              239,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8, bottom: 8, left: 15),
+                                              child: TextFormField(
+                                                maxLines: 5,
+                                                controller: _notesController,
+                                                // keyboardType: TextInputType.number,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14),
+                                                decoration:
+                                                    InputDecoration.collapsed(
+                                                  border: InputBorder.none,
+                                                  hintText: "Notes",
+                                                  hintStyle:
+                                                      GoogleFonts.montserrat(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                webFilePicker();
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8,
+                                                    right: 8,
+                                                    left: 8,
+                                                    bottom: 8),
+                                                child: Container(
+                                                    height: 40,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
                                                     decoration: BoxDecoration(
-                                                      color: const Color.fromARGB(
+                                                      color:
+                                                          const Color.fromARGB(
                                                         255,
                                                         239,
                                                         239,
@@ -907,138 +919,248 @@ class _AddOrdersState extends State<AddOrders> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15),
+                                                              10),
                                                     ),
-                                                    child: imagepath != null
+                                                    child: filepath != null
                                                         ? Center(
                                                             child: Icon(
                                                               Icons.done,
-                                                              color: Colors.green,
+                                                              color:
+                                                                  Colors.green,
                                                             ),
                                                           )
-                                                        : Center(
-                                                            child: Text(
-                                                              "Payment SS",
-                                                              style: GoogleFonts
-                                                                  .montserrat(
+                                                        : Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .file_upload_outlined,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(
+                                                                "upload any attachment",
+                                                                style: GoogleFonts.montserrat(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: Colors
+                                                                        .black),
+                                                              ),
+                                                            ],
+                                                          )),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                filePicker();
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 12,
+                                                              right: 8,
+                                                              left: 8,
+                                                              bottom: 8),
+                                                      child: Container(
+                                                        height: 35,
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: const Color
+                                                              .fromARGB(
+                                                            255,
+                                                            239,
+                                                            239,
+                                                            239,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        child: imagepath != null
+                                                            ? Center(
+                                                                child: Icon(
+                                                                  Icons.done,
+                                                                  color: Colors
+                                                                      .green,
+                                                                ),
+                                                              )
+                                                            : Center(
+                                                                child: Text(
+                                                                  "Payment SS",
+                                                                  style: GoogleFonts.montserrat(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
                                                                       color: Colors
                                                                           .black),
-                                                            ),
-                                                          ),
+                                                                ),
+                                                              ),
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
+                                                  Expanded(
+                                                      child: SizedBox(width: 8))
+                                                ],
                                               ),
-                                              Expanded(child: SizedBox(width: 8))
-                                            ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            try{
+                                              if (_fromKey.currentState!
+                                                .validate()) {
+                                              final multipartFile =
+                                                  MultipartFile.fromBytes(
+                                                      _bytesData!,
+                                                      filename: "${filepath}");
+                                              final multipartFile2 =
+                                                  MultipartFile.fromBytes(
+                                                      _images!,
+                                                      filename: "${imagepath}");
+                                              final fileUploadService =
+                                                  FileUploadService(
+                                                      createDio());
+                                              FileUploadResponse response =
+                                                  await fileUploadService
+                                                      .upload(data: {
+                                                "images": multipartFile,
+                                                "bucketName": "ahec"
+                                              });
+                                              FileUploadResponse response2 =
+                                                  await fileUploadService
+                                                      .upload(data: {
+                                                "images": multipartFile2,
+                                                "bucketName": "ahec"
+                                              });
+                                              setState(() {
+                                                filepath = response.data;
+                                                imagepath = response2.data;
+                                              });
+                                              final getUserData = UserDataGet();
+                                              getUserData.getUserLocalData();
+                                              setState(() {
+                                                lodar = true;
+                                              });
+                                              OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
+                                                  orderNumber:
+                                                      "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
+                                                  clientId: clientId!,
+                                                  currencyId: currencyId!,
+                                                  serviceId: servicId!,
+                                                  inrAmmount: int.parse(
+                                                      _inrTotalamountController
+                                                          .text),
+                                                  audAmmount: int.parse(
+                                                      _audTotalamountController
+                                                          .text),
+                                                  clientAmmount: int.parse(
+                                                      _clientaudAmountController
+                                                          .text),
+                                                  totalAmmount: int.parse(
+                                                      _audTotalamountController
+                                                          .text),
+                                                  ppt: _assignmentType.text,
+                                                  moduleCode:
+                                                      _moduleCodeController.text,
+                                                  moduleName: _moduleNameController.text,
+                                                  deadline: "${pickDate.day}-${pickDate.month}-${pickDate.year}",
+                                                  wordCount: _wordCountController.text,
+                                                  paymentType: paymentType!,
+                                                  shortNote: _notesController.text,
+                                                  image: imagepath!,
+                                                  file: filepath!,
+                                                  userId: getUserData.id));
+                                              final allocationService =
+                                                  AllocationSerive(createDio());
+                                              AllocationListmodel
+                                                  allocationListmodel =
+                                                  await allocationService
+                                                      .getAllocationList();
+                                              CreateSharReseModel
+                                                  createSharReseModel =
+                                                  await orderService.shareOrder(
+                                                      CreateShareModel(
+                                                          oderId: orderData.data
+                                                              .oderDetails.id,
+                                                          sendar:
+                                                              getUserData.id,
+                                                          receiver:
+                                                              allocationListmodel
+                                                                  .data[0].id,
+                                                          status:
+                                                              "Work Allocated",
+                                                          message:
+                                                              _notesController
+                                                                  .text,
+                                                          file: filepath!));
+
+                                              Beamer.of(context)
+                                                  .beamToNamed('/orders-list');
+                                            }
+                                            }catch(e){
+                                             setState(() {
+                                               lodar = false;
+                                             });
+                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Some thing Went Wrong")));
+                                            }
+
+                                            
+                                          },
+                                          child: Container(
+                                            height: 45,
+                                            width: 250,
+                                            decoration: BoxDecoration(
+                                              color: Colors.black,
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Submit",
+                                                style: GoogleFonts.montserrat(
+                                                    fontSize: 20,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                      )
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        if(_fromKey.currentState!.validate()){
-                                          final multipartFile =
-                                            MultipartFile.fromBytes(_bytesData!,
-                                                filename: "${filepath}");
-                                        final multipartFile2 =
-                                            MultipartFile.fromBytes(_images!,
-                                                filename: "${imagepath}");
-                                        final fileUploadService =
-                                            FileUploadService(createDio());
-                                        FileUploadResponse response =
-                                            await fileUploadService.upload(data: {
-                                          "images": multipartFile,
-                                          "bucketName": "ahec"
-                                        });
-                                        FileUploadResponse response2 =
-                                            await fileUploadService.upload(data: {
-                                          "images": multipartFile2,
-                                          "bucketName": "ahec"
-                                        });
-                                        setState(() {
-                                          filepath = response.data;
-                                          imagepath = response2.data;
-                                        });
-                                        final getUserData = UserDataGet();
-                                        getUserData.getUserLocalData();
-                                        setState(() {
-                                          lodar = true;
-                                        });
-                                        OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
-                                            orderNumber: "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
-                                            clientId: clientId!,
-                                            currencyId: currencyId!,
-                                            serviceId: servicId!,
-                                            inrAmmount: int.parse(
-                                                _inrTotalamountController.text),
-                                            audAmmount: int.parse(
-                                                _audTotalamountController.text),
-                                            clientAmmount: int.parse(
-                                                _clientaudAmountController.text),
-                                            totalAmmount: int.parse(
-                                                _audTotalamountController.text),
-                                            ppt: _assignmentType.text,
-                                            moduleCode:
-                                                _moduleCodeController.text,
-                                            moduleName:
-                                                _moduleNameController.text, 
-                                            deadline:
-                                                "${pickDate.day}-${pickDate.month}-${pickDate.year}",
-                                            wordCount: _wordCountController.text,
-                                            paymentType: paymentType!,
-                                            shortNote: _notesController.text,
-                                            image: imagepath!,
-                                            file: filepath!,
-                                            userId: getUserData.id));
-                                            
-                                        Beamer.of(context)
-                                            .beamToNamed('/orders-list');
-
-                                        }
-                                        // mysastalogic(callBack: (value) {
-                                        //   setState(() {
-                                        //     allocationId = value;
-                                        //   });
-                                        // });
-                                        
-                                      },
-                                      child: Container(
-                                        height: 45,
-                                        width: 250,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius: BorderRadius.circular(15),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Submit",
-                                            style: GoogleFonts.montserrat(
-                                                fontSize: 20,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                                ),
-                )));
+                  )));
   }
 
   void mysastalogic({required Function callBack}) {

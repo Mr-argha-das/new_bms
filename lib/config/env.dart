@@ -220,6 +220,18 @@ class Env {
           ],
           child: ClientAdd(),
         ),
+    '/order-history/:id': (context, state, data) {
+      final orderId = state.pathParameters['id']!;
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => MenuAppController()),
+          Provider<Dio>(create: (context) => createDio()),
+        ],
+        child: OrderPerticuler(
+          orderID: orderId,
+        ),
+      );
+    },
     '/allocation-add': (context, state, data) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => MenuAppController()),

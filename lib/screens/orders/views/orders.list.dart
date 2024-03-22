@@ -229,7 +229,7 @@ DataRow userTable(
 }) {
   return DataRow(
     onSelectChanged: (value) {
-      Beamer.of(context).beamToNamed('/perticuler-order/$orderid');
+      Beamer.of(context).beamToNamed('/order-history/$orderid');
     },
     cells: [
       DataCell(
