@@ -1,4 +1,9 @@
+import 'dart:developer';
+
+import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/models/RecentFile.dart';
+import 'package:admin/screens/dashboard/models/dashboard.model.dart';
+import 'package:admin/screens/dashboard/service/dashboard.servie.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
@@ -17,6 +22,8 @@ class RecentFiles extends StatefulWidget {
 }
 
 class _RecentFilesState extends State<RecentFiles> {
+  String wordcount = "0";
+  String totalAchevid = "0";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,7 +50,7 @@ class _RecentFilesState extends State<RecentFiles> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white60,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
@@ -65,7 +72,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
-                                  "\$ 1,000",
+                                  "\$ $totalAchevid",
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 18),
                                 ),
@@ -92,7 +99,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
-                                  "\$ 1,000",
+                                  "\$ 0",
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 18),
                                 ),
@@ -112,6 +119,7 @@ class _RecentFilesState extends State<RecentFiles> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               ListTile(
+                                
                                 title: Text(
                                   "Total Word Count",
                                   style: TextStyle(
@@ -119,7 +127,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
-                                  "\$ 1,000",
+                                  "$wordcount",
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 18),
                                 ),
@@ -137,36 +145,45 @@ class _RecentFilesState extends State<RecentFiles> {
                 )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: 400,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child: DateRangePickerWidget(
-                        theme: CalendarTheme(
-                            selectedColor: Colors.blue,
-                            inRangeColor: Colors.blue.shade300,
-                            inRangeTextStyle: TextStyle(color: Colors.black),
-                            selectedTextStyle: TextStyle(color: Colors.white),
-                            dayNameTextStyle: TextStyle(color: Colors.black),
-                            todayTextStyle: TextStyle(color: Colors.black),
-                            defaultTextStyle: TextStyle(color: Colors.black),
-                            disabledTextStyle: TextStyle(color: Colors.black),
-                            monthTextStyle: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                            radius: 12,
-                            tileSize: 42),
-                        height: 380,
-                        doubleMonth: false,
-                        maximumDateRangeLength: 200,
-                        minimumDateRangeLength: 3,
-                        initialDateRange:
-                            DateRange(DateTime(2023), DateTime(2023)),
-                        disabledDates: [DateTime(2023, 11, 20)],
-                        initialDisplayedDate: DateTime(2023, 11, 20),
-                        onDateRangeChanged: (value) {},
+                  child: Expanded(
+                    child: Container(
+                      width: 400,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: DateRangePickerWidget(
+                          theme: CalendarTheme(
+                              selectedColor: Colors.blue,
+                              inRangeColor: Colors.blue.shade300,
+                              inRangeTextStyle: TextStyle(color: Colors.black),
+                              selectedTextStyle: TextStyle(color: Colors.white),
+                              dayNameTextStyle: TextStyle(color: Colors.black),
+                              todayTextStyle: TextStyle(color: Colors.black),
+                              defaultTextStyle: TextStyle(color: Colors.black),
+                              disabledTextStyle: TextStyle(color: Colors.black),
+                              monthTextStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                              radius: 12,
+                              tileSize: 42),
+                          height: 380,
+                          doubleMonth: false,
+                          maximumDateRangeLength: 200,
+                          minimumDateRangeLength: 3,
+                          initialDateRange:
+                              DateRange(DateTime(2023), DateTime(2023)),
+                          disabledDates: [DateTime(2023, 11, 20)],
+                          initialDisplayedDate: DateTime.now(),
+                          onDateRangeChanged: (value) async {
+                            final dashboardService = DashboardService(createDio());
+                            DashboardBalanceModel response = await dashboardService.getBalance("${value!.start.day}/${value.start.month}/${value.start.year}", "${value.end.day}/${value.end.month}/${value.end.year}");
+                            setState(() {
+                              wordcount = "${response.wordCountTotal}";
+                              totalAchevid = "${response.totalAmmountTotal}";
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ),
