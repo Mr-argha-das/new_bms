@@ -9,7 +9,7 @@ AddOrderBody addOrderBodyFromJson(String str) => AddOrderBody.fromJson(json.deco
 String addOrderBodyToJson(AddOrderBody data) => json.encode(data.toJson());
 
 class AddOrderBody {
-    String orderNumber;
+    // String orderNumber;
     String clientId;
     String currencyId;
     String serviceId;
@@ -29,7 +29,7 @@ class AddOrderBody {
     String userId;
 
     AddOrderBody({
-        required this.orderNumber,
+        // required this.orderNumber,
         required this.clientId,
         required this.currencyId,
         required this.serviceId,
@@ -50,7 +50,7 @@ class AddOrderBody {
     });
 
     factory AddOrderBody.fromJson(Map<String, dynamic> json) => AddOrderBody(
-        orderNumber: json["orderNumber"],
+        // orderNumber: json["orderNumber"],
         clientId: json["clientId"],
         currencyId: json["currencyId"],
         serviceId: json["serviceId"],
@@ -71,7 +71,7 @@ class AddOrderBody {
     );
 
     Map<String, dynamic> toJson() => {
-        "orderNumber": orderNumber,
+        // "orderNumber": orderNumber,
         "clientId": clientId,
         "currencyId": currencyId,
         "serviceId": serviceId,

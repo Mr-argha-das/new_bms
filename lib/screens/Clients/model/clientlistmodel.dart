@@ -36,6 +36,8 @@ class Datum {
     String email;
     @JsonKey(name: 'password')
     String password;
+    @JsonKey(name: 'university')
+    String university;
     @JsonKey(name: 'is_delete')
     bool isDelete;
     @JsonKey(name: 'isVerify')
@@ -60,6 +62,7 @@ class Datum {
         required this.isVerify,
         required this.createdAt,
         required this.updatedAt,
+        required this.university,
         required this.v,
         required this.createdBy,
     });

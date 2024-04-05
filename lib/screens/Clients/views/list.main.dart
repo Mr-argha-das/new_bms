@@ -162,7 +162,7 @@ class _ClientTableState extends State<ClientTable> {
                         label: Text("Email"),
                       ),
                       DataColumn(
-                        label: Text("Role"),
+                        label: Text("Service"),
                       ),
                       DataColumn(
                         label: Text("Action"),
@@ -175,7 +175,7 @@ class _ClientTableState extends State<ClientTable> {
                           phone: snapshot.data!.data[index].number.toString(),
                           name: snapshot.data!.data[index].name,
                           email: snapshot.data!.data[index].email,
-                          uni: snapshot.data!.data[index].name,
+                          uni: snapshot.data!.data[index].university,
                           index: index + 1),
                     ),
                   ),

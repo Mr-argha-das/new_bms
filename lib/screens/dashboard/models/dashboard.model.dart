@@ -12,26 +12,30 @@ class DashboardBalanceModel {
     String startDate;
     String endDate;
     int wordCountTotal;
-    int totalAmmountTotal;
+    int clientAmmount;
+    int audAmmount;
 
     DashboardBalanceModel({
         required this.startDate,
         required this.endDate,
         required this.wordCountTotal,
-        required this.totalAmmountTotal,
+        required this.clientAmmount,
+        required this.audAmmount
     });
 
     factory DashboardBalanceModel.fromJson(Map<String, dynamic> json) => DashboardBalanceModel(
         startDate: json["startDate"],
         endDate: json["endDate"],
         wordCountTotal: json["wordCountTotal"],
-        totalAmmountTotal: json["totalAmmountTotal"],
+        clientAmmount: json["clientAmmount"],
+        audAmmount: json["audAmmount"]
     );
 
     Map<String, dynamic> toJson() => {
         "startDate": startDate,
         "endDate": endDate,
         "wordCountTotal": wordCountTotal,
-        "totalAmmountTotal": totalAmmountTotal,
+        "audAmmount": audAmmount,
+        "clientAmmount":clientAmmount
     };
 }

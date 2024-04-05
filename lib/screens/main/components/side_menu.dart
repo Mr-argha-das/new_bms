@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:admin/config/get.user.data.dart';
 import 'package:admin/screens/Clients/views/list.main.dart';
+import 'package:admin/screens/loginpage/login.page.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/screens/orders/views/orders.list.dart';
 import 'package:admin/screens/team/views/team.list.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'dart:js' as js;
 class SideMenu extends StatelessWidget {
   final context;
   final String title;
@@ -246,42 +247,43 @@ class SideMenu extends StatelessWidget {
               ],
             )
           ],
-          GestureDetector(
-            onTap: () {
-              Beamer.of(context).beamToNamed('/');
-            },
-            child: DrawerListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Logout",
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-              height: 100,
-              svgSrc: "assets/icons/menu_profile.svg",
-              press: () {},
-              onPageChange: (value) {
-                // if (value == 0) {
-                //   Beamer.of(context).beamToNamed('/task-list');
-                // } else if (value == 1) {
-                //   Beamer.of(context).beamToNamed('/task-add');
-                // }
-              },
-              items: [
-                // PagesName(id: 1, name: "Tasks List"),
-                // PagesName(id: 1, name: "ADD Task"),
-              ],
-            ),
-          )
+          // DrawerListTile(
+          //     title: GestureDetector(
+          //       onTap: (){
+          //       js.context.callMethod('close');
+                 
+          //       },
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         crossAxisAlignment: CrossAxisAlignment.center,
+          //         children: [
+          //           Text(
+          //             "Logout",
+          //             style: GoogleFonts.montserrat(
+          //               color: Colors.white,
+          //             ),
+          //           ),
+          //           SizedBox(
+          //             width: 10,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //     height: 100,
+          //     svgSrc: "assets/icons/menu_profile.svg",
+          //     press: () {},
+          //     onPageChange: (value) {
+          //       // if (value == 0) {
+          //       //   Beamer.of(context).beamToNamed('/task-list');
+          //       // } else if (value == 1) {
+          //       //   Beamer.of(context).beamToNamed('/task-add');
+          //       // }
+          //     },
+          //     items: [
+          //       // PagesName(id: 1, name: "Tasks List"),
+          //       // PagesName(id: 1, name: "ADD Task"),
+          //     ],
+          //   )
 
           // DrawerListTile(
           //   title: "Profile",

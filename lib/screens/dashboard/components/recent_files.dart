@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:admin/config/get.user.data.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/models/RecentFile.dart';
 import 'package:admin/screens/dashboard/models/dashboard.model.dart';
@@ -23,7 +24,17 @@ class RecentFiles extends StatefulWidget {
 
 class _RecentFilesState extends State<RecentFiles> {
   String wordcount = "0";
-  String totalAchevid = "0";
+  String clientAmount = "0";
+  String audAmmount = "0";
+  final userData = UserDataGet();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    userData.getUserLocalData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,6 +47,7 @@ class _RecentFilesState extends State<RecentFiles> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          
           Container(
             height: 380,
             width: MediaQuery.of(context).size.width,
@@ -66,13 +78,13 @@ class _RecentFilesState extends State<RecentFiles> {
                             children: [
                               ListTile(
                                 title: Text(
-                                  "Total Achived",
+                                  "Total Client AUD",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
-                                  "\$ $totalAchevid",
+                                  "\$ $clientAmount",
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 18),
                                 ),
@@ -93,13 +105,13 @@ class _RecentFilesState extends State<RecentFiles> {
                             children: [
                               ListTile(
                                 title: Text(
-                                  "Total Recovered",
+                                  "Total AUD",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
-                                  "\$ 0",
+                                  "\$ $audAmmount",
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 18),
                                 ),
@@ -119,7 +131,6 @@ class _RecentFilesState extends State<RecentFiles> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               ListTile(
-                                
                                 title: Text(
                                   "Total Word Count",
                                   style: TextStyle(
@@ -145,45 +156,48 @@ class _RecentFilesState extends State<RecentFiles> {
                 )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Expanded(
-                    child: Container(
-                      width: 400,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                        child: DateRangePickerWidget(
-                          theme: CalendarTheme(
-                              selectedColor: Colors.blue,
-                              inRangeColor: Colors.blue.shade300,
-                              inRangeTextStyle: TextStyle(color: Colors.black),
-                              selectedTextStyle: TextStyle(color: Colors.white),
-                              dayNameTextStyle: TextStyle(color: Colors.black),
-                              todayTextStyle: TextStyle(color: Colors.black),
-                              defaultTextStyle: TextStyle(color: Colors.black),
-                              disabledTextStyle: TextStyle(color: Colors.black),
-                              monthTextStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                              radius: 12,
-                              tileSize: 42),
-                          height: 380,
-                          doubleMonth: false,
-                          maximumDateRangeLength: 200,
-                          minimumDateRangeLength: 3,
-                          initialDateRange:
-                              DateRange(DateTime(2023), DateTime(2023)),
-                          disabledDates: [DateTime(2023, 11, 20)],
-                          initialDisplayedDate: DateTime.now(),
-                          onDateRangeChanged: (value) async {
-                            final dashboardService = DashboardService(createDio());
-                            DashboardBalanceModel response = await dashboardService.getBalance("${value!.start.day}/${value.start.month}/${value.start.year}", "${value.end.day}/${value.end.month}/${value.end.year}");
-                            setState(() {
-                              wordcount = "${response.wordCountTotal}";
-                              totalAchevid = "${response.totalAmmountTotal}";
-                            });
-                          },
-                        ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: DateRangePickerWidget(
+                        theme: CalendarTheme(
+                            selectedColor: Colors.blue,
+                            inRangeColor: Colors.blue.shade300,
+                            inRangeTextStyle: TextStyle(color: Colors.black),
+                            selectedTextStyle: TextStyle(color: Colors.white),
+                            dayNameTextStyle: TextStyle(color: Colors.black),
+                            todayTextStyle: TextStyle(color: Colors.black),
+                            defaultTextStyle: TextStyle(color: Colors.black),
+                            disabledTextStyle: TextStyle(color: Colors.black),
+                            monthTextStyle: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                            radius: 12,
+                            tileSize: 42),
+                        height: 380,
+                        doubleMonth: false,
+                        maximumDateRangeLength: 200,
+                        minimumDateRangeLength: 3,
+                        initialDateRange:
+                            DateRange(DateTime(2023), DateTime(2023)),
+                        disabledDates: [DateTime(2023, 11, 20)],
+                        initialDisplayedDate: DateTime.now(),
+                        onDateRangeChanged: (value) async {
+                          final dashboardService =
+                              DashboardService(createDio());
+                          DashboardBalanceModel response =
+                              await dashboardService.getBalance(
+                                  "${userData.id}",
+                                  "${value!.start.day}/${value.start.month}/${value.start.year}",
+                                  "${value.end.day}/${value.end.month}/${value.end.year}");
+                          setState(() {
+                            wordcount = "${response.wordCountTotal}";
+                            clientAmount = "${response.clientAmmount}";
+                            audAmmount = "${response.audAmmount}";
+                          });
+                        },
                       ),
                     ),
                   ),
@@ -194,42 +208,42 @@ class _RecentFilesState extends State<RecentFiles> {
           SizedBox(
             height: defaultPadding,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Container(
-              height: 300,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: secondaryColor,
-                  borderRadius: BorderRadius.circular(10)),
-          //         child: SfCartesianChart(
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 8.0),
+          //   child: Container(
+          //     height: 300,
+          //     width: MediaQuery.of(context).size.width,
+          //     decoration: BoxDecoration(
+          //         color: secondaryColor,
+          //         borderRadius: BorderRadius.circular(10)),
+          // //         child: SfCartesianChart(
 
-          //   primaryXAxis: CategoryAxis(),
-          //   // Chart title
-          //   title: ChartTitle(text: 'Half yearly sales analysis'),
-          //   // Enable legend
-          //   legend: Legend(isVisible: true),
-          //   // Enable tooltip
-          //   tooltipBehavior: _tooltipBehavior,
+          // //   primaryXAxis: CategoryAxis(),
+          // //   // Chart title
+          // //   title: ChartTitle(text: 'Half yearly sales analysis'),
+          // //   // Enable legend
+          // //   legend: Legend(isVisible: true),
+          // //   // Enable tooltip
+          // //   tooltipBehavior: _tooltipBehavior,
 
-          //   series: <LineSeries<SalesData, String>>[
-          //     LineSeries<SalesData, String>(
-          //       dataSource:  <SalesData>[
-          //         SalesData('Jan', 35),
-          //         SalesData('Feb', 28),
-          //         SalesData('Mar', 34),
-          //         SalesData('Apr', 32),
-          //         SalesData('May', 40)
-          //       ],
-          //       xValueMapper: (SalesData sales, _) => sales.year,
-          //       yValueMapper: (SalesData sales, _) => sales.sales,
-          //       // Enable data label
-          //       dataLabelSettings: DataLabelSettings(isVisible: true)
-          //     )
-          //   ]
+          // //   series: <LineSeries<SalesData, String>>[
+          // //     LineSeries<SalesData, String>(
+          // //       dataSource:  <SalesData>[
+          // //         SalesData('Jan', 35),
+          // //         SalesData('Feb', 28),
+          // //         SalesData('Mar', 34),
+          // //         SalesData('Apr', 32),
+          // //         SalesData('May', 40)
+          // //       ],
+          // //       xValueMapper: (SalesData sales, _) => sales.year,
+          // //       yValueMapper: (SalesData sales, _) => sales.sales,
+          // //       // Enable data label
+          // //       dataLabelSettings: DataLabelSettings(isVisible: true)
+          // //     )
+          // //   ]
+          // // ),
+          //   ),
           // ),
-            ),
-          ),
         ],
       ),
     );
@@ -257,17 +271,19 @@ DataRow recentFileDataRow(RecentFile fileInfo, int index) {
   );
 }
 
-class OrderPointLineData{
+class OrderPointLineData {
   final double x;
   final double y;
 
   OrderPointLineData({required this.x, required this.y});
-  
 }
 
-List<OrderPointLineData> get orderPointList{
-  final data = <double>[10,30,23,41,581,23];
-  return data.mapIndexed(((index, element)=> OrderPointLineData(x: index.toDouble(), y: element))).toList();
+List<OrderPointLineData> get orderPointList {
+  final data = <double>[10, 30, 23, 41, 581, 23];
+  return data
+      .mapIndexed(((index, element) =>
+          OrderPointLineData(x: index.toDouble(), y: element)))
+      .toList();
 }
 
 class SalesData {

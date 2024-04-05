@@ -1,9 +1,13 @@
+import 'package:admin/config/get.user.data.dart';
+import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/screens/dashboard/Profile_pages/Attendance.dart';
 import 'package:admin/screens/dashboard/Profile_pages/Documents.dart';
 import 'package:admin/screens/dashboard/Profile_pages/Pages/Leaves.dart';
 import 'package:admin/screens/dashboard/Profile_pages/Pages/payroll.dart';
 import 'package:admin/screens/dashboard/Profile_pages/Pages/profile.dart';
+import 'package:admin/screens/dashboard/Profile_pages/models/profile.models.dart';
+import 'package:admin/screens/dashboard/Profile_pages/service/profile.service.dart';
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 
@@ -15,14 +19,38 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  UserDetails? userDataModel;
+  Future<UserDetails>? futureDetails;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     getUserData();
+    
+  }
+  getUserData(){
+    final dataUser = UserDataGet();
+    dataUser.getUserLocalData();
+    final profileService =ProfileService(createDio());
+    
+    Future<UserDetails> data = profileService.getData(dataUser.id);
+    data.then((value) {
+     setState(() {
+       userDataModel = value;
+     });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: bgColor,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Row(
+        child: userDataModel == null?  Center(
+          child: CircularProgressIndicator(),
+        ) :Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -67,13 +95,19 @@ class _ProfilePageState extends State<ProfilePage> {
                           decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 220, 220, 220),
                               shape: BoxShape.circle),
+                              child: Center(
+                                child: Text("${userDataModel!.name[0]}", style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 36
+                                ),),
+                              ),
                         ),
                       ),
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Text(
-                            "Vishal Goswami",
+                            "${userDataModel!.name}",
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.white,
@@ -92,14 +126,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       ListTile(
                         leading: Text(
-                          "Staff ID",
+                          "Email Id",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),
                         ),
                         trailing: Text(
-                          "A2G/0141/1072",
+                          "${userDataModel!.email}",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,
@@ -116,14 +150,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       ListTile(
                         leading: Text(
-                          "Role",
+                          "RMCODE",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),
                         ),
                         trailing: Text(
-                          "IT",
+                          "${userDataModel!.rmCode}",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,
@@ -140,14 +174,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       ListTile(
                         leading: Text(
-                          "Designation",
+                          "Venture",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),
                         ),
                         trailing: Text(
-                          "Android Developer",
+                          "${userDataModel!.ventureInfo[0].vName}",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,
@@ -164,14 +198,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       ListTile(
                         leading: Text(
-                          "Staff ID",
+                          "Teams",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),
                         ),
                         trailing: Text(
-                          "A2G/0141/1072",
+                          "${userDataModel!.ventureInfo[0].team.name}",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,
@@ -186,21 +220,23 @@ class _ProfilePageState extends State<ProfilePage> {
             Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: secondaryColor,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black54,
-                              spreadRadius: 1,
-                              blurRadius: 12,
-                              offset: Offset(4, 4))
-                        ]),
-                    child: MyTabbedPage(),
-                  ),
-                ))
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: secondaryColor,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black54,
+                                spreadRadius: 1,
+                                blurRadius: 12,
+                                offset: Offset(4, 4))
+                          ]),
+                      child: Center(
+                        child: Text("Comming Soon", style: TextStyle(color: Colors.white, fontSize: 35),),
+                      ),
+                    ),
+                  ))
           ],
         ),
       ),

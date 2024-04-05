@@ -22,6 +22,7 @@ class _DashboardService implements DashboardService {
 
   @override
   Future<DashboardBalanceModel> getBalance(
+    String userid,
     String startdate,
     String endDate,
   ) async {
@@ -40,7 +41,7 @@ class _DashboardService implements DashboardService {
     )
             .compose(
               _dio.options,
-              '/wordcount/get',
+              '/wordcount/get/${userid}',
               queryParameters: queryParameters,
               data: _data,
             )

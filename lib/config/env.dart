@@ -62,6 +62,20 @@ class Env {
           ],
           child: LoginPage(),
         ),
+        '/main': (context, state, data) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => MenuAppController()),
+            ChangeNotifierProvider(create: (context) => UserDataGet()),
+            Provider<Dio>(
+              create: (context) => createDio(),
+            ),
+            ProxyProvider<Dio, LoginService>(
+              update: (context, dio, apiService) =>
+                  apiService ?? LoginService(dio),
+            ),
+          ],
+          child: LoginPage(),
+        ),
     '/perticuler-order/:orderid': (context, state, data) {
       final bookId = state.pathParameters['orderid']!;
       return MultiProvider(

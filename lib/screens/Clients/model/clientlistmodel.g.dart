@@ -33,6 +33,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       isVerify: json['isVerify'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
+      university: json['university'] as String,
       v: json['__v'] as int,
       createdBy: json['createdBy'] as String,
     );
@@ -44,6 +45,7 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'number': instance.number,
       'email': instance.email,
       'password': instance.password,
+      'university': instance.university,
       'is_delete': instance.isDelete,
       'isVerify': instance.isVerify,
       'createdAt': instance.createdAt.toIso8601String(),

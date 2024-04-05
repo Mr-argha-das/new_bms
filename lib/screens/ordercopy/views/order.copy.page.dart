@@ -1134,8 +1134,6 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 lodar = true;
                                               });
                                               OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
-                                                  orderNumber:
-                                                      "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
                                                   clientId: clientId!,
                                                   currencyId: currencyId!,
                                                   serviceId: servicId!,

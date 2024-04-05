@@ -12,6 +12,7 @@ import 'package:admin/screens/venture/components/widgets/header.ven.dart';
 import 'package:beamer/beamer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_pagination/widgets/button_styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -148,7 +149,7 @@ class _OrdersTableState extends State<OrdersTable> {
         future: model,
         builder: (context, snapshot) {
           log("/////////////////////////////////////////////////////");
-          log(snapshot.data!.data.toString());
+
           if (snapshot.hasData) {
             return Container(
               padding: EdgeInsets.all(defaultPadding),
@@ -159,9 +160,63 @@ class _OrdersTableState extends State<OrdersTable> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Order List",
-                    style: Theme.of(context).textTheme.titleMedium,
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Order List",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        )),
+                        Expanded(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                Beamer.of(context).beamToNamed("/add-order");
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 140,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color: Colors.white, width: 2)),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Add Oredr",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ))
+                      ],
+                    ),
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -195,10 +250,12 @@ class _OrdersTableState extends State<OrdersTable> {
                         (index) => userTable(
                           context,
                           count: index + 1,
-                          orderid: snapshot.data!.data[index].id,
-                          orderNumber: snapshot.data!.data[index].orderNumber,
-                          clienName: snapshot.data!.data[index].clientId.name,
-                          deadline: snapshot.data!.data[index].deadline,
+                          orderid: snapshot.data!.data[index].id ?? "",
+                          orderNumber:
+                              snapshot.data!.data[index].orderNumber ?? "",
+                          clienName:
+                              snapshot.data!.data[index].clientId.name ?? "",
+                          deadline: snapshot.data!.data[index].deadline ?? "",
                           email: snapshot.data!.data[index].clientId.email,
                           service:
                               snapshot.data!.data[index].serviceId?.name ?? "-",
@@ -228,9 +285,9 @@ DataRow userTable(
   required String service,
 }) {
   return DataRow(
-    onSelectChanged: (value) {
-      Beamer.of(context).beamToNamed('/order-history/$orderid');
-    },
+    // onSelectChanged: (value) {
+    //   Beamer.of(context).beamToNamed('/order-history/$orderid');
+    // },
     cells: [
       DataCell(
         Text(count.toString()),
@@ -245,10 +302,10 @@ DataRow userTable(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              Icons.edit_outlined,
-              color: Colors.white,
-            ),
+            // Icon(
+            //   Icons.edit_outlined,
+            //   color: Colors.white,
+            // ),
             SizedBox(
               width: 20,
             ),

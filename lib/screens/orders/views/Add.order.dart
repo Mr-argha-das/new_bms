@@ -1035,6 +1035,9 @@ class _AddOrdersState extends State<AddOrders> {
                                             try {
                                               if (_fromKey.currentState!
                                                   .validate()) {
+                                                    setState(() {
+                                                  lodar = true;
+                                                });
                                                 final multipartFile =
                                                     MultipartFile.fromBytes(
                                                         _bytesData!,
@@ -1067,12 +1070,9 @@ class _AddOrdersState extends State<AddOrders> {
                                                 final getUserData =
                                                     UserDataGet();
                                                 getUserData.getUserLocalData();
-                                                setState(() {
-                                                  lodar = true;
-                                                });
+                                                
                                                 OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
-                                                    orderNumber:
-                                                        "${getUserData.name}-${currentDate.day}-${currentDate.month}-${currentDate.year}_${currentDate.hour}",
+                                                   
                                                     clientId: clientId!,
                                                     currencyId: currencyId!,
                                                     serviceId: servicId!,

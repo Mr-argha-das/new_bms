@@ -53,35 +53,56 @@ class ProfileCard extends StatelessWidget {
     
     getUserData.getUserLocalData();
     log(getUserData.name);
-    return Container(
-      margin: EdgeInsets.only(left: defaultPadding),
-      padding: EdgeInsets.symmetric(
-        horizontal: defaultPadding,
-        vertical: defaultPadding / 2,
-      ),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: Row(
-        children: [
-          Image.network(
-            "https://squid-app-3-s689g.ondigitalocean.app/${getUserData.image}",
-            height: 38,
-          ),
-          if (!Responsive.isMobile(context))
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text(getUserData.name),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+        margin: EdgeInsets.only(left: defaultPadding),
+        padding: EdgeInsets.symmetric(
+          horizontal: defaultPadding,
+          vertical: defaultPadding / 2,
+        ),
+        decoration: BoxDecoration(
+          color: secondaryColor,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          border: Border.all(color: Colors.white10),
+        ),
+        child: Row(
+          children: [
+            Image.network(
+              "https://squid-app-3-s689g.ondigitalocean.app/${getUserData.image}",
+              height: 38,
             ),
-          Icon(Icons.keyboard_arrow_down),
-        ],
+            if (!Responsive.isMobile(context))
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                child: Text(getUserData.name),
+              ),
+          
+          ],
+        ),
       ),
+      Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      color: secondaryColor,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Center(
+                    child: Icon(Icons.logout),
+                  ),
+                ),
+              ),
+
+      ],
     );
   }
 }
+
 
 class SearchField extends StatelessWidget {
   const SearchField({
