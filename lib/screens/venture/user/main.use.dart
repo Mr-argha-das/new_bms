@@ -19,7 +19,7 @@ class _UsrMainState extends State<UsrMain> {
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromARGB(255, 33, 35, 50),
           key: context.read<MenuAppController>().scaffoldKey,
           drawer: SideMenu(
             title: 'Team',

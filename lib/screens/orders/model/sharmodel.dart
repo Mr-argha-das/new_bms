@@ -14,36 +14,53 @@ class CreateShareModel {
     String receiver;
     String status;
     String message;
+    String topic;
+    String word_count;
+    String deadline;
     String file;
+    String correntWordCount;
 
     CreateShareModel({
+      required this.correntWordCount,
         required this.oderId,
         required this.sendar,
         required this.receiver,
         required this.status,
         required this.message,
         required this.file,
+        required this.deadline,
+        required this.topic,
+        required this.word_count
     });
 
     factory CreateShareModel.fromJson(Map<String, dynamic> json) => CreateShareModel(
+      
         oderId: json["oderId"],
         sendar: json["sendar"],
         receiver: json["receiver"],
         status: json["status"],
         message: json["message"],
+        deadline: json["deailne"],
+        topic: json["topic"],
+        word_count: json["word_count"],
+        correntWordCount: json["correntWordCount"],
         file: json["file"],
     );
 
     Map<String, dynamic> toJson() => {
+   
         "oderId": oderId,
         "sendar": sendar,
         "receiver": receiver,
         "status": status,
         "message": message,
+        "deailne":deadline,
+        "topic":topic,
+        "word_count":word_count,
+           "correntWordCount":correntWordCount,
         "file": file,
     };
 }
-
 
 CreateSharReseModel createSharReseModelFromJson(String str) => CreateSharReseModel.fromJson(json.decode(str));
 

@@ -31,7 +31,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
           : VenturData.fromJson(json['vId'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      v: json['__v'] as int,
+      v: (json['__v'] as num).toInt(),
     );
 
 Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
@@ -50,7 +50,7 @@ VenturData _$VenturDataFromJson(Map<String, dynamic> json) => VenturData(
       type: json['type'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      v: json['__v'] as int,
+      v: (json['__v'] as num).toInt(),
     );
 
 Map<String, dynamic> _$VenturDataToJson(VenturData instance) =>

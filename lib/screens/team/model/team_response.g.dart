@@ -26,7 +26,7 @@ TeamData _$TeamDataFromJson(Map<String, dynamic> json) => TeamData(
       id: json['_id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      v: json['__v'] as int,
+      v: (json['__v'] as num).toInt(),
     );
 
 Map<String, dynamic> _$TeamDataToJson(TeamData instance) => <String, dynamic>{

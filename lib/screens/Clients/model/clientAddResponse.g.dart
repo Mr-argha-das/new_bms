@@ -22,7 +22,7 @@ Map<String, dynamic> _$ClientAddResponseToJson(ClientAddResponse instance) =>
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
       name: json['name'] as String,
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
       email: json['email'] as String,
       password: json['password'] as String,
       isDelete: json['is_delete'] as bool,
@@ -33,7 +33,7 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       id: json['_id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      v: json['__V'] as int,
+      v: (json['__V'] as num).toInt(),
     );
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{

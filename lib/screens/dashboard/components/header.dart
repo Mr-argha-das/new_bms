@@ -4,7 +4,9 @@ import 'package:admin/config/get.user.data.dart';
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/responsive.dart';
 import 'package:beamer/beamer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +36,7 @@ class Header extends StatelessWidget {
         // Expanded(child: SearchField()),
         GestureDetector(
           onTap: (){
-            Beamer.of(context).beamToNamed('/profile-user');
+           
           },
           child: ProfileCard())
       ],
@@ -57,46 +59,56 @@ class ProfileCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-        margin: EdgeInsets.only(left: defaultPadding),
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultPadding,
-          vertical: defaultPadding / 2,
-        ),
-        decoration: BoxDecoration(
-          color: secondaryColor,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(color: Colors.white10),
-        ),
-        child: Row(
-          children: [
-            Image.network(
-              "https://squid-app-3-s689g.ondigitalocean.app/${getUserData.image}",
-              height: 38,
-            ),
-            if (!Responsive.isMobile(context))
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-                child: Text(getUserData.name),
+        GestureDetector(
+          onTap: (){
+             Beamer.of(context).beamToNamed('/profile-user');
+          },
+          child: Container(
+          margin: EdgeInsets.only(left: defaultPadding),
+          padding: EdgeInsets.symmetric(
+            horizontal: defaultPadding,
+            vertical: defaultPadding / 2,
+          ),
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            border: Border.all(color: Colors.white10),
+          ),
+          child: Row(
+            children: [
+              Image.network(
+                "https://squid-app-3-s689g.ondigitalocean.app/${getUserData.image}",
+                height: 38,
               ),
-          
-          ],
+              if (!Responsive.isMobile(context))
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                  child: Text(getUserData.name),
+                ),
+            
+            ],
+          ),
+                ),
         ),
-      ),
-      Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      color: secondaryColor,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Center(
-                    child: Icon(Icons.logout),
+      GestureDetector(
+        onTap: (){
+          Beamer.of(context).beamToReplacementNamed('/login');
+        },
+        child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        color: secondaryColor,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Center(
+                      child: Icon(Icons.logout),
+                    ),
                   ),
                 ),
-              ),
+      ),
 
       ],
     );

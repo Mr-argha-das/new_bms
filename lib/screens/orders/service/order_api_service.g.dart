@@ -21,13 +21,13 @@ class _OrderService implements OrderService {
   String? baseUrl;
 
   @override
-  Future<OrderListModel> getOrderListByUserId(String id) async {
+  Future<OrderListModels> getOrderListByUserId(String id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<OrderListModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<OrderListModels>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,7 +43,7 @@ class _OrderService implements OrderService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = OrderListModel.fromJson(_result.data!);
+    final value = OrderListModels.fromJson(_result.data!);
     return value;
   }
 
@@ -181,6 +181,88 @@ class _OrderService implements OrderService {
               baseUrl,
             ))));
     final value = CreateSharReseModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<PaymentResponseModel> createPayment(PaymentBodyModel body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PaymentResponseModel>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/order/payment/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = PaymentResponseModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UserJoinTeamsModel> userTeams(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UserJoinTeamsModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/user/teams/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UserJoinTeamsModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<TeamsUsers> teamsUser(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<TeamsUsers>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/user-find/by-teamsId/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = TeamsUsers.fromJson(_result.data!);
     return value;
   }
 

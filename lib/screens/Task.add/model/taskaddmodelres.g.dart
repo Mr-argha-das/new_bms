@@ -25,13 +25,13 @@ Map<String, dynamic> _$TaskAddResponseModelToJson(
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
       userId: json['userId'] as String,
       taskId: json['taskId'] as String,
-      points: json['Points'] as int,
+      points: (json['Points'] as num).toInt(),
       time: json['time'] as String,
       date: json['Date'] as String,
       id: json['_id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      v: json['__v'] as int,
+      v: (json['__v'] as num).toInt(),
     );
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{

@@ -57,8 +57,8 @@ class _OrderDetailsState extends State<OrderDetails> {
     ItemClass(title: "Partially Payment", value: "PartiallyPayment"),
     ItemClass(title: "Renaming Payment", value: "RenamingPayment"),
   ];
-  OrderListModel? orderDetails;
-  Future<OrderListModel> orderDetailsGet(){
+  OrderListModels? orderDetails;
+  Future<OrderListModels> orderDetailsGet(){
     final orderService = OrderService(createDio());
     final response = orderService.getOrderListByUserId(widget.orderID.toString());
     return response;
@@ -105,7 +105,7 @@ class _OrderDetailsState extends State<OrderDetails> {
     Future<Currencymodel> data = getData(orderService);
     Future<ServiceModel> service = getService(orderService);
     Future<AllocationListmodel> allocationData = getAllocation(orderService);
-    Future<OrderListModel> orderDetailsFirst = orderDetailsGet();
+    Future<OrderListModels> orderDetailsFirst = orderDetailsGet();
     orderDetailsFirst.then((value){
     setState(() {
        orderDetails = value;
@@ -231,7 +231,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -250,7 +250,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                     top: 8, bottom: 8, left: 15),
                                                 child: TextFormField(
                                                   readOnly: true,
-                                                  initialValue: "(${orderDetails!.data[0].clientId.name}) ${orderDetails!.data[0].clientId.email}",
+                                                  initialValue: "(${orderDetails!.data[0].clientId!.name}) ${orderDetails!.data[0].clientId!.email}",
                                                   keyboardType:
                                                       TextInputType.number,
                                                   style: TextStyle(
@@ -280,7 +280,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -334,7 +334,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -386,7 +386,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -445,7 +445,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -497,7 +497,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -550,7 +550,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -598,7 +598,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     padding: const EdgeInsets.only(
                                         top: 8, right: 8, left: 8, bottom: 8),
                                     child: Container(
-                                      height: 40,
+                                      height: 60,
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         color: const Color.fromARGB(
@@ -646,7 +646,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -696,7 +696,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -756,7 +756,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                              
                                             },
                                             child: Container(
-                                              height: 40,
+                                              height: 60,
                                               width: double.infinity,
                                               decoration: BoxDecoration(
                                                   color: Colors.transparent,
@@ -781,7 +781,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               left: 8,
                                               bottom: 8),
                                           child: Container(
-                                            height: 40,
+                                            height: 60,
                                             width:
                                                 MediaQuery.of(context).size.width,
                                             decoration: BoxDecoration(
@@ -829,7 +829,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     padding: const EdgeInsets.only(
                                         top: 8, right: 8, left: 8, bottom: 8),
                                     child: Container(
-                                      height: 40,
+                                      height: 60,
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         color: const Color.fromARGB(
@@ -930,8 +930,8 @@ class _OrderDetailsState extends State<OrderDetails> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: 400,
-          width: 400,
+          height: 600,
+          width: 600,
           decoration: BoxDecoration(
             color: Colors.white,
           ),

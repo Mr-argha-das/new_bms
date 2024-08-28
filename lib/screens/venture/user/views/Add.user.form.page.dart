@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:admin/config/get.user.data.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/config/rolesmodel/roles.model.dart';
 import 'package:admin/config/rolesservices/rolesservice.dart';
@@ -15,8 +16,6 @@ import 'package:beamer/beamer.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,6 +47,7 @@ class _AddUserFormState extends State<AddUserForm> {
   List<int>? _selectFiles;
   Uint8List? _bytesData;
   bool pageLodar = false;
+  final setUserData = UserDataGet();
   Future<TeamListModel> getData(data) async {
     data = await data.getTeamList();
     return data;
@@ -90,17 +90,73 @@ class _AddUserFormState extends State<AddUserForm> {
 
   @override
   Widget build(BuildContext context) {
+    setUserData.getUserLocalData();
     final teamService = Provider.of<AddTeamApi>(context);
     final rolesService = Provider.of<RolesService>(context);
     Future<TeamListModel> data = getData(teamService);
     Future<RolesList> rolesData = getRoles(rolesService);
     final userService = Provider.of<UserApiService>(context);
+    log("ROLE ID ===================");
+    log(setUserData.roleId.toString());
     rolesData.then((value) {
-      for (int i = 0; i < value.data.length; i++) {
-        if (value.data.length > rolesList.length) {
-          setState(() {
-            rolesList.addAll([value.data[i].name]);
-          });
+      // admin
+      if (setUserData.roleId == "6530f9f7023837a84d6f033c") {
+        for (int i = 0; i < value.data.length; i++) {
+          if (value.data.length > rolesList.length) {
+            setState(() {
+              rolesList.addAll([value.data[i].name]);
+            });
+          }
+        }
+        //manager assitance
+      } else if (setUserData.roleId == "66c738c66d763c91384bc395") {
+        for (int i = 0; i < value.data.length; i++) {
+          if (4 > rolesList.length) {
+            if (value.data[i].id == "65942790feeb0681fa958bd6" ||
+                value.data[i].id == "6594278bfeeb0681fa958bd3" ||
+                value.data[i].id == "65942786feeb0681fa958bd0" ||
+                value.data[i].id == "66c738e3d2e9475afc5267db") {
+              setState(() {
+                rolesList.addAll([value.data[i].name]);
+              });
+            }
+          }
+        }
+        // assistant manger
+      } else if (setUserData.roleId == "66c738e3d2e9475afc5267db") {
+        for (int i = 0; i < value.data.length; i++) {
+          if (3 > rolesList.length) {
+            if (value.data[i].id == "6594278bfeeb0681fa958bd3" ||
+                value.data[i].id == "65942786feeb0681fa958bd0" ||
+                value.data[i].id == "65942790feeb0681fa958bd6") {
+              setState(() {
+                rolesList.addAll([value.data[i].name]);
+              });
+            }
+          }
+        }
+         // BDM
+      }else if (setUserData.roleId == "6594278bfeeb0681fa958bd3") {
+        for (int i = 0; i < value.data.length; i++) {
+          if (2 > rolesList.length) {
+            if (value.data[i].id == "65942790feeb0681fa958bd6" ||
+                value.data[i].id == "65942786feeb0681fa958bd0" ) {
+              setState(() {
+                rolesList.addAll([value.data[i].name]);
+              });
+            }
+          }
+        }
+          // SME
+      }else if (setUserData.roleId == "65942790feeb0681fa958bd6") {
+        for (int i = 0; i < value.data.length; i++) {
+          if (1 > rolesList.length) {
+            if (value.data[i].id == "65942786feeb0681fa958bd0" ) {
+              setState(() {
+                rolesList.addAll([value.data[i].name]);
+              });
+            }
+          }
         }
       }
     });
@@ -120,565 +176,620 @@ class _AddUserFormState extends State<AddUserForm> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : pageLodar ? Center(
-            child: CircularProgressIndicator(),
-          ): Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Container(
-                      height: 550,
-                      width: 1050,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                              child: Column(
+          : pageLodar
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Container(
+                          height: 550,
+                          width: 1050,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                "Add Users",
-                                style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontSize: 20),
-                              ),
-                              Stack(
+                              Expanded(
+                                  child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    height: 500,
-                                    width: 600,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
+                                  Text(
+                                    "Add Users",
+                                    style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 20),
                                   ),
-                                  Positioned.fill(
-                                    child: Image(
-                                      image: AssetImage(
-                                          "assets/images/Add User.gif"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        height: 500,
+                                        width: 600,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                      ),
+                                      Positioned.fill(
+                                        child: Image(
+                                          image: AssetImage(
+                                              "assets/images/Add User.gif"),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
-                          )),
-                          Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Please fill all field",
-                                  style: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 20),
-                                ),
-                                SizedBox(height: 40),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 35,
-                                          width: 300,
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 239, 239, 239),
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: TextFormField(
-                                                  controller: nameController,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 13),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: 'Name',
-                                                          hintStyle: TextStyle(
-                                                              fontSize: 13,
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300)),
-                                                ),
-                                              )),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 35,
-                                          width: 300,
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 239, 239, 239),
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: TextFormField(
-                                                  controller: emailController,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 13),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: 'Email',
-                                                          hintStyle: TextStyle(
-                                                              fontSize: 13,
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300)),
-                                                ),
-                                              )),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 35,
-                                          width: 300,
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 239, 239, 239),
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: TextFormField(
-                                                  controller: rmidController,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 13),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: 'RMCODE',
-                                                          hintStyle: TextStyle(
-                                                              fontSize: 13,
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300)),
-                                                ),
-                                              )),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 35,
-                                          // width: 300,
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 239, 239, 239),
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Center(
-                                                child: TextFormField(
-                                                  controller: symbolController,
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 13),
-                                                  decoration:
-                                                      InputDecoration.collapsed(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: 'Symbol',
-                                                          hintStyle: TextStyle(
-                                                              fontSize: 13,
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300)),
-                                                ),
-                                              )),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 35,
-                                    width: 300,
-                                    decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 239, 239, 239),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Center(
-                                          child: TextFormField(
-                                            keyboardType: TextInputType.number,
-                                            controller: mobileController,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 13),
-                                            decoration:
-                                                InputDecoration.collapsed(
-                                                    border: InputBorder.none,
-                                                    hintText: 'Mobile number',
-                                                    hintStyle: TextStyle(
-                                                        fontSize: 13,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w300)),
-                                          ),
-                                        )),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      height: 35,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 239, 239, 239),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          DropdownButtonHideUnderline(
-                                            child: DropdownButton2<String>(
-                                              isExpanded: true,
-                                              hint: Text(
-                                                'Role',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                              items: rolesList
-                                                  .map((String item) =>
-                                                      DropdownMenuItem<String>(
-                                                        value: item,
-                                                        child: Text(
-                                                          item,
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.black,
-                                                            backgroundColor:
-                                                                Colors.white,
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ))
-                                                  .toList(),
-                                              value: selectedRoleName,
-                                              onChanged: (String? value) {
-                                                setState(() {
-                                                  selectedRoleName = value;
-                                                  rolesData.then((value2) {
-                                                    for (int i = 0;
-                                                        i < value2.data.length;
-                                                        i++) {
-                                                      if (value2.data[i].name ==
-                                                          value) {
-                                                        roleId =
-                                                            value2.data[i].id;
-                                                      }
-                                                    }
-                                                  });
-                                                });
-                                              },
-                                              buttonStyleData: ButtonStyleData(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 16,
-                                                ),
-                                                height: 35,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                              ),
-                                              iconStyleData: IconStyleData(
-                                                iconEnabledColor: Colors.black,
-                                              ),
-                                              menuItemStyleData:
-                                                  const MenuItemStyleData(
-                                                height: 35,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      height: 35,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 239, 239, 239),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          DropdownButtonHideUnderline(
-                                            child: DropdownButton2<String>(
-                                              isExpanded: true,
-                                              hint: Text(
-                                                'Teams',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                              items: items
-                                                  .map((String item) =>
-                                                      DropdownMenuItem<String>(
-                                                        value: item,
-                                                        child: Text(
-                                                          item,
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.black,
-                                                            backgroundColor:
-                                                                Colors.white,
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ))
-                                                  .toList(),
-                                              value: selectedValue,
-                                              onChanged: (String? value) {
-                                                setState(() {
-                                                  selectedValue = value;
-                                                  data.then((value2) {
-                                                    for (int i = 0;
-                                                        i < value2.data.length;
-                                                        i++) {
-                                                      if (value2.data[i].name ==
-                                                          value) {
-                                                        teamId =
-                                                            value2.data[i].id;
-                                                      }
-                                                    }
-                                                  });
-                                                });
-                                              },
-                                              buttonStyleData: ButtonStyleData(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 16,
-                                                ),
-                                                height: 35,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                              ),
-                                              iconStyleData: IconStyleData(
-                                                iconEnabledColor: Colors.black,
-                                              ),
-                                              menuItemStyleData:
-                                                  const MenuItemStyleData(
-                                                height: 35,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                              )),
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        webFilePicker();
-                                      },
-                                      child: Container(
-                                        height: 100,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade400,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: _bytesData == null
-                                            ? Center(
-                                                child: Padding(
+                                    Text(
+                                      "Please fill all field",
+                                      style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 20),
+                                    ),
+                                    SizedBox(height: 40),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 35,
+                                              width: 300,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 239, 239, 239),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                      "Pick Profile Image"),
-                                                ),
-                                              )
-                                            : Image.memory(
-                                                _bytesData!,
-                                                fit: BoxFit.fill,
+                                                  child: Center(
+                                                    child: TextFormField(
+                                                      controller:
+                                                          nameController,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13),
+                                                      decoration: InputDecoration
+                                                          .collapsed(
+                                                              border:
+                                                                  InputBorder
+                                                                      .none,
+                                                              hintText: 'Name',
+                                                              hintStyle: TextStyle(
+                                                                  fontSize: 13,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300)),
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 35,
+                                              width: 300,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 239, 239, 239),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: TextFormField(
+                                                      controller:
+                                                          emailController,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13),
+                                                      decoration: InputDecoration
+                                                          .collapsed(
+                                                              border:
+                                                                  InputBorder
+                                                                      .none,
+                                                              hintText: 'Email',
+                                                              hintStyle: TextStyle(
+                                                                  fontSize: 13,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300)),
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 35,
+                                              width: 300,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 239, 239, 239),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: TextFormField(
+                                                      controller:
+                                                          rmidController,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13),
+                                                      decoration: InputDecoration
+                                                          .collapsed(
+                                                              border:
+                                                                  InputBorder
+                                                                      .none,
+                                                              hintText:
+                                                                  'RMCODE',
+                                                              hintStyle: TextStyle(
+                                                                  fontSize: 13,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300)),
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 35,
+                                              // width: 300,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 239, 239, 239),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: TextFormField(
+                                                      controller:
+                                                          symbolController,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 13),
+                                                      decoration: InputDecoration
+                                                          .collapsed(
+                                                              border:
+                                                                  InputBorder
+                                                                      .none,
+                                                              hintText:
+                                                                  'Symbol',
+                                                              hintStyle: TextStyle(
+                                                                  fontSize: 13,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300)),
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        height: 35,
+                                        width: 300,
+                                        decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                255, 239, 239, 239),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Center(
+                                              child: TextFormField(
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                controller: mobileController,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 13),
+                                                decoration:
+                                                    InputDecoration.collapsed(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            'Mobile number',
+                                                        hintStyle: TextStyle(
+                                                            fontSize: 13,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300)),
                                               ),
+                                            )),
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 100,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                          height: 35,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  255, 239, 239, 239),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              DropdownButtonHideUnderline(
+                                                child: DropdownButton2<String>(
+                                                  isExpanded: true,
+                                                  hint: Text(
+                                                    'Role',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                  items: rolesList
+                                                      .map((String item) =>
+                                                          DropdownMenuItem<
+                                                              String>(
+                                                            value: item,
+                                                            child: Text(
+                                                              item,
+                                                              style:
+                                                                  const TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                          ))
+                                                      .toList(),
+                                                  value: selectedRoleName,
+                                                  onChanged: (String? value) {
+                                                    setState(() {
+                                                      selectedRoleName = value;
+                                                      rolesData.then((value2) {
+                                                        for (int i = 0;
+                                                            i <
+                                                                value2.data
+                                                                    .length;
+                                                            i++) {
+                                                          if (value2.data[i]
+                                                                  .name ==
+                                                              value) {
+                                                            roleId = value2
+                                                                .data[i].id;
+                                                          }
+                                                        }
+                                                      });
+                                                    });
+                                                  },
+                                                  buttonStyleData:
+                                                      ButtonStyleData(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      horizontal: 16,
+                                                    ),
+                                                    height: 35,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                  ),
+                                                  iconStyleData: IconStyleData(
+                                                    iconEnabledColor:
+                                                        Colors.black,
+                                                  ),
+                                                  menuItemStyleData:
+                                                      const MenuItemStyleData(
+                                                    height: 35,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )),
                                     ),
-                                    GestureDetector(
-                                      onTap: () async {
-                                        setState(() {
-                                          pageLodar = true;
-                                        });
-                                        log("/////////////////////////////");
-                                        final addUserService =
-                                            UserApiService(createDio());
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                          height: 35,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  255, 239, 239, 239),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              DropdownButtonHideUnderline(
+                                                child: DropdownButton2<String>(
+                                                  isExpanded: true,
+                                                  hint: Text(
+                                                    'Teams',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                  items: items
+                                                      .map((String item) =>
+                                                          DropdownMenuItem<
+                                                              String>(
+                                                            value: item,
+                                                            child: Text(
+                                                              item,
+                                                              style:
+                                                                  const TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                          ))
+                                                      .toList(),
+                                                  value: selectedValue,
+                                                  onChanged: (String? value) {
+                                                    setState(() {
+                                                      selectedValue = value;
+                                                      data.then((value2) {
+                                                        for (int i = 0;
+                                                            i <
+                                                                value2.data
+                                                                    .length;
+                                                            i++) {
+                                                          if (value2.data[i]
+                                                                  .name ==
+                                                              value) {
+                                                            teamId = value2
+                                                                .data[i].id;
+                                                          }
+                                                        }
+                                                      });
+                                                    });
+                                                  },
+                                                  buttonStyleData:
+                                                      ButtonStyleData(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      horizontal: 16,
+                                                    ),
+                                                    height: 35,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                  ),
+                                                  iconStyleData: IconStyleData(
+                                                    iconEnabledColor:
+                                                        Colors.black,
+                                                  ),
+                                                  menuItemStyleData:
+                                                      const MenuItemStyleData(
+                                                    height: 35,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            webFilePicker();
+                                          },
+                                          child: Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.shade400,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: _bytesData == null
+                                                ? Center(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          "Pick Profile Image"),
+                                                    ),
+                                                  )
+                                                : Image.memory(
+                                                    _bytesData!,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 100,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            setState(() {
+                                              pageLodar = true;
+                                            });
+                                            log("/////////////////////////////");
+                                            final addUserService =
+                                                UserApiService(createDio());
 
-                                        //  final fileUpload = FileUploadService(createDio());
-                                        //  log("====================: 1");
-                                        // //  final byteImage = await _pickedImage!.readAsBytes();
-                                        final multipartFile =
-                                            MultipartFile.fromBytes(_bytesData!,
-                                                filename: "data.png");
-                                        //   log("====================: 2");
-                                        //  final data ={
-                                        //    "images": multipartFile,
-                                        //    "bucketName": "ahec"
-                                        //  };
-                                        //   log("====================: 3");
-                                        // await fileUpload.upload( data: data);
-                                        //  log("====================: 4");
-                                        if (_formKey.currentState!.validate()) {
-                                          final fileUploadService =
-                                              FileUploadService(createDio());
-                                          FileUploadResponse
-                                              responseFileUpload =
-                                              await fileUploadService.upload(
-                                                  data: {
+                                            //  final fileUpload = FileUploadService(createDio());
+                                            //  log("====================: 1");
+                                            // //  final byteImage = await _pickedImage!.readAsBytes();
+                                            final multipartFile =
+                                                MultipartFile.fromBytes(
+                                                    _bytesData!,
+                                                    filename: "data.png");
+                                            //   log("====================: 2");
+                                            //  final data ={
+                                            //    "images": multipartFile,
+                                            //    "bucketName": "ahec"
+                                            //  };
+                                            //   log("====================: 3");
+                                            // await fileUpload.upload( data: data);
+                                            //  log("====================: 4");
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              final fileUploadService =
+                                                  FileUploadService(
+                                                      createDio());
+                                              FileUploadResponse
+                                                  responseFileUpload =
+                                                  await fileUploadService
+                                                      .upload(data: {
                                                 "images": multipartFile,
                                                 "bucketName": "ahec"
                                               });
-                                          // final formData = {
-                                          //   "roles": roleId,
-                                          //   "name": nameController.text,
-                                          //   "teams": teamId,
-                                          //   "email": emailController.text,
-                                          //   "number": mobileController.text,
-                                          //   "password": mobileController.text,
-                                          //   "image":
-                                          //       "https://whale-app-9emyb.ondigitalocean.app/${responseFileUpload.data}"
-                                          // };
-                                          int number =
-                                              int.parse(mobileController.text);
-                                          AddUserModel formData = AddUserModel(
-                                              image:
-                                                  "https://ahec.diwamjewels.com/${responseFileUpload.data}",
-                                              roles: roleId!,
-                                              teams: teamId!,
-                                              name: nameController.text,
-                                              rmCode: rmidController.text,
-                                              symbol: symbolController.text,
-                                              email: emailController.text,
-                                              number: number,
-                                              password: "$number");
-                                          try{
-                                             UserAddResponse response =
-                                            await addUserService
-                                                  .addUser(formData);
-                                                  Beamer.of(context)
-                                                .beamToNamed("/user-list");
-                                          } catch(e, st){
-                                          Beamer.of(context)
-                                                .beamToNamed("/user-list");
-                                          }
-                                          
-                                        }
-                                      },
-                                      child: Container(
-                                        height: 40,
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                            color: Colors.black,
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
-                                        child: Center(
-                                          child: Text("Submit",
-                                              style: GoogleFonts.montserrat(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                      ),
-                                    )
+                                              // final formData = {
+                                              //   "roles": roleId,
+                                              //   "name": nameController.text,
+                                              //   "teams": teamId,
+                                              //   "email": emailController.text,
+                                              //   "number": mobileController.text,
+                                              //   "password": mobileController.text,
+                                              //   "image":
+                                              //       "https://whale-app-9emyb.ondigitalocean.app/${responseFileUpload.data}"
+                                              // };
+                                              int number = int.parse(
+                                                  mobileController.text);
+                                              AddUserModel formData = AddUserModel(
+                                                  image:
+                                                      "https://ahec.diwamjewels.com/${responseFileUpload.data}",
+                                                  roles: roleId!,
+                                                  teams: teamId!,
+                                                  name: nameController.text,
+                                                  rmCode: rmidController.text,
+                                                  symbol: symbolController.text,
+                                                  email: emailController.text,
+                                                  number: number,
+                                                  password: "$number");
+                                              try {
+                                                UserAddResponse response =
+                                                    await addUserService
+                                                        .addUser(formData);
+                                                Beamer.of(context)
+                                                    .beamToNamed("/user-list");
+                                              } catch (e, st) {
+                                                Beamer.of(context)
+                                                    .beamToNamed("/user-list");
+                                              }
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 40,
+                                            width: 150,
+                                            decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Center(
+                                              child: Text("Submit",
+                                                  style: GoogleFonts.montserrat(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 40,
+                                    ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 40,
-                                ),
-                              ],
-                            ),
-                          )),
-                        ],
+                              )),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
     );
   }
 

@@ -4,6 +4,8 @@ import 'package:admin/config/get.user.data.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/config/rolesservices/rolesservice.dart';
 import 'package:admin/controllers/MenuAppController.dart';
+import 'package:admin/mailthread/view/ComposePage.dart';
+import 'package:admin/mailthread/view/mailPage.dart';
 import 'package:admin/screens/Clients/main.client.dart';
 import 'package:admin/screens/Clients/service/client_api_service.dart';
 import 'package:admin/screens/Task.add/main.task.dart';
@@ -62,7 +64,7 @@ class Env {
           ],
           child: LoginPage(),
         ),
-        '/main': (context, state, data) => MultiProvider(
+    '/login': (context, state, data) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => MenuAppController()),
             ChangeNotifierProvider(create: (context) => UserDataGet()),
@@ -135,9 +137,9 @@ class Env {
           ],
           child: TeamFromMain(),
         ),
-    '/main': (context, state, data) {
-      MainScreen();
-    },
+    // '/main': (context, state, data) {
+    //   MainScreen();
+    // },
     '/venture-list': (context, state, data) => MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => MenuAppController()),
@@ -326,6 +328,34 @@ class Env {
           ],
           child: TaskADD(),
         ),
+    '/order-status/:orderid/:orderno': (context, state, data) {
+      final orderid = state.pathParameters['orderid'];
+      final orderno = state.pathParameters['orderno'];
+      print("ROUTES ORDER NO :$orderno");
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => MenuAppController()),
+        ],
+        child: MailThreadPage(orderID: orderid, orderNo: orderno),
+        // child: StatusPage(
+        //   orderID: orderid,
+        // ),
+      );
+    },
+    '/compose/:orderid/:topic/:orderNo/:wordcount/:deadline/:statusType': (context, state, data){
+     final orderid = state.pathParameters['orderid'];
+     final topic = state.pathParameters['topic'];
+     final orderNo = state.pathParameters['orderNo'];
+     final wordcount = state.pathParameters['wordcount'];
+     final deadline = state.pathParameters['deadline'];
+     final statusType = state.pathParameters['statusType'];
+     return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => MenuAppController()),
+     ], 
+     child: EditorView(orderid: orderid, orderNo: orderNo, topic: topic, wordcount: wordcount, deadline: deadline, statusType: statusType,),
+     );
+    }
+    
   };
 }
 

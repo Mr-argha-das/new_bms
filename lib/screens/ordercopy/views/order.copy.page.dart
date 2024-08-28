@@ -34,6 +34,7 @@ class OrderCopy extends StatefulWidget {
 }
 
 class _OrderCopyState extends State<OrderCopy> {
+    final _streamController = TextEditingController();
   final _clientnameController = TextEditingController();
   final _inrTotalamountController = TextEditingController();
   final _audTotalamountController = TextEditingController();
@@ -45,6 +46,8 @@ class _OrderCopyState extends State<OrderCopy> {
   final _wordCountController = TextEditingController();
   final _notesController = TextEditingController();
   final _assignmentType = TextEditingController();
+  final _totalOrderAmountInr = TextEditingController();
+  final _clientPaidAmmount = TextEditingController();
   String? allocationId;
   String? clientId;
   String? currencyId;
@@ -59,8 +62,8 @@ class _OrderCopyState extends State<OrderCopy> {
     ItemClass(title: "Partially Payment", value: "PartiallyPayment"),
     ItemClass(title: "Renaming Payment", value: "RenamingPayment"),
   ];
-  OrderListModel? orderDetails;
-  Future<OrderListModel> orderDetailsGet() {
+  OrderListModels? orderDetails;
+  Future<OrderListModels> orderDetailsGet() {
     final orderService = OrderService(createDio());
     final response =
         orderService.getOrderListByUserId(widget.orderID.toString());
@@ -99,7 +102,7 @@ class _OrderCopyState extends State<OrderCopy> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future<OrderListModel> orderDetailsFirst = orderDetailsGet();
+    Future<OrderListModels> orderDetailsFirst = orderDetailsGet();
     orderDetailsFirst.then((value) {
       orderDetails = value;
       _audTotalamountController.text =
@@ -115,7 +118,7 @@ class _OrderCopyState extends State<OrderCopy> {
       _moduleNameController.text = orderDetails!.data[0].moduleName;
       _notesController.text = orderDetails!.data[0].shortNote;
       _wordCountController.text = orderDetails!.data[0].wordCount;
-      clientId = orderDetails!.data[0].clientId.id;
+      clientId = orderDetails!.data[0].clientId!.id;
       servicId = orderDetails!.data[0].serviceId!.id;
       currencyId = orderDetails!.data[0].currencyId!.id;
       paymentType = orderDetails!.data[0].paymentType;
@@ -185,7 +188,9 @@ class _OrderCopyState extends State<OrderCopy> {
     });
   }
 
+  final _currentWordcountController = TextEditingController();
   bool lodar = false;
+  final _topicController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final orderService = OrderService(createDio());
@@ -305,7 +310,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: MySearchapleDropDown(
                                             items: clientList,
-                                            id: "${orderDetails!.data[0].clientId.id}",
+                                            id: "${orderDetails!.data[0].clientId!.id}",
                                             callBack: (value) {
                                               setState(() {
                                                 clientId = value;
@@ -325,6 +330,51 @@ class _OrderCopyState extends State<OrderCopy> {
                                             },
                                             title: "Search Currency",
                                           )),
+                                          Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8,
+                                            right: 8,
+                                            left: 8,
+                                            bottom: 8),
+                                        child: Container(
+                                          height: 35,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                              255,
+                                              239,
+                                              239,
+                                              239,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8, bottom: 8, left: 15),
+                                              child: TextFormField(
+                                                controller: _streamController,
+                                                // keyboardType: TextInputType.number,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14),
+                                                decoration:
+                                                    InputDecoration.collapsed(
+                                                  border: InputBorder.none,
+                                                  hintText: "Stream",
+                                                  hintStyle:
+                                                      GoogleFonts.montserrat(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -372,7 +422,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                       decoration:
                                                           InputDecoration(
                                                         label: Text(
-                                                          "Total Order Amount in INR",
+                                                          "Total Order Amount",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black),
@@ -380,7 +430,69 @@ class _OrderCopyState extends State<OrderCopy> {
                                                         border:
                                                             InputBorder.none,
                                                         hintText:
-                                                            "Total Order Amount in INR",
+                                                            "Total Order Amount",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _totalOrderAmountInr,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Total Inr Amount",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Total Inr Amount",
                                                         hintStyle: GoogleFonts
                                                             .montserrat(
                                                           color: Colors.black,
@@ -496,6 +608,68 @@ class _OrderCopyState extends State<OrderCopy> {
                                                       readOnly: false,
                                                       controller:
                                                           _clientinrAmountController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Client Paid Amount",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Client Paid Amount",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
+                                                          _clientPaidAmmount,
                                                       keyboardType:
                                                           TextInputType.number,
                                                       style: TextStyle(
@@ -640,6 +814,56 @@ class _OrderCopyState extends State<OrderCopy> {
                                                   ),
                                                   border: InputBorder.none,
                                                   hintText: "Assignment Type",
+                                                  hintStyle:
+                                                      GoogleFonts.montserrat(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8,
+                                            right: 8,
+                                            left: 8,
+                                            bottom: 8),
+                                        child: Container(
+                                          height: 40,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                              255,
+                                              239,
+                                              239,
+                                              239,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8, bottom: 8, left: 15),
+                                              child: TextFormField(
+                                                readOnly: false,
+                                                controller: _topicController,
+                                                // keyboardType: TextInputType.number,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14),
+                                                decoration: InputDecoration(
+                                                  label: Text(
+                                                    "Toic / Company",
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  border: InputBorder.none,
+                                                  hintText: "Toic / Company",
                                                   hintStyle:
                                                       GoogleFonts.montserrat(
                                                     color: Colors.black,
@@ -860,6 +1084,67 @@ class _OrderCopyState extends State<OrderCopy> {
                                                     child: TextFormField(
                                                       readOnly: false,
                                                       controller:
+                                                          _currentWordcountController,
+                                                      // keyboardType: TextInputType.number,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 14),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        label: Text(
+                                                          "Current Word count",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText:
+                                                            "Current Word count",
+                                                        hintStyle: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors.black,
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  right: 8,
+                                                  left: 8,
+                                                  bottom: 8),
+                                              child: Container(
+                                                height: 40,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                    255,
+                                                    239,
+                                                    239,
+                                                    239,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8,
+                                                            bottom: 8,
+                                                            left: 15),
+                                                    child: TextFormField(
+                                                      readOnly: false,
+                                                      controller:
                                                           _wordCountController,
                                                       // keyboardType: TextInputType.number,
                                                       style: TextStyle(
@@ -868,7 +1153,7 @@ class _OrderCopyState extends State<OrderCopy> {
                                                       decoration:
                                                           InputDecoration(
                                                         label: Text(
-                                                          "Word count",
+                                                          "Total Word count",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black),
@@ -1134,6 +1419,11 @@ class _OrderCopyState extends State<OrderCopy> {
                                                 lodar = true;
                                               });
                                               OrderAddResponse orderData = await orderService.addOrder(AddOrderBody(
+                                                total_inrAmmount: _totalOrderAmountInr.text,
+                                                clientPaidAmmountInr: _clientPaidAmmount.text,
+                                                  correntWordCount:
+                                                      _currentWordcountController
+                                                          .text,
                                                   clientId: clientId!,
                                                   currencyId: currencyId!,
                                                   serviceId: servicId!,
@@ -1147,11 +1437,9 @@ class _OrderCopyState extends State<OrderCopy> {
                                                       _clientaudAmountController
                                                           .text),
                                                   totalAmmount: int.parse(
-                                                      _audTotalamountController
-                                                          .text),
+                                                      _audTotalamountController.text),
                                                   ppt: _assignmentType.text,
-                                                  moduleCode:
-                                                      _moduleCodeController.text,
+                                                  moduleCode: _moduleCodeController.text,
                                                   moduleName: _moduleNameController.text,
                                                   deadline: "${pickDate.day}-${pickDate.month}-${pickDate.year}",
                                                   wordCount: _wordCountController.text,
@@ -1159,29 +1447,35 @@ class _OrderCopyState extends State<OrderCopy> {
                                                   shortNote: _notesController.text,
                                                   image: imagepath!,
                                                   file: filepath!,
-                                                  userId: getUserData.id));
+                                                  userId: getUserData.id, stream: _streamController.text));
                                               final allocationService =
                                                   AllocationSerive(createDio());
                                               AllocationListmodel
                                                   allocationList =
                                                   await allocationService
                                                       .getAllocationList();
-                                              CreateSharReseModel responseData =
-                                                  await orderService.shareOrder(
-                                                      CreateShareModel(
-                                                          oderId: orderData.data
-                                                              .oderDetails.id,
-                                                          sendar:
-                                                              getUserData.id,
-                                                          receiver:
-                                                              allocationList
-                                                                  .data[0].id,
-                                                          status:
-                                                              "Work Allocated",
-                                                          message:
-                                                              _notesController
-                                                                  .text,
-                                                          file: filepath!));
+                                              CreateSharReseModel
+                                                  createSharReseModel =
+                                                  await orderService.shareOrder(CreateShareModel(
+                                                      correntWordCount:
+                                                          _currentWordcountController
+                                                              .text,
+                                                      oderId: orderData
+                                                          .data.oderDetails.id,
+                                                      sendar: getUserData.id,
+                                                      receiver: allocationList
+                                                          .data[0].id,
+                                                      status: "Work Allocated",
+                                                      message:
+                                                          _notesController.text,
+                                                      file: filepath!,
+                                                      deadline:
+                                                          '${pickDate.day}-${pickDate.month}-${pickDate.year}',
+                                                      topic:
+                                                          _topicController.text,
+                                                      word_count:
+                                                          _wordCountController
+                                                              .text));
                                               Beamer.of(context)
                                                   .beamToNamed('/orders-list');
                                             }
@@ -1347,3 +1641,4 @@ class _SendToAllocationState extends State<SendToAllocation> {
     );
   }
 }
+

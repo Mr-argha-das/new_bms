@@ -52,7 +52,7 @@ class _PaginationState extends State<Pagination> {
               style: TextStyle(
                 color: currentPage == i
                     ? Colors.blue
-                    : Colors.black, // Change the color based on selection
+                    : Colors.white, // Change the color based on selection
               ),
             ),
           ),

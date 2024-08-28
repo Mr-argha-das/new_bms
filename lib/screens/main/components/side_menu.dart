@@ -32,7 +32,7 @@ class SideMenu extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
-            child: Image.asset("assets/icons/A2G.png"),
+            child: Image.asset("assets/images/aheclogo.png"),
           ),
          
           ListTile(
@@ -138,7 +138,7 @@ class SideMenu extends StatelessWidget {
                 )
               ],
             ),
-            height: 290,
+            height: getUserData.roleId == "6594278bfeeb0681fa958bd3" ? 100 :290,
             svgSrc: "assets/icons/menu_setting.svg",
             press: () {},
             onPageChange: (value) {
@@ -247,6 +247,7 @@ class SideMenu extends StatelessWidget {
               ],
             )
           ],
+         
           // DrawerListTile(
           //     title: GestureDetector(
           //       onTap: (){

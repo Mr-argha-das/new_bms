@@ -15,6 +15,7 @@ abstract class ClientService{
   Future<ClientListModel> getClientList(@Path('id') String id);
   @POST('/client-create')
   Future<ClientAddResponse> addClientAdd(@Body() ClientAddBody clientAddBody);
+  
 
 }
 
@@ -29,9 +30,7 @@ abstract class ClientService{
 //     final clientAddBody = clientAddBodyFromJson(jsonString);
 
 
-ClientAddBody clientAddBodyFromJson(String str) => ClientAddBody.fromJson(json.decode(str));
 
-String clientAddBodyToJson(ClientAddBody data) => json.encode(data.toJson());
 
 class ClientAddBody {
     String name;
@@ -40,6 +39,7 @@ class ClientAddBody {
     String password;
     String createdBy;
     String university;
+    String countryCode;
 
     ClientAddBody({
         required this.name,
@@ -48,6 +48,7 @@ class ClientAddBody {
         required this.password,
         required this.createdBy,
         required this.university,
+        required this.countryCode,
     });
 
     factory ClientAddBody.fromJson(Map<String, dynamic> json) => ClientAddBody(
@@ -57,6 +58,7 @@ class ClientAddBody {
         password: json["password"],
         createdBy: json["createdBy"],
         university: json["university"],
+        countryCode: json["countryCode"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -66,7 +68,6 @@ class ClientAddBody {
         "password": password,
         "createdBy": createdBy,
         "university": university,
+        "countryCode": countryCode,
     };
 }
-
-

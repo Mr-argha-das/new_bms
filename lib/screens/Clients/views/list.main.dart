@@ -25,7 +25,7 @@ class _ClientsListState extends State<ClientsList> {
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromARGB(255, 33, 35, 50),
           body: SingleChildScrollView(
             primary: false,
             padding: EdgeInsets.all(defaultPadding),
@@ -94,7 +94,7 @@ class UserHeader extends StatelessWidget {
           Text(
             "Client List",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
@@ -130,58 +130,189 @@ class _ClientTableState extends State<ClientTable> {
       future: model,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Container(
-            padding: EdgeInsets.all(defaultPadding),
-            decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Client List",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: DataTable(
-                    columnSpacing: defaultPadding,
-                    // minWidth: 600,
-                    columns: [
-                      DataColumn(
-                        label: Text("#"),
+          return Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              Container(
+                height: 700,
+                width: 700,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage('assets/images/Ellipse 3.png'),
+                        fit: BoxFit.contain)),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (snapshot.data == null) ...[
+                    Text("Recent Orders not found"),
+                  ],
+                  if (snapshot.data!.data.isNotEmpty) ...[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, bottom: 8),
+                      child: Container(
+                        height: 45,
+                        width: 1500,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                child: Text(
+                                  "#",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Expanded(
+                                  child: SizedBox(
+                                child: Text(
+                                  "Client name",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )),
+                              Expanded(
+                                  child: SizedBox(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Email",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )),
+                              Expanded(
+                                  child: SizedBox(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Phone",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              )),
+                              Expanded(
+                                  child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Text("Universitity",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                ],
+                              )),
+                            ],
+                          ),
+                        ),
                       ),
-                      DataColumn(
-                        label: Text("Client name"),
-                      ),
-                      DataColumn(
-                        label: Text("Phone"),
-                      ),
-                      DataColumn(
-                        label: Text("Email"),
-                      ),
-                      DataColumn(
-                        label: Text("Service"),
-                      ),
-                      DataColumn(
-                        label: Text("Action"),
-                      ),
-                    ],
-                    rows: List.generate(
-                      snapshot.data!.data.length,
-                      (index) => userTable(
-                          id: snapshot.data!.data[index].id,
-                          phone: snapshot.data!.data[index].number.toString(),
-                          name: snapshot.data!.data[index].name,
-                          email: snapshot.data!.data[index].email,
-                          uni: snapshot.data!.data[index].university,
-                          index: index + 1),
                     ),
-                  ),
-                ),
-              ],
-            ),
+                    Container(
+                      height: MediaQuery.of(context).size.height / 1.30,
+                      width: 1500,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ListView.builder(
+                            itemCount: snapshot.data!.data.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                    height: 50,
+                                    width: 400,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          child: Text(
+                                            "${index + 1}",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Expanded(
+                                            child: SizedBox(
+                                          child: Text(
+                                            snapshot.data!.data[index].name,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        )),
+                                        Expanded(
+                                            child: SizedBox(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              snapshot.data!.data[index].email,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        )),
+                                        Expanded(
+                                            child: SizedBox(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              snapshot.data!.data[index].number.toString(),
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        )),
+                                        Expanded(
+                                            child: SizedBox(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 35, top:  8, bottom: 8 ),
+                                            child: Text(
+                                              snapshot.data!.data[index].university,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        )),
+                                      ],
+                                    )),
+                              );
+                            }),
+                      ),
+                    ),
+                  ],
+                ],
+              )
+            ],
           );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
@@ -210,52 +341,52 @@ DataRow userTable(
       DataCell(Text(phone)),
       DataCell(Text(email)),
       DataCell(Text(uni)),
-      DataCell(
-        PopupMenuButton<String>(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
-          constraints: BoxConstraints(minHeight: 100, minWidth: 20),
-          color: const Color.fromARGB(255, 42, 46, 62),
-          icon: Container(
-            child: Icon(
-              Icons.more_vert_rounded,
-              color: Colors.white,
-            ),
-          ),
-          onSelected: (String value) {
-            // Handle menu item selection
-            // You can add your logic here based on the selected value
-          },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-            PopupMenuItem<String>(
-              padding: EdgeInsets.all(10),
-              height: 25,
-              child: Center(
-                  child: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return EditFormUser();
-                          },
-                        );
-                      },
-                      child: Icon(Icons.edit_outlined))),
-            ),
+      // DataCell(
+      //   PopupMenuButton<String>(
+      //     shape: RoundedRectangleBorder(
+      //       borderRadius: BorderRadius.all(
+      //         Radius.circular(10.0),
+      //       ),
+      //     ),
+      //     constraints: BoxConstraints(minHeight: 100, minWidth: 20),
+      //     color: const Color.fromARGB(255, 42, 46, 62),
+      //     icon: Container(
+      //       child: Icon(
+      //         Icons.more_vert_rounded,
+      //         color: Colors.white,
+      //       ),
+      //     ),
+      //     onSelected: (String value) {
+      //       // Handle menu item selection
+      //       // You can add your logic here based on the selected value
+      //     },
+      //     itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+      //       PopupMenuItem<String>(
+      //         padding: EdgeInsets.all(10),
+      //         height: 25,
+      //         child: Center(
+      //             child: GestureDetector(
+      //                 onTap: () {
+      //                   showDialog(
+      //                     context: context,
+      //                     builder: (BuildContext context) {
+      //                       return EditFormUser();
+      //                     },
+      //                   );
+      //                 },
+      //                 child: Icon(Icons.edit_outlined))),
+      //       ),
 
-            PopupMenuItem<String>(
-              padding: EdgeInsets.all(10),
-              height: 25,
-              child: Center(
-                  child: GestureDetector(child: Icon(Icons.shopping_cart))),
-            ),
-            // Add more menu items as needed
-          ],
-        ),
-      ),
+      //       PopupMenuItem<String>(
+      //         padding: EdgeInsets.all(10),
+      //         height: 25,
+      //         child: Center(
+      //             child: GestureDetector(child: Icon(Icons.shopping_cart))),
+      //       ),
+      //       // Add more menu items as needed
+      //     ],
+      //   ),
+      // ),
     ],
   );
 }

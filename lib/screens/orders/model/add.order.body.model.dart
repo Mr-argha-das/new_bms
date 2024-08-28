@@ -10,6 +10,7 @@ String addOrderBodyToJson(AddOrderBody data) => json.encode(data.toJson());
 
 class AddOrderBody {
     // String orderNumber;
+    String stream;
     String clientId;
     String currencyId;
     String serviceId;
@@ -17,6 +18,7 @@ class AddOrderBody {
     int audAmmount;
     int clientAmmount;
     int totalAmmount;
+    String clientPaidAmmountInr;
     String ppt;
     String moduleCode;
     String moduleName;
@@ -27,9 +29,14 @@ class AddOrderBody {
     String image;
     String file;
     String userId;
+    String correntWordCount;
+    String total_inrAmmount;
 
     AddOrderBody({
-        // required this.orderNumber,
+      required this.stream,
+      required this.total_inrAmmount,
+      required this.clientPaidAmmountInr,
+        required this.correntWordCount,
         required this.clientId,
         required this.currencyId,
         required this.serviceId,
@@ -50,7 +57,11 @@ class AddOrderBody {
     });
 
     factory AddOrderBody.fromJson(Map<String, dynamic> json) => AddOrderBody(
+      stream: json["stream"],
+      correntWordCount: json["correntWordCount"],
         // orderNumber: json["orderNumber"],
+        total_inrAmmount : json["total_inrAmmount"],
+        clientPaidAmmountInr: json["clientPaidAmmountInr"],
         clientId: json["clientId"],
         currencyId: json["currencyId"],
         serviceId: json["serviceId"],
@@ -72,6 +83,10 @@ class AddOrderBody {
 
     Map<String, dynamic> toJson() => {
         // "orderNumber": orderNumber,
+        "stream":stream,
+        "clientPaidAmmountInr":clientPaidAmmountInr,
+        "total_inrAmmount":total_inrAmmount,
+        "correntWordCount":correntWordCount,
         "clientId": clientId,
         "currencyId": currencyId,
         "serviceId": serviceId,

@@ -26,7 +26,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       status: json['status'] as bool,
       id: json['_id'] as String,
       name: json['name'] as String,
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
       email: json['email'] as String,
       password: json['password'] as String,
       isDelete: json['is_delete'] as bool,
@@ -34,7 +34,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       university: json['university'] as String,
-      v: json['__v'] as int,
+      v: (json['__v'] as num).toInt(),
       createdBy: json['createdBy'] as String,
     );
 

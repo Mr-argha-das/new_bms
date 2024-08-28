@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final loginService = Provider.of<LoginService>(context);
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 33, 35, 50),
         // appBar: AppBar(),
         body: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -96,18 +96,18 @@ class _LoginPageState extends State<LoginPage> {
                               width: 400,
                               child: TextFormField(
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 15),
+                                    color: Colors.white, fontSize: 15),
                                 // cursorColor: Colors.black,
                                 controller: _emailController,
                                 decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.black),
+                                    borderSide: BorderSide(color: Colors.white),
                                   ),
-                                  hoverColor: Colors.black,
+                                  hoverColor: Colors.white,
                                   label: Text(
                                     "Email",
                                     style: GoogleFonts.montserrat(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -135,20 +135,20 @@ class _LoginPageState extends State<LoginPage> {
                                 width: 400,
                                 child: TextFormField(
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 15),
+                                      color: Colors.white, fontSize: 15),
                                   // cursorColor: Colors.black,
                                   controller: _passwordController,
                                   obscureText: obsecure,
                                   decoration: InputDecoration(
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.black),
+                                            BorderSide(color: Colors.white),
                                       ),
-                                      hoverColor: Colors.black,
+                                      hoverColor: Colors.white,
                                       label: Text(
                                         "Password",
                                         style: GoogleFonts.montserrat(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                         ),
                                       ),
                                       suffixIcon: GestureDetector(
@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                                                 _passwordController.text));
                                     log(data.userData!.toString());
                                     log(data.message.toLowerCase());
-
+                                    log(data.userData!.roles.name.toLowerCase());
                                     if (data.status == true) {
                                       Future.delayed(Duration(seconds: 3), () {
                                         setState(() {
@@ -235,8 +235,7 @@ class _LoginPageState extends State<LoginPage> {
                                       loding = false;
                                       nextpage = false;
                                     });
-                                    _showMyDialog(
-                                        "User not found. Please check your credentials.");
+                                    
                                   }
                                 }
                               });
@@ -248,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
                             width: loding ? 50 : 320,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(500),
-                                color: Colors.black,
+                                color: Colors.white,
                                 boxShadow: [
                                   BoxShadow(
                                       color: Colors.white10,
@@ -268,7 +267,8 @@ class _LoginPageState extends State<LoginPage> {
                                     child: Text(
                                       "LOGIN",
                                       style: GoogleFonts.montserrat(
-                                        color: Colors.white,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold
                                       ),
                                     ),
                                   ),

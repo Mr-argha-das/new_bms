@@ -18,7 +18,7 @@ class _TeamListState extends State<TeamList> {
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromARGB(255, 33, 35, 50),
           body: SingleChildScrollView(
             primary: false,
             padding: EdgeInsets.all(defaultPadding),

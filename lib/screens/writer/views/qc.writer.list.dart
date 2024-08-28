@@ -32,7 +32,7 @@ class _QcWriterListPageState extends State<QcWriterListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 33, 35, 50),
       body: SingleChildScrollView(
         primary: false,
         padding: EdgeInsets.all(defaultPadding),
@@ -93,7 +93,7 @@ class _AllocationHeaderState extends State<AllocationHeader> {
           Text(
             "Qc Writer List",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),

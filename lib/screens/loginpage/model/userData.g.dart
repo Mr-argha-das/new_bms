@@ -9,7 +9,7 @@ part of 'userData.dart';
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       id: json['_id'] as String,
       name: json['name'] as String,
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
       email: json['email'] as String,
       password: json['password'] as String,
       image: json['image'] as String,
@@ -19,7 +19,7 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       roles: Roles.fromJson(json['roles'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      v: json['__v'] as int,
+      v: (json['__v'] as num).toInt(),
       token: json['token'] as String,
     );
 
