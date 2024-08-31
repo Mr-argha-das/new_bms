@@ -3,6 +3,8 @@
 import 'package:admin/screens/orders/model/add.order.body.model.dart';
 import 'package:admin/screens/orders/model/allocation.model.dart';
 import 'package:admin/screens/orders/model/currencymodel.dart';
+import 'package:admin/screens/orders/model/existing.order.dart';
+import 'package:admin/screens/orders/model/existing.order.res.dart';
 import 'package:admin/screens/orders/model/order.add.response.dart';
 import 'package:admin/screens/orders/model/orderlistmodel.dart';
 import 'package:admin/screens/orders/model/payment.body.dart';
@@ -37,6 +39,8 @@ abstract class OrderService {
   Future<UserJoinTeamsModel> userTeams(@Path("id") String id);
   @GET('/user-find/by-teamsId/{id}')
   Future<TeamsUsers> teamsUser(@Path("id") String id);
+  @PUT('/order-update/{id}')
+  Future<ExistingOrderResModel> updateOrder(@Path("id")String id, @Body() ExistingOrderModel body);
 }
 
 

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:math';
 
+import 'package:admin/config/coustom.button.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
@@ -135,7 +136,7 @@ class _AllocationTableState extends State<AllocationTable> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                
+                  CustomButton(path: "/add-writer-qc", title: "QC Add"),
                   SizedBox(
                     width: double.infinity,
                     child: DataTable(
@@ -696,14 +697,15 @@ class _QcWriterEditFormState extends State<QcWriterEditForm> {
                                   GestureDetector(
                                     onTap: ()async{
                                       if(_formKey.currentState!.validate()){
+                                        print("Hello =======================");
                                         final qcwriterService = QcWriterService(createDio());
                                         QcwritterResModel response = await qcwriterService.updateQcWrite(widget.id, QcwritterUpdateModel(roles: selectedValue!, allocationId: allocationID!, name: nameController.text, email: emailController.text, number: mobileController.text));
-                                        widget.callBack();
+                                     
                                          Navigator.of(context).pop();
                                       }
                                     },
                                     child: Container(height: 50, decoration: BoxDecoration(
-                                      color: Colors.blue,
+                                      color: Colors.grey.shade800,
                                       borderRadius: BorderRadius.circular(20)
                                     ),
                                     child: Center(

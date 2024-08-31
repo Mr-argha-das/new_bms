@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.transparent,
                           ),
                           child: Center(
-                            child: Image.asset('assets/icons/A2G.png'),
+                            child: Image.asset('assets/images/aheclogo.png'),
                           ),
                         ),
                       if (nextpage == false)

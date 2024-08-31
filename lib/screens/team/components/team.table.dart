@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:admin/config/coustom.button.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/screens/orders/components/searchdrop.dart';
@@ -62,6 +63,7 @@ class _TeamTableState extends State<TeamTable> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+              CustomButton(path: "/add-team", title: "Team Add"),
                 Text(
                   "Team List",
                   style: Theme.of(context).textTheme.titleMedium,

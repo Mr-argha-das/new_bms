@@ -1,0 +1,13 @@
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ arm64-macos ]
+flags:           [ not_app_extension_safe ]
+install-name:    '@rpath/just_audio.framework/Versions/A/just_audio'
+exports:
+  - targets:         [ arm64-macos ]
+    symbols:         [ _just_audioVersionNumber, _just_audioVersionString ]
+    objc-classes:    [ AudioPlayer, AudioSource, BetterEventChannel, ClippingAudioSource, 
+                       ConcatenatingAudioSource, IndexedAudioSource, IndexedPlayerItem, 
+                       JustAudioPlugin, LoadControl, LoopingAudioSource, PodsDummy_just_audio, 
+                       UriAudioSource ]
+...

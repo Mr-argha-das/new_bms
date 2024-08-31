@@ -1,0 +1,9 @@
+version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
+options: "14665b202a2e3cd34eba0e49e726b9449ad92dcb41a62bc702bfb2982f442ed4"
+build_start_time: [1724929480, 204687000]
+build_end_time: [1724929480, 298605000]
+inputs:
+  ? "/Users/ankitsamant/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/darwin/path_provider_foundation/Sources/path_provider_foundation/PathProviderPlugin.swift"
+  : !private [1723032265, 159045451]
+  ? "/Users/ankitsamant/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/darwin/path_provider_foundation/Sources/path_provider_foundation/messages.g.swift"
+  : !private [1723032265, 161572919]

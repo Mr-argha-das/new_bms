@@ -201,13 +201,45 @@ class _MailThreadPageState extends State<MailThreadPage> {
                             ],
                           ),
                         ),
-                      )
-                      
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Beamer.of(context).beamToNamed("/orders-list");
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 220,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  bottomLeft: Radius.circular(15))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Icon(Icons.arrow_back),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Go Back",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white, fontSize: 15),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             )),
+
             SizedBox(
               height: 50,
             ),
@@ -481,7 +513,7 @@ class _MyMailTabsState extends State<MyMailTabs> {
                         ),
                         Text(
                           widget.status +
-                              " - Deadline : ${widget.deadline} - WordCount : ${widget.word_count} - Topic / Company : ${widget.topic}",
+                              " - Deadline : ${widget.deadline} - WordCount : ${widget.word_count} ",
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.white,
@@ -595,6 +627,18 @@ class _MyMailTabsState extends State<MyMailTabs> {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),
+                       SizedBox(
+                        height: 7,
+                      ),
+                      Text(
+                        "Current WC : ${widget.currentWordcount}",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
                       SizedBox(
                         height: 7,
                       ),
@@ -617,7 +661,7 @@ class _MyMailTabsState extends State<MyMailTabs> {
                     padding: const EdgeInsets.all(0.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(0.0),
@@ -893,7 +937,7 @@ class _MailThreadState extends State<MailThread> {
                 child: ListView.builder(
                   itemCount: status?.data.length,
                   itemBuilder: (context, index) {
-                    if (getUserData.id == status!.data[index].sendar || getUserData.id == status!.data[index].receiver){
+                    if (getUserData.id != status!.data[index].sendar || getUserData.id != status!.data[index].receiver){
                      return MyMailTabs(
                       word_count: status!.data[index].word_count,
                       deadline: status!.data[index].deadline,

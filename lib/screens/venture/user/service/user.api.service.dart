@@ -36,7 +36,7 @@ String addUserModelToJson(AddUserModel data) => json.encode(data.toJson());
 class AddUserModel {
     String image;
     String roles;
-    String teams;
+    List<String> teams;
     String name;
     String email;
     String rmCode;
@@ -61,7 +61,7 @@ class AddUserModel {
         rmCode: json["rmCode"],
         symbol: json["symbol"],
         roles: json["roles"],
-        teams: json["teams"],
+        teams: json["teams"] == null ? [] : List<String>.from(json["teams"]!.map((x) => x)),
         name: json["name"],
         email: json["email"],
         number: json["number"],
@@ -71,7 +71,7 @@ class AddUserModel {
     Map<String, dynamic> toJson() => {
         "image": image,
         "roles": roles,
-        "teams": teams,
+        "teams": teams.map((x) => x).toList(),
         "name": name,
         "email": email,
         "number": number,

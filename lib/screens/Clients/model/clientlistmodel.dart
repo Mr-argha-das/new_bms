@@ -1,16 +1,16 @@
 // To parse this JSON data, do
 //
 //     final clientListModel = clientListModelFromJson(jsonString);
-import 'package:json_annotation/json_annotation.dart';
-part 'clientlistmodel.g.dart';
 
-@JsonSerializable()
+import 'dart:convert';
+
+ClientListModel clientListModelFromJson(String str) => ClientListModel.fromJson(json.decode(str));
+
+String clientListModelToJson(ClientListModel data) => json.encode(data.toJson());
+
 class ClientListModel {
-    @JsonKey(name: 'status')
     bool status;
-    @JsonKey(name: 'message')
     String message;
-    @JsonKey(name: 'data')
     List<Datum> data;
 
     ClientListModel({
@@ -19,57 +19,83 @@ class ClientListModel {
         required this.data,
     });
 
-    factory ClientListModel.fromJson(Map<String, dynamic> json) => _$ClientListModelFromJson(json);
-    Map<String, dynamic> toJson() => _$ClientListModelToJson(this);
+    factory ClientListModel.fromJson(Map<String, dynamic> json) => ClientListModel(
+        status: json["status"],
+        message: json["message"],
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    };
 }
-@JsonSerializable()
+
 class Datum {
-    @JsonKey(name: 'status')
-    bool status;
-    @JsonKey(name: '_id')
     String id;
-    @JsonKey(name: 'name')
     String name;
-    @JsonKey(name: 'number')
     int number;
-    @JsonKey(name: 'email')
     String email;
-    @JsonKey(name: 'password')
     String password;
-    @JsonKey(name: 'university')
-    String university;
-    @JsonKey(name: 'is_delete')
     bool isDelete;
-    @JsonKey(name: 'isVerify')
+    bool status;
     bool isVerify;
-    @JsonKey(name: 'createdAt')
-    DateTime createdAt;
-    @JsonKey(name: 'updatedAt')
-    DateTime updatedAt;
-    @JsonKey(name: '__v')
-    int v;
-    @JsonKey(name: 'createdBy')
+    String university;
+    String countryCode;
     String createdBy;
+    DateTime createdAt;
+    DateTime updatedAt;
+    int v;
 
     Datum({
-        required this.status,
         required this.id,
         required this.name,
         required this.number,
         required this.email,
         required this.password,
         required this.isDelete,
+        required this.status,
         required this.isVerify,
+        required this.university,
+        required this.countryCode,
+        required this.createdBy,
         required this.createdAt,
         required this.updatedAt,
-        required this.university,
         required this.v,
-        required this.createdBy,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(
-        json
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["_id"],
+        name: json["name"],
+        number: json["number"],
+        email: json["email"],
+        password: json["password"],
+        isDelete: json["is_delete"],
+        status: json["status"],
+        isVerify: json["isVerify"],
+        university: json["university"],
+        countryCode: json["countryCode"],
+        createdBy: json["createdBy"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
     );
 
-    Map<String, dynamic> toJson() => _$DatumToJson(this);
+    Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
+        "number": number,
+        "email": email,
+        "password": password,
+        "is_delete": isDelete,
+        "status": status,
+        "isVerify": isVerify,
+        "university": university,
+        "countryCode": countryCode,
+        "createdBy": createdBy,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
+    };
 }

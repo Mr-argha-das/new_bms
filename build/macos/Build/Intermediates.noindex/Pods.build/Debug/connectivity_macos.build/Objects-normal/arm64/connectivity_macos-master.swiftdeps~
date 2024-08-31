@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
+options: "82ac4cddcd4f25c29b44c69b268ab69a7516bbf237e1f5dc293f88ef5651947b"
+build_start_time: [1724929480, 204422000]
+build_end_time: [1724929480, 298017000]
+inputs:
+  "/Users/ankitsamant/.pub-cache/hosted/pub.dev/connectivity_macos-0.2.1+2/macos/Classes/ConnectivityPlugin.swift": !private [1723614972, 126847318]

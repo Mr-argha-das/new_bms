@@ -46,7 +46,7 @@ class Datum {
     DateTime createdAt;
     DateTime updatedAt;
     int v;
-    String? teams;
+    List<String> teams;
 
     Datum({
         required this.id,
@@ -62,16 +62,16 @@ class Datum {
         required this.createdAt,
         required this.updatedAt,
         required this.v,
-        this.teams,
+        required this.teams,
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["_id"],
-        name: json["name"],
-        number: json["number"],
-        email: json["email"],
-        password: json["password"],
-        image: json["image"],
+        id: json["_id"] ?? "",
+        name: json["name"] ?? "",
+        number: json["number"]?? "",
+        email: json["email"]?? "",
+        password: json["password"]?? "",
+        image: json["image"]?? "",
         isDelete: json["is_delete"],
         isVerify: json["isVerify"],
         status: json["status"],
@@ -79,7 +79,7 @@ class Datum {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        teams: json["teams"],
+        teams: json["teams"] == null ? [] : List<String>.from(json["teams"]!.map((x) => x)),
     );
 
     Map<String, dynamic> toJson() => {
@@ -96,7 +96,7 @@ class Datum {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
-        "teams": teams,
+        "teams": teams.map((x) => x).toList(),
     };
 }
 

@@ -1,0 +1,16 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+TeamAddModel _$TeamAddModelFromJson(Map<String, dynamic> json) => TeamAddModel(
+      name: json['name'] as String,
+      type: json['type'] as String,
+      vId: json['vId'] as String,
+    );
+
+Map<String, dynamic> _$TeamAddModelToJson(TeamAddModel instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.type,
+      'vId': instance.vId,
+    };

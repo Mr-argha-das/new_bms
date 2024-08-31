@@ -1,0 +1,9 @@
+version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
+options: "f2f08c778d70bf9f86a3a8fc4161482ecf6c7fae96663998d4d982ef021b7890"
+build_start_time: [1724929480, 204683000]
+build_end_time: [1724929480, 298115000]
+inputs:
+  ? "/Users/ankitsamant/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.2/darwin/shared_preferences_foundation/Sources/shared_preferences_foundation/SharedPreferencesPlugin.swift"
+  : !private [1723798597, 734122500]
+  ? "/Users/ankitsamant/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.5.2/darwin/shared_preferences_foundation/Sources/shared_preferences_foundation/messages.g.swift"
+  : !private [1723798597, 734285792]

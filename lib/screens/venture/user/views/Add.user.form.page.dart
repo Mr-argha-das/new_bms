@@ -48,6 +48,7 @@ class _AddUserFormState extends State<AddUserForm> {
   Uint8List? _bytesData;
   bool pageLodar = false;
   final setUserData = UserDataGet();
+  List<TeamsJugad> _selectedTeams = [];
   Future<TeamListModel> getData(data) async {
     data = await data.getTeamList();
     return data;
@@ -135,23 +136,23 @@ class _AddUserFormState extends State<AddUserForm> {
             }
           }
         }
-         // BDM
-      }else if (setUserData.roleId == "6594278bfeeb0681fa958bd3") {
+        // BDM
+      } else if (setUserData.roleId == "6594278bfeeb0681fa958bd3") {
         for (int i = 0; i < value.data.length; i++) {
           if (2 > rolesList.length) {
             if (value.data[i].id == "65942790feeb0681fa958bd6" ||
-                value.data[i].id == "65942786feeb0681fa958bd0" ) {
+                value.data[i].id == "65942786feeb0681fa958bd0") {
               setState(() {
                 rolesList.addAll([value.data[i].name]);
               });
             }
           }
         }
-          // SME
-      }else if (setUserData.roleId == "65942790feeb0681fa958bd6") {
+        // SME
+      } else if (setUserData.roleId == "65942790feeb0681fa958bd6") {
         for (int i = 0; i < value.data.length; i++) {
           if (1 > rolesList.length) {
-            if (value.data[i].id == "65942786feeb0681fa958bd0" ) {
+            if (value.data[i].id == "65942786feeb0681fa958bd0") {
               setState(() {
                 rolesList.addAll([value.data[i].name]);
               });
@@ -188,7 +189,7 @@ class _AddUserFormState extends State<AddUserForm> {
                     children: [
                       Center(
                         child: Container(
-                          height: 550,
+                        
                           width: 1050,
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -367,7 +368,7 @@ class _AddUserFormState extends State<AddUserForm> {
                                                                   InputBorder
                                                                       .none,
                                                               hintText:
-                                                                  'RMCODE',
+                                                                  'RMID',
                                                               hintStyle: TextStyle(
                                                                   fontSize: 13,
                                                                   color: Colors
@@ -555,6 +556,44 @@ class _AddUserFormState extends State<AddUserForm> {
                                             ],
                                           )),
                                     ),
+                                    if(_selectedTeams.length > 0)...[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Selected Teams:", style: TextStyle(color: Colors.black, fontSize: 15),),
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          physics: NeverScrollableScrollPhysics(),
+                                          itemCount: _selectedTeams.length,
+                                          itemBuilder: (context, index){
+                                            return Column(
+                                              children: [
+                                                Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Text("${index+1}",style: TextStyle(color: Colors.black),),
+                                                      SizedBox(width: 40,),
+                                                      Text("${_selectedTeams[index].title}",style: TextStyle(color: Colors.black),),
+                                                      SizedBox(width: 40,),
+                                                      IconButton(onPressed: (){
+                                                        setState(() {
+                                                          _selectedTeams.removeAt(index);
+                                                        });
+                                                      }, icon: Icon(Icons.close))
+                                                    ],
+                                                  ),
+                                                  Divider()
+                                              ],
+                                            );
+                                          })
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
@@ -614,8 +653,13 @@ class _AddUserFormState extends State<AddUserForm> {
                                                           if (value2.data[i]
                                                                   .name ==
                                                               value) {
-                                                            teamId = value2
-                                                                .data[i].id;
+                                                            _selectedTeams.add(
+                                                                TeamsJugad(
+                                                                    id: value2
+                                                                        .data[i]
+                                                                        .id,
+                                                                    title:
+                                                                        value!));
                                                           }
                                                         }
                                                       });
@@ -733,14 +777,18 @@ class _AddUserFormState extends State<AddUserForm> {
                                               //   "password": mobileController.text,
                                               //   "image":
                                               //       "https://whale-app-9emyb.ondigitalocean.app/${responseFileUpload.data}"
+                                              List<String> _teamsId = [];
                                               // };
+                                              for(int i = 0; i < _selectedTeams.length; i++){
+                                                _teamsId.add(_selectedTeams[i].id);
+                                              }
                                               int number = int.parse(
                                                   mobileController.text);
                                               AddUserModel formData = AddUserModel(
                                                   image:
                                                       "https://ahec.diwamjewels.com/${responseFileUpload.data}",
                                                   roles: roleId!,
-                                                  teams: teamId!,
+                                                  teams: _teamsId,
                                                   name: nameController.text,
                                                   rmCode: rmidController.text,
                                                   symbol: symbolController.text,
@@ -835,4 +883,11 @@ class _AddUserFormState extends State<AddUserForm> {
 
 class MyUploadImage {
   static Uint8List? bytesFromPicker;
+}
+
+class TeamsJugad {
+  final String id;
+  final String title;
+
+  TeamsJugad({required this.id, required this.title});
 }

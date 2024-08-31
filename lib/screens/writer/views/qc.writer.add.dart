@@ -467,7 +467,7 @@ class _QcAndWriterAddState extends State<QcAndWriterAdd> {
                                             allocationID = value;
                                           });
                                         },
-                                        title: "Select Payment Type",
+                                        title: "Select Allocation",
                                       ),
                                     ),
                                   ),

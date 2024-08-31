@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:math';
 
+import 'package:admin/config/coustom.button.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/config/rolesservices/rolesservice.dart';
 import 'package:admin/constants.dart';
@@ -134,6 +135,7 @@ class _UserTableState extends State<UserTable> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                CustomButton(path: "/user-add", title: "User Add"),
                 Text(
                   "Emp List",
                   style: Theme.of(context).textTheme.titleMedium,
@@ -168,14 +170,14 @@ class _UserTableState extends State<UserTable> {
                       snapshot.data!.data.length,
                       (index) => userTable(context,
                           index: index + 1,
-                          name: snapshot.data!.data[index].name,
-                          email: snapshot.data!.data[index].email,
+                          name: snapshot.data!.data[index].name!,
+                          email: snapshot.data!.data[index].email!,
                           number: snapshot.data!.data[index].number.toString(),
                           rmid: "",
                           symbol: "",
                           teamName:
                               snapshot.data!.data[index].roles?.name ?? "-",
-                          image: snapshot.data!.data[index].image),
+                          image: snapshot.data!.data[index].image!),
                     ),
                   ),
                 ),

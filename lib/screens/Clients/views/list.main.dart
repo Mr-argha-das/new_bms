@@ -1,3 +1,4 @@
+import 'package:admin/config/coustom.button.dart';
 import 'package:admin/config/get.user.data.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
@@ -148,6 +149,7 @@ class _ClientTableState extends State<ClientTable> {
                     Text("Recent Orders not found"),
                   ],
                   if (snapshot.data!.data.isNotEmpty) ...[
+                     CustomButton(path: "/client-addr", title: "Client Add"),
                     Padding(
                       padding: const EdgeInsets.only(top: 8, bottom: 8),
                       child: Container(
@@ -286,7 +288,7 @@ class _ClientTableState extends State<ClientTable> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                              snapshot.data!.data[index].number.toString(),
+                                              "${snapshot.data!.data[index].countryCode.toString()} ${snapshot.data!.data[index].number.toString()}",
                                               style: TextStyle(
                                                   color: Colors.white),
                                             ),

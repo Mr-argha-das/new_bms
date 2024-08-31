@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
+options: "dbf7bc266b206847606f1601714b3765f4d00989a7d7195c7018e5eb1c4343dc"
+build_start_time: [1724929480, 204459000]
+build_end_time: [1724929486, 82805000]
+inputs:
+  "/Users/ankitsamant/.pub-cache/hosted/pub.dev/wakelock_plus-1.2.8/macos/Classes/WakelockPlusMacosPlugin.swift": [1723792157, 328516128]

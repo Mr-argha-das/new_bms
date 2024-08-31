@@ -214,6 +214,9 @@ class _ComposePAgeForAddOrderState extends State<ComposePAgeForAddOrder> {
             ),
       floatingActionButton: GestureDetector(
         onTap: () async {
+          setState(() {
+            lodar = true;
+          });
           final orderService = OrderService(createDio());
           final getUserData = UserDataGet();
           getUserData.getUserLocalData();
@@ -264,9 +267,6 @@ class _ComposePAgeForAddOrderState extends State<ComposePAgeForAddOrder> {
                   amount: widget.clientPaidAmmountInr));
           Beamer.of(context).beamToNamed('/orders-list');
           log(createSharReseModel.message.toString());
-          setState(() {
-            lodar = true;
-          });
         },
         child: Container(
           height: 50,

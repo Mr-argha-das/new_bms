@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:admin/config/coustom.button.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuAppController.dart';
@@ -128,6 +129,7 @@ class _AllocationTableState extends State<AllocationTable> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CustomButton(path: "/allocation-add", title: "AL Add"),
                   SizedBox(
                     width: double.infinity,
                     child: DataTable(

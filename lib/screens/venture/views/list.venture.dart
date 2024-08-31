@@ -1,3 +1,4 @@
+import 'package:admin/config/coustom.button.dart';
 import 'package:admin/config/pretty.dio.dart';
 import 'package:admin/constants.dart';
 import 'package:admin/models/RecentFile.dart';
@@ -23,36 +24,36 @@ class _VentureListState extends State<VentureList> {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: Scaffold(
-          backgroundColor: Color.fromARGB(255, 33, 35, 50),
-          body: SingleChildScrollView(
-            primary: false,
-            padding: EdgeInsets.all(defaultPadding),
-            child: Column(
-              children: [
-                VentureHeader(),
-                SizedBox(height: defaultPadding),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Column(
-                        children: [
+      child: Scaffold(
+        backgroundColor: Color.fromARGB(255, 33, 35, 50),
+        body: SingleChildScrollView(
+          primary: false,
+          padding: EdgeInsets.all(defaultPadding),
+          child: Column(
+            children: [
+              VentureHeader(),
+              SizedBox(height: defaultPadding),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      children: [
+                        SizedBox(height: defaultPadding),
+                        VentureTable(),
+                        if (Responsive.isMobile(context))
                           SizedBox(height: defaultPadding),
-                          VentureTable(),
-                          if (Responsive.isMobile(context))
-                            SizedBox(height: defaultPadding),
-                        ],
-                      ),
+                      ],
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -89,9 +90,17 @@ class _VentureTableState extends State<VentureTable> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Vinture List",
-                  style: TextStyle(color: Colors.white)
+                 CustomButton(path: "/add-venture", title: "Venture Add"),
+                Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 crossAxisAlignment: CrossAxisAlignment.center,
+                 children: [
+                   Text("Vinture List", style: TextStyle(color: Colors.white)),
+                   SizedBox(
+                    width: 40,
+                   ),
+                  
+                 ],
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -100,16 +109,19 @@ class _VentureTableState extends State<VentureTable> {
                     // minWidth: 600,
                     columns: [
                       DataColumn(
-                        label: Text("#",style: TextStyle(color: Colors.white)),
+                        label: Text("#", style: TextStyle(color: Colors.white)),
                       ),
                       DataColumn(
-                        label: Text("Venture Name", style: TextStyle(color: Colors.white)),
+                        label: Text("Venture Name",
+                            style: TextStyle(color: Colors.white)),
                       ),
                       DataColumn(
-                        label: Text("Venture Type", style: TextStyle(color: Colors.white)),
+                        label: Text("Venture Type",
+                            style: TextStyle(color: Colors.white)),
                       ),
                       DataColumn(
-                        label: Text("Action", style: TextStyle(color: Colors.white)),
+                        label: Text("Action",
+                            style: TextStyle(color: Colors.white)),
                       ),
                       // DataColumn(
                       //   label: Text("Status", style: TextStyle(color: Colors.white)),
@@ -117,13 +129,11 @@ class _VentureTableState extends State<VentureTable> {
                     ],
                     rows: List.generate(
                       snapshot.data!.data.length,
-                      (index) => table(
-                        context,
-                        callBack: (){
-                          setState(() {
-                            model = getVentureList(ventureServices);
-                          });
-                        },
+                      (index) => table(context, callBack: () {
+                        setState(() {
+                          model = getVentureList(ventureServices);
+                        });
+                      },
                           id: snapshot.data!.data[index].id,
                           ventureName: snapshot.data!.data[index].name,
                           venturType: snapshot.data!.data[index].type,
@@ -145,14 +155,12 @@ class _VentureTableState extends State<VentureTable> {
   }
 }
 
-DataRow table(
-  context,
+DataRow table(context,
     {required String id,
     required String ventureName,
     required String venturType,
     required Function callBack,
     required int index}) {
-      
   return DataRow(
     cells: [
       DataCell(
@@ -164,91 +172,96 @@ DataRow table(
       ),
       DataCell(Text(ventureName, style: TextStyle(color: Colors.white))),
       DataCell(Text(venturType, style: TextStyle(color: Colors.white))),
-      DataCell(Center(
-        child: GestureDetector(
-          onTap: (){
-            final venturaNameController = TextEditingController(text: ventureName);
-            final ventureTypeController = TextEditingController(text: venturType);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return GestureDetector(
-                    onTap: (){
-                       Navigator.of(context).pop();
-                    },
+      DataCell(GestureDetector(
+        onTap: () {
+          final venturaNameController =
+              TextEditingController(text: ventureName);
+          final ventureTypeController = TextEditingController(text: venturType);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white24.withOpacity(0.1),
+                  ),
+                  child: Center(
                     child: Container(
-                    
+                      height: 300,
+                      width: 400,
                       decoration: BoxDecoration(
-                        color: Colors.white24.withOpacity(0.1),
-                      ),
-                      child: Center(
-                        child: Container(
-                          height: 300,width: 400,
-                          decoration: BoxDecoration(color: secondaryColor, borderRadius: BorderRadius.circular(15)),
-                          child: Material(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  TextField(
-                                    controller: venturaNameController,
-                                    decoration: InputDecoration(
-                                      label: Text("Venture Name"),
-                                      border: OutlineInputBorder(
+                          color: secondaryColor,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Material(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              TextField(
+                                controller: venturaNameController,
+                                decoration: InputDecoration(
+                                    label: Text("Venture Name"),
+                                    border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Colors.white, width: 1)
-                                      )
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  TextField(
-                                    controller: ventureTypeController,
-                                    decoration: InputDecoration(
-                                      label: Text("Venture Type"),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(color: Colors.white, width: 1)
-                                      )
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  GestureDetector(
-                                    onTap: ()async{
-                                      final service = VentureService(createDio());
-                                      VentureCreateResponse response = await service.ventureDataUpdate(id, UpdateVanueBody(name: venturaNameController.text, type: ventureTypeController.text));
-                                       Navigator.of(context).pop();
-                                       callBack();
-                                    },
-                                    child: Container(
-                                      height: 50,
-                                      width: 400,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: Center(
-                                        child: Text("Save"),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 1))),
                               ),
-                            ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              TextField(
+                                controller: ventureTypeController,
+                                decoration: InputDecoration(
+                                    label: Text("Venture Type"),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 1))),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  final service = VentureService(createDio());
+                                  VentureCreateResponse response =
+                                      await service.ventureDataUpdate(
+                                          id,
+                                          UpdateVanueBody(
+                                              name: venturaNameController.text,
+                                              type:
+                                                  ventureTypeController.text));
+                                  Navigator.of(context).pop();
+                                  callBack();
+                                },
+                                child: Container(
+                                  height: 50,
+                                  width: 400,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Center(
+                                    child: Text("Save"),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  );
-                },
+                  ),
+                ),
               );
-          },
-          child: Container(
+            },
+          );
+        },
+        child: Container(
             height: 30,
             width: 30,
             decoration: BoxDecoration(
@@ -262,11 +275,9 @@ DataRow table(
                       offset: Offset(4, 4))
                 ]),
             child: Icon(
-                    Icons.edit_outlined,
-                    color: Colors.white,
-                  )
-          ),
-        ),
+              Icons.edit_outlined,
+              color: Colors.white,
+            )),
       )),
       // DataCell(
       //   Container(

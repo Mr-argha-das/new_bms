@@ -1,0 +1,9 @@
+version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
+options: "f232a409cf64daef979fc28ee76c21d8ae12c4554a58e9fb322142ba37be31f7"
+build_start_time: [1724929480, 204632000]
+build_end_time: [1724929486, 77938000]
+inputs:
+  ? "/Users/ankitsamant/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.0/macos/url_launcher_macos/Sources/url_launcher_macos/UrlLauncherPlugin.swift"
+  : [1724827895, 431999250]
+  ? "/Users/ankitsamant/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.0/macos/url_launcher_macos/Sources/url_launcher_macos/messages.g.swift"
+  : [1724827895, 432717002]

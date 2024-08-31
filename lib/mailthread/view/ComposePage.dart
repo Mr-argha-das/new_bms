@@ -77,7 +77,7 @@ class _EditorViewState extends State<EditorView> {
     controller.onEditorLoaded(() {
       debugPrint('Editor Loaded :)');
     });
-
+    
     super.initState();
 
     topicController.text = widget.topic;
@@ -390,6 +390,8 @@ class _EditorViewState extends State<EditorView> {
 
   void unFocusEditor() => controller.unFocus();
   void setHtmlText(String text) async {
-    await controller.setText(text);
+    setState(() async {
+      await controller.setText(text);
+    });
   }
 }

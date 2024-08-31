@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:admin/config/get.user.data.dart';
 import 'package:admin/config/mytheme.dart';
+import 'package:admin/constants.dart';
 import 'package:admin/screens/Clients/model/clientAddResponse.dart';
 import 'package:admin/screens/Clients/service/client_api_service.dart';
 import 'package:beamer/beamer.dart';
@@ -33,7 +34,7 @@ class _AddClientFormState extends State<AddClientForm> {
   Widget build(BuildContext context) {
     final clientService = Provider.of<ClientService>(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: secondaryColor,
       body: Form(
         key: _formKey,
         child: Column(
@@ -63,16 +64,19 @@ class _AddClientFormState extends State<AddClientForm> {
                                 color: Colors.black,
                                 fontSize: 20),
                           ),
-                          Container(
-                              height: 500,
-                              width: 600,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/Customer relationship management.gif"),
-                                    fit: BoxFit.cover,
-                                  ))),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                height: 500,
+                                width: 600,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/Customer relationship management.gif"),
+                                      fit: BoxFit.cover,
+                                    ))),
+                          ),
                         ],
                       ),
                     ),
