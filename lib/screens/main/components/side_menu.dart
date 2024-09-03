@@ -242,7 +242,7 @@ class _SideMenuState extends State<SideMenu> {
                 }
               }
               if (getUserData.roleId == "66c738c66d763c91384bc395" ||
-                  getUserData.roleId == "66c738e3d2e9475afc5267db") {
+                  getUserData.roleId == "66c738e3d2e9475afc5267db" ||getUserData.roleId == "65942790feeb0681fa958bd6" ) {
                 switch (value) {
                   case 0:
                     Beamer.of(context).beamToNamed('/add-team');
