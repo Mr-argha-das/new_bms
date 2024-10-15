@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:intl/intl.dart';
+
 import 'dart:developer';
 import 'dart:html' as html;
 import 'package:admin/config/get.user.data.dart';
@@ -1243,7 +1245,7 @@ class _AddOrdersState extends State<AddOrders> {
                                                       child: Center(
                                                         child: pickDate != null
                                                             ? Text(
-                                                                "${pickDate.day}-${pickDate.month}-${pickDate.year}")
+                                                                "${pickDate.day}-${DateFormat('MMM').format(pickDate).toString()}-${pickDate.year}")
                                                             : const Text(
                                                                 "Select Deadline"),
                                                       ),
@@ -1728,6 +1730,7 @@ class _AddOrdersState extends State<AddOrders> {
                                                                         _clientpaidTotalAmountInr
                                                                             .text),
                                                               ));
+                                                              
                                                   PaymentResponseModel
                                                       createpaymentrees =
                                                       await orderService.createPayment(

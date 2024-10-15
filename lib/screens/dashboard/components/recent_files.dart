@@ -162,6 +162,7 @@ class _RecentFilesState extends State<RecentFiles> {
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                       child: DateRangePickerWidget(
+                        initialDisplayedDate: DateTime.now(),
                         theme: CalendarTheme(
                             selectedColor: Colors.blue,
                             inRangeColor: Colors.blue.shade300,
@@ -183,7 +184,7 @@ class _RecentFilesState extends State<RecentFiles> {
                         initialDateRange:
                             DateRange(DateTime(2023), DateTime(2023)),
                         disabledDates: [DateTime(2023, 11, 20)],
-                        initialDisplayedDate: DateTime.now(),
+                        
                         onDateRangeChanged: (value) async {
                           final dashboardService =
                               DashboardService(createDio());

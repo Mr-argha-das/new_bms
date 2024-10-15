@@ -1,22 +1,8 @@
-2024/08/31-16:05:12.199 3d03 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.SJKSxx/flutter_tools_chrome_device.01GDpn/Default/Local Storage/leveldb/MANIFEST-000001
-2024/08/31-16:05:12.201 3d03 Recovering log #10
-2024/08/31-16:05:12.201 3d03 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.SJKSxx/flutter_tools_chrome_device.01GDpn/Default/Local Storage/leveldb/000010.log 
-2024/08/31-16:05:12.202 3d03 Delete type=0 #3
-2024/08/31-17:34:08.294 3a03 Level-0 table #14: started
-2024/08/31-17:34:08.301 3a03 Level-0 table #14: 66977 bytes OK
-2024/08/31-17:34:08.311 3a03 Delete type=0 #10
-2024/08/31-17:34:33.497 3d03 Level-0 table #16: started
-2024/08/31-17:34:33.501 3d03 Level-0 table #16: 19200 bytes OK
-2024/08/31-17:34:33.506 3d03 Delete type=0 #13
-2024/08/31-17:34:33.507 3d03 Compacting 4@0 + 1@1 files
-2024/08/31-17:34:33.512 3d03 Generated table #17@0: 54 keys, 82699 bytes
-2024/08/31-17:34:33.512 3d03 Compacted 4@0 + 1@1 files => 82699 bytes
-2024/08/31-17:34:33.516 3d03 compacted to: files[ 0 1 1 0 0 0 0 ]
-2024/08/31-17:34:33.517 3d03 Delete type=2 #14
-2024/08/31-17:34:33.517 3d03 Delete type=2 #16
-2024/08/31-17:34:33.517 3d03 Delete type=2 #7
-2024/08/31-17:34:33.517 3d03 Delete type=2 #11
-2024/08/31-17:34:33.517 3d03 Delete type=2 #9
-2024/08/31-17:35:01.875 3a03 Level-0 table #19: started
-2024/08/31-17:35:01.881 3a03 Level-0 table #19: 68264 bytes OK
-2024/08/31-17:35:01.888 3a03 Delete type=0 #15
+2024/09/10-14:25:17.821 2d03 Reusing MANIFEST /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.ao8kAP/flutter_tools_chrome_device.a6UIV7/Default/Local Storage/leveldb/MANIFEST-000001
+2024/09/10-14:25:17.823 2d03 Recovering log #18
+2024/09/10-14:25:17.823 2d03 Reusing old log /private/var/folders/nq/y01l82hs5k16jxl96y9_77j00000gn/T/flutter_tools.ao8kAP/flutter_tools_chrome_device.a6UIV7/Default/Local Storage/leveldb/000018.log 
+2024/09/10-14:25:17.823 2d03 Delete type=0 #10
+2024/09/10-14:25:17.824 2d03 Delete type=0 #3
+2024/09/10-14:25:17.824 2d03 Delete type=2 #7
+2024/09/10-14:25:17.824 2d03 Delete type=2 #11
+2024/09/10-14:25:17.824 2d03 Delete type=2 #9
