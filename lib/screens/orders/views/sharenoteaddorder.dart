@@ -249,7 +249,7 @@ class _ComposePAgeForAddOrderState extends State<ComposePAgeForAddOrder> {
               await orderService.shareOrder(CreateShareModel(
                   correntWordCount: widget.currentWordcout,
                   oderId: orderData.data.oderDetails.id,
-                  sendar: getUserData.id,
+                sendar: getUserData.id,
                   receiver: allocationListmodel.data[0].id,
                   status: "Unassigned",
                   message: "${message}",

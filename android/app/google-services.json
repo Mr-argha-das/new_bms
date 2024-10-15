@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "241702346210",
+    "project_id": "a2groupsstorage",
+    "storage_bucket": "a2groupsstorage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241702346210:android:b1d6ca2534a43b9f93edbb",
+        "android_client_info": {
+          "package_name": "com.example.admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPEVAIagKq2AtZd8r8vYQJc3M4d4MHFpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

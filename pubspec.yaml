@@ -67,6 +67,7 @@ dependencies:
   quill_html_editor: ^2.2.8
   mobkit_dashed_border: ^0.0.6
   dotted_border: ^2.1.0
+  firebase_core: any
 
 
 dev_dependencies:

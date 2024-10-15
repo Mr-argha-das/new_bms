@@ -290,6 +290,24 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "firebase_core",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/firebase_core-3.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "firebase_core_platform_interface",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-5.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "firebase_core_web",
+      "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/firebase_core_web-2.18.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "fixnum",
       "rootUri": "file:///Users/ankitsamant/.pub-cache/hosted/pub.dev/fixnum-1.1.0",
       "packageUri": "lib/",
@@ -1244,7 +1262,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-08-28T07:22:03.950811Z",
+  "generated": "2024-10-15T12:48:32.874180Z",
   "generator": "pub",
   "generatorVersion": "3.5.1",
   "flutterRoot": "file:///Users/ankitsamant/flutter",
